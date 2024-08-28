@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */; };
+		7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */; };
+		7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */; };
+		7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3C2C7F4F5100797AF4 /* LICENSE */; };
+		7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */; };
+		7F7CFB592C7F4F5100797AF4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3F2C7F4F5100797AF4 /* README.md */; };
+		7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB402C7F4F5100797AF4 /* AppState.swift */; };
+		7F7CFB5B2C7F4F5100797AF4 /* FoodClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */; };
+		7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB422C7F4F5100797AF4 /* Models.swift */; };
+		7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */; };
+		7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */; };
+		7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */; };
+		7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB482C7F4F5100797AF4 /* ContentView.swift */; };
+		7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */; };
+		7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */; };
+		7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */; };
+		7F7CFB642C7F4F5100797AF4 /* DetectionResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */; };
+		7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */; };
+		7F7CFB662C7F4F5100797AF4 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */; };
+		7F7CFB672C7F4F5100797AF4 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */; };
+		7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaipirinIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CaipirinIA-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodClassifierML.mlmodel; sourceTree = "<group>"; };
+		7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LimeDetectorV1.mlmodel; sourceTree = "<group>"; };
+		7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		7F7CFB3C2C7F4F5100797AF4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7F7CFB3F2C7F4F5100797AF4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7F7CFB402C7F4F5100797AF4 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodClassifier.swift; sourceTree = "<group>"; };
+		7F7CFB422C7F4F5100797AF4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaipirinIAApp.swift; sourceTree = "<group>"; };
+		7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Resized.swift"; sourceTree = "<group>"; };
+		7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+ToArray.swift"; sourceTree = "<group>"; };
+		7F7CFB482C7F4F5100797AF4 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientTag.swift; sourceTree = "<group>"; };
+		7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
+		7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionResultsView.swift; sourceTree = "<group>"; };
+		7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
+		7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
+		7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7F7CFB222C7F4ED400797AF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7F7CFB1C2C7F4ED400797AF4 = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB392C7F4F5100797AF4 /* ML */,
+				7F7CFB432C7F4F5100797AF4 /* Models */,
+				7F7CFB3B2C7F4F5100797AF4 /* Network */,
+				7F7CFB3E2C7F4F5100797AF4 /* Preview Content */,
+				7F7CFB512C7F4F5100797AF4 /* Views */,
+				7F7CFB262C7F4ED400797AF4 /* Products */,
+				7F7CFB472C7F4F5100797AF4 /* Extensions */,
+				7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */,
+				7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */,
+				7F7CFB482C7F4F5100797AF4 /* ContentView.swift */,
+				7F7CFB3C2C7F4F5100797AF4 /* LICENSE */,
+				7F7CFB3F2C7F4F5100797AF4 /* README.md */,
+				7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */,
+			);
+			sourceTree = "<group>";
+		};
+		7F7CFB262C7F4ED400797AF4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7F7CFB392C7F4F5100797AF4 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */,
+				7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
+		7F7CFB3B2C7F4F5100797AF4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7F7CFB3E2C7F4F5100797AF4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7F7CFB432C7F4F5100797AF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB402C7F4F5100797AF4 /* AppState.swift */,
+				7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */,
+				7F7CFB422C7F4F5100797AF4 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7F7CFB472C7F4F5100797AF4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */,
+				7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7F7CFB4A2C7F4F5100797AF4 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
+		7F7CFB512C7F4F5100797AF4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7F7CFB4A2C7F4F5100797AF4 /* Reusable */,
+				7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */,
+				7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */,
+				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
+				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
+				7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */,
+				7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7F7CFB242C7F4ED400797AF4 /* CaipirinIA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F7CFB332C7F4ED500797AF4 /* Build configuration list for PBXNativeTarget "CaipirinIA" */;
+			buildPhases = (
+				7F7CFB212C7F4ED400797AF4 /* Sources */,
+				7F7CFB222C7F4ED400797AF4 /* Frameworks */,
+				7F7CFB232C7F4ED400797AF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CaipirinIA;
+			productName = CaipirinIA;
+			productReference = 7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7F7CFB1D2C7F4ED400797AF4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					7F7CFB242C7F4ED400797AF4 = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
+					};
+				};
+			};
+			buildConfigurationList = 7F7CFB202C7F4ED400797AF4 /* Build configuration list for PBXProject "CaipirinIA" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7F7CFB1C2C7F4ED400797AF4;
+			productRefGroup = 7F7CFB262C7F4ED400797AF4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7F7CFB242C7F4ED400797AF4 /* CaipirinIA */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7F7CFB232C7F4ED400797AF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F7CFB592C7F4F5100797AF4 /* README.md in Resources */,
+				7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */,
+				7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */,
+				7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7F7CFB212C7F4ED400797AF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */,
+				7F7CFB5B2C7F4F5100797AF4 /* FoodClassifier.swift in Sources */,
+				7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */,
+				7F7CFB642C7F4F5100797AF4 /* DetectionResultsView.swift in Sources */,
+				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
+				7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */,
+				7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */,
+				7F7CFB662C7F4F5100797AF4 /* RecipeDetailView.swift in Sources */,
+				7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */,
+				7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */,
+				7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */,
+				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
+				7F7CFB672C7F4F5100797AF4 /* RecipeListView.swift in Sources */,
+				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
+				7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */,
+				7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */,
+				7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7F7CFB312C7F4ED500797AF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7F7CFB322C7F4ED500797AF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7F7CFB342C7F4ED500797AF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_TEAM = T5DPC68H6N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdeust.CaipirinIA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "CaipirinIA-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7F7CFB352C7F4ED500797AF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_TEAM = T5DPC68H6N;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdeust.CaipirinIA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "CaipirinIA-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7F7CFB202C7F4ED400797AF4 /* Build configuration list for PBXProject "CaipirinIA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F7CFB312C7F4ED500797AF4 /* Debug */,
+				7F7CFB322C7F4ED500797AF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F7CFB332C7F4ED500797AF4 /* Build configuration list for PBXNativeTarget "CaipirinIA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F7CFB342C7F4ED500797AF4 /* Debug */,
+				7F7CFB352C7F4ED500797AF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7F7CFB1D2C7F4ED400797AF4 /* Project object */;
+}
