@@ -28,6 +28,11 @@ struct FormView: View {
                         }
                     }
                 }
+                Section(header: Text("Favorite Cocktails")) {
+                    List(appState.favoriteCocktails, id: \.self) { cocktail in
+                        Text(cocktail)
+                    }
+                }
 
                 Section(header: Text("Cocktail Ingredients")) {
                     HStack {
@@ -42,12 +47,12 @@ struct FormView: View {
                         }
                     }
                 }
-
-                Section(header: Text("Favorite Cocktails")) {
-                    List(appState.favoriteCocktails, id: \.self) { cocktail in
-                        Text(cocktail)
+                Section(header: Text("Cocktail Ingredients")) {
+                    List(appState.cocktailIngredients, id: \.self) { cocktailIngredient in
+                        Text(cocktailIngredient)
                     }
                 }
+                
 
                 NavigationLink(destination: CameraView()) {
                     Text("Show Cocktail Recipes")
