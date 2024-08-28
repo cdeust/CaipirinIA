@@ -15,50 +15,54 @@ struct FormView: View {
     var body: some View {
         NavigationView {
             Form {
+                // Section for Adding Favorite Cocktail
                 Section(header: Text("Add Favorite Cocktail")) {
                     HStack {
                         TextField("Enter favorite cocktail", text: $favoriteCocktail)
-                        Button(action: {
-                            if !favoriteCocktail.isEmpty {
-                                appState.favoriteCocktails.append(favoriteCocktail)
-                                favoriteCocktail = ""
-                            }
-                        }) {
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.words)
+                        
+                        Button(action: addFavoriteCocktail) {
                             Text("Add")
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color.accentColor)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                    }
-                }
-                Section(header: Text("Favorite Cocktails")) {
-                    List(appState.favoriteCocktails, id: \.self) { cocktail in
-                        Text(cocktail)
-                    }
-                }
-
-                Section(header: Text("Cocktail Ingredients")) {
-                    HStack {
-                        TextField("Enter cocktail ingredients", text: $cocktailIngredient)
-                        Button(action: {
-                            if !favoriteCocktail.isEmpty {
-                                appState.cocktailIngredients.append(cocktailIngredient)
-                                cocktailIngredient = ""
-                            }
-                        }) {
-                            Text("Add")
-                        }
-                    }
-                }
-                Section(header: Text("Cocktail Ingredients")) {
-                    List(appState.cocktailIngredients, id: \.self) { cocktailIngredient in
-                        Text(cocktailIngredient)
+                        .disabled(favoriteCocktail.isEmpty) // Disable button if text field is empty
                     }
                 }
                 
-
-                NavigationLink(destination: CameraView()) {
-                    Text("Show Cocktail Recipes")
+                // Section for Displaying Favorite Cocktails
+                Section(header: Text("Favorite Cocktails")) {
+                    if appState.favoriteCocktails.isEmpty {
+                        Text("No favorite cocktails added yet.")
+                            .foregroundColor(.secondary)
+                    } else {
+                        List(appState.favoriteCocktails, id: \.self) { cocktail in
+                            Text(cocktail)
+                        }
+                    }
+                }
+                
+                // NavigationLink to CameraView
+                Section {
+                    NavigationLink(destination: CameraView()) {
+                        Text("Show Cocktail Recipes")
+                            .foregroundColor(.blue)
+                    }
                 }
             }
-            .navigationTitle("Cocktail Preferences")
+            .navigationTitle("Favorite Cocktails")
+        }
+    }
+
+    // Function to add favorite cocktail
+    private func addFavoriteCocktail() {
+        if !favoriteCocktail.isEmpty {
+            appState.favoriteCocktails.append(favoriteCocktail)
+            favoriteCocktail = ""
         }
     }
 }

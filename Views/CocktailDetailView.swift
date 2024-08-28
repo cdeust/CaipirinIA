@@ -13,45 +13,69 @@ struct CocktailDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Display the cocktail image
-                if let url = URL(string: "https://spoonacular.com/cocktailImages/\(cocktail.id)-636x393.\(cocktail.image)") {
-                    AsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        ProgressView()
+                // Cocktail Image
+                if let url = URL(string: cocktail.strDrinkThumb) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity)
+                        case .failure:
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(.gray)
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
-                    .frame(maxWidth: .infinity)
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.gray)
                 }
 
-                // Display the cocktail title
-                Text(cocktail.title)
+                // Cocktail Title
+                Text(cocktail.strDrink)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
 
                 // Ingredients Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Ingredients")
-                        .font(.headline)
-                        .padding(.bottom, 4)
+                if !cocktail.ingredients.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Ingredients")
+                            .font(.headline)
+                            .padding(.bottom, 4)
 
-                    ForEach(cocktail.extendedIngredients) { ingredient in
-                        Text("• \(ingredient.name): \(String(format: "%.2f", ingredient.amount)) \(ingredient.original)")
-                            .padding(.bottom, 2)
+                        ForEach(cocktail.ingredients, id: \.self) { ingredient in
+                            Text(ingredient)
+                        }
                     }
+                    .padding(.bottom, 16)
                 }
-                .padding(.bottom, 16)
 
                 // Instructions Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Instructions")
-                        .font(.headline)
-                        .padding(.bottom, 4)
+                if let instructions = cocktail.strInstructions, !instructions.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Instructions")
+                            .font(.headline)
+                            .padding(.bottom, 4)
 
-                    Text(cocktail.instructions)
-                        .padding(.bottom, 4)
+                        Text(instructions)
+                    }
+                } else {
+                    Text("No instructions available.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
             }
             .padding()

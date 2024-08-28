@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct CameraScreen: View {
     @EnvironmentObject var appState: AppState
     @Binding var detectedItems: [DetectedItem]
@@ -22,11 +24,8 @@ struct CameraScreen: View {
             
             VStack {
                 Spacer()
-
                 if !detectedItems.isEmpty {
-                    Button(action: {
-                        isShowingCocktailList = true
-                    }) {
+                    NavigationLink(destination: CocktailListView(detectedItems: detectedItems, userEnteredIngredients: appState.cocktailIngredients)) {
                         Text("Show Recipes")
                             .font(.headline)
                             .padding()
@@ -36,12 +35,10 @@ struct CameraScreen: View {
                             .shadow(radius: 10)
                     }
                     .padding()
-                    .sheet(isPresented: $isShowingCocktailList) {
-                        CocktailListView(detectedItems: detectedItems, userEnteredIngredients: appState.cocktailIngredients)
-                    }
                 }
             }
         }
+        .navigationTitle("Camera")
     }
 }
 
@@ -70,7 +67,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var audioPlayer: AVAudioPlayer?
     private var visionRequests = [VNRequest]()
-    private var detectionOverlay: CALayer! = nil
+    private var detectionOverlay: CALayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,12 +128,12 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
         do {
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
+            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { [weak self] (request, error) in
                 DispatchQueue.main.async {
-                    self.processVisionRequest(request, error: error)
+                    self?.processVisionRequest(request, error: error)
                 }
             })
-            self.visionRequests = [objectRecognition]
+            visionRequests = [objectRecognition]
         } catch {
             print("Error loading Core ML model: \(error)")
         }
@@ -145,7 +142,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     private func setupLayers() {
         detectionOverlay = CALayer()
         detectionOverlay.name = "DetectionOverlay"
-        detectionOverlay.bounds = CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: view.bounds.height)
+        detectionOverlay.bounds = view.bounds
         detectionOverlay.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         view.layer.addSublayer(detectionOverlay)
     }
@@ -163,10 +160,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         }
     }
 
-    private func playSound() {
-        audioPlayer?.play()
-    }
-    
     private func processVisionRequest(_ request: VNRequest, error: Error?) {
         guard let observations = request.results as? [VNRecognizedObjectObservation] else {
             print("No results from Vision request: \(error?.localizedDescription ?? "Unknown error")")
@@ -180,7 +173,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         
         for objectObservation in observations {
             let boundingBox = objectObservation.boundingBox
-            let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
+            let transformedRect = previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
 
             let shapeLayer = createRoundedRectLayerWithBounds(transformedRect)
             let textLayer = createTextSubLayerInBounds(transformedRect, identifier: objectObservation.labels.first?.identifier ?? "Unknown", confidence: objectObservation.confidence)
@@ -195,20 +188,21 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             )
             newDetectedItems.append(detectedItem)
             
-            if objectObservation.labels.first?.identifier == "Vodka" ||
-                objectObservation.labels.first?.identifier == "Rhum" ||
-                objectObservation.labels.first?.identifier == "Gin" ||
-                objectObservation.labels.first?.identifier == "Aperol" ||
-                objectObservation.labels.first?.identifier == "Perrier" {
+            if isBottleDetected(identifier: objectObservation.labels.first?.identifier) {
                 bottleDetected = true
-            }
-            
-            if bottleDetected {
-                playSound()
             }
         }
 
+        if bottleDetected {
+            playSound()
+        }
+
         detectedItems?.wrappedValue = newDetectedItems
+    }
+
+    private func isBottleDetected(identifier: String?) -> Bool {
+        guard let identifier = identifier else { return false }
+        return ["Vodka", "Rhum", "Gin", "Aperol", "Perrier"].contains(identifier)
     }
 
     private func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
@@ -238,21 +232,22 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         return shapeLayer
     }
 
-    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
-        let curDeviceOrientation = UIDevice.current.orientation
-        let exifOrientation: CGImagePropertyOrientation
+    private func playSound() {
+        audioPlayer?.play()
+    }
 
+    private func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+        let curDeviceOrientation = UIDevice.current.orientation
         switch curDeviceOrientation {
         case .portraitUpsideDown:
-            exifOrientation = .left
+            return .left
         case .landscapeLeft:
-            exifOrientation = .upMirrored
+            return .upMirrored
         case .landscapeRight:
-            exifOrientation = .down
+            return .down
         default:
-            exifOrientation = .up
+            return .up
         }
-        return exifOrientation
     }
 
     override func viewDidLayoutSubviews() {

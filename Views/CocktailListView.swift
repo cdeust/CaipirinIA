@@ -11,6 +11,7 @@ struct CocktailListView: View {
     var detectedItems: [DetectedItem]
     var userEnteredIngredients: [String]
     @State private var cocktails: [Cocktail] = []
+    @State private var errorMessage: String?
 
     let columns = [
         GridItem(.adaptive(minimum: 80))
@@ -18,29 +19,16 @@ struct CocktailListView: View {
 
     var body: some View {
         VStack {
+            if let errorMessage = errorMessage {
+                ErrorView(message: errorMessage)
+            }
+            
             ScrollView {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
-                    ForEach(detectedItems, id: \.id) { item in
-                        IngredientTag(name: item.name)
-                            .overlay(
-                                Text(String(format: "Conf: %.2f", item.confidence))
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                    .padding(4)
-                                    .background(Color.black.opacity(0.6))
-                                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                                    .offset(y: -10),
-                                alignment: .topTrailing
-                            )
-                    }
-                }
-                .padding()
-
-                // Display user-entered ingredients
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
-                    ForEach(userEnteredIngredients, id: \.self) { ingredient in
-                        IngredientTag(name: ingredient)
-                    }
+                VStack {
+                    IngredientGridView(items: detectedItems.map { $0.name },
+                                       confidenceValues: detectedItems.map { Double($0.confidence) })
+                    
+                    IngredientGridView(items: userEnteredIngredients)
                 }
                 .padding()
             }
@@ -48,73 +36,122 @@ struct CocktailListView: View {
             .cornerRadius(10)
             .padding()
 
-            List(cocktails) { cocktail in
-                NavigationLink(destination: CocktailDetailView(cocktail: cocktail)) {
-                    HStack {
-                        if let url = URL(string: cocktail.image) {
-                            AsyncImage(url: url) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 50, height: 50)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                case .failure:
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50, height: 50)
-                                        .foregroundColor(.gray)
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                        }
-                        VStack(alignment: .leading) {
-                            Text(cocktail.title)
-                                .font(.headline)
-                            Text("Ingredients: \(cocktail.extendedIngredients.count)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-            }
-            .onAppear {
-                fetchCocktails()
-            }
+            CocktailListViewSection(cocktails: cocktails)
+                .onAppear(perform: fetchCocktails)
         }
         .navigationTitle("Cocktails")
     }
 
-    func fetchCocktails() {
+    private func fetchCocktails() {
         let ingredientNames = detectedItems.map { $0.name } + userEnteredIngredients
 
-        if ingredientNames.isEmpty {
-            // Fetch all cocktails if no ingredients are provided
-            NetworkManager.fetchAllCocktails { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let fetchedCocktails):
-                        self.cocktails = fetchedCocktails
-                    case .failure(let error):
-                        print("Failed to fetch cocktails: \(error.localizedDescription)")
+        NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
+            DispatchQueue.main.async {
+                handleFetchResult(result)
+            }
+        }
+    }
+
+    private func handleFetchResult(_ result: Result<[Cocktail], NetworkManager.NetworkError>) {
+        switch result {
+        case .success(let fetchedCocktails):
+            self.cocktails = fetchedCocktails
+            self.errorMessage = nil
+        case .failure(let error):
+            self.errorMessage = error.localizedDescription
+        }
+    }
+}
+
+struct ErrorView: View {
+    let message: String
+
+    var body: some View {
+        Text(message)
+            .foregroundColor(.red)
+            .padding()
+    }
+}
+
+struct IngredientGridView: View {
+    var items: [String]
+    var confidenceValues: [Double]? = nil
+
+    let columns = [
+        GridItem(.adaptive(minimum: 80))
+    ]
+
+    var body: some View {
+        LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
+            ForEach(items.indices, id: \.self) { index in
+                IngredientTag(name: items[index])
+                    .overlay(
+                        confidenceOverlay(for: index),
+                        alignment: .topTrailing
+                    )
+            }
+        }
+        .padding()
+    }
+
+    @ViewBuilder
+    private func confidenceOverlay(for index: Int) -> some View {
+        if let confidenceValues = confidenceValues {
+            Text(String(format: "Conf: %.2f", confidenceValues[index]))
+                .font(.caption)
+                .foregroundColor(.white)
+                .padding(4)
+                .background(Color.black.opacity(0.6))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .offset(y: -10)
+        } else {
+            EmptyView()
+        }
+    }
+}
+
+struct CocktailListViewSection: View {
+    var cocktails: [Cocktail]
+
+    var body: some View {
+        List(cocktails) { cocktail in
+            NavigationLink(destination: CocktailDetailView(cocktail: cocktail)) {
+                CocktailRowView(cocktail: cocktail)
+            }
+        }
+    }
+}
+
+struct CocktailRowView: View {
+    var cocktail: Cocktail
+
+    var body: some View {
+        HStack {
+            if let url = URL(string: cocktail.strDrinkThumb) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    case .failure:
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.gray)
+                    @unknown default:
+                        EmptyView()
                     }
                 }
             }
-        } else {
-            NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let fetchedCocktails):
-                        self.cocktails = fetchedCocktails
-                    case .failure(let error):
-                        print("Failed to fetch cocktails: \(error.localizedDescription)")
-                    }
-                }
+            VStack(alignment: .leading) {
+                Text(cocktail.strDrink)
+                    .font(.headline)
             }
         }
     }

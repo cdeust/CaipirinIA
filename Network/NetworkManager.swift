@@ -9,89 +9,74 @@ import Foundation
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private static let apiKey = "bef5fc63ff034bad9a7b3f20928c16ef"
-    private static let baseUrl = "https://api.spoonacular.com/cocktails"
+    private static let baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/"
 
-    enum APIError: Error {
-        case invalidResponse
+    enum NetworkError: LocalizedError {
+        case invalidURL
         case requestFailed
-        case invalidData
         case decodingError
-        case unknown
+        case serverError
+        case noResults
+        case unknown(Error)
+        
+        var errorDescription: String? {
+            switch self {
+            case .invalidURL:
+                return "The URL provided was invalid."
+            case .requestFailed:
+                return "The request failed. Please check your internet connection and try again."
+            case .decodingError:
+                return "Failed to decode the response. Please try again later."
+            case .serverError:
+                return "A server error occurred. Please try again later."
+            case .noResults:
+                return "No cocktails found for the given ingredients."
+            case .unknown(let error):
+                return "An unknown error occurred: \(error.localizedDescription)"
+            }
+        }
     }
-
-    static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], Error>) -> Void) {
-        var urlComponents = URLComponents(string: baseUrl + "/search")!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "ingredients", value: ingredients.joined(separator: ",")),
-            URLQueryItem(name: "apiKey", value: apiKey)
-            // Add additional query parameters as needed
-        ]
-
-        guard let url = urlComponents.url else {
-            completion(.failure(APIError.invalidResponse))
+    
+    static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
+        guard let url = buildCocktailURL(withIngredients: ingredients) else {
+            completion(.failure(.invalidURL))
             return
         }
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.unknown(error)))
                 return
             }
-
+            
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure(APIError.invalidResponse))
+                completion(.failure(.serverError))
                 return
             }
-
+            
             guard let data = data else {
-                completion(.failure(APIError.invalidData))
+                completion(.failure(.serverError))
                 return
             }
-
+            
             do {
-                let response = try JSONDecoder().decode(CocktailResponse.self, from: data)
-                completion(.success(response.cocktails))
+                let cocktailResponse = try JSONDecoder().decode(CocktailResponse.self, from: data)
+                if let cocktails = cocktailResponse.drinks, !cocktails.isEmpty {
+                    completion(.success(cocktails))
+                } else {
+                    completion(.failure(.noResults))
+                }
             } catch {
-                completion(.failure(APIError.decodingError))
+                completion(.failure(.decodingError))
             }
-        }.resume()
-    }
-
-    static func fetchAllCocktails(completion: @escaping (Result<[Cocktail], Error>) -> Void) {
-        var urlComponents = URLComponents(string: baseUrl + "/search")!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "apiKey", value: apiKey)
-            // Add additional query parameters as needed
-        ]
-
-        guard let url = urlComponents.url else {
-            completion(.failure(APIError.invalidResponse))
-            return
         }
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure(APIError.invalidResponse))
-                return
-            }
-
-            guard let data = data else {
-                completion(.failure(APIError.invalidData))
-                return
-            }
-
-            do {
-                let response = try JSONDecoder().decode(CocktailResponse.self, from: data)
-                completion(.success(response.cocktails))
-            } catch {
-                completion(.failure(APIError.decodingError))
-            }
-        }.resume()
+        
+        task.resume()
+    }
+    
+    private static func buildCocktailURL(withIngredients ingredients: [String]) -> URL? {
+        let ingredientQuery = ingredients.joined(separator: ",")
+        let urlString = "\(baseUrl)filter.php?i=\(ingredientQuery)"
+        return URL(string: urlString)
     }
 }

@@ -9,48 +9,63 @@ import SwiftUI
 
 struct CameraView: View {
     @EnvironmentObject var appState: AppState
-    @State private var isCameraActive = false
-    @State private var isShowingCocktailList = false
     @State private var cocktailIngredient: String = ""
 
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: CameraScreen(detectedItems: $appState.detectedItems), isActive: $isCameraActive) {
-                    EmptyView()
-                }
-
-                Button("Show Camera") {
-                    isCameraActive = true
-                }
-                .padding()
-                
-                Section(header: Text("Cocktail Ingredients")) {
-                    HStack {
-                        TextField("Enter cocktail ingredients", text: $cocktailIngredient)
-                        Button(action: {
-                            if !cocktailIngredient.isEmpty {
-                                appState.cocktailIngredients.append(cocktailIngredient)
-                                cocktailIngredient = ""
+                Form {
+                    Section(header: Text("Cocktail Ingredients")) {
+                        HStack {
+                            TextField("Enter cocktail ingredients", text: $cocktailIngredient)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Button(action: {
+                                if !cocktailIngredient.isEmpty {
+                                    appState.cocktailIngredients.append(cocktailIngredient)
+                                    cocktailIngredient = ""
+                                }
+                            }) {
+                                Text("Add")
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(Color.accentColor)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
                             }
-                        }) {
-                            Text("Add")
+                        }
+                    }
+
+                    Section(header: Text("Ingredients List")) {
+                        List(appState.cocktailIngredients, id: \.self) { ingredient in
+                            Text(ingredient)
                         }
                     }
                 }
-                .padding()
+                
+                // Navigation buttons
+                VStack {
+                    NavigationLink(destination: CameraScreen(detectedItems: $appState.detectedItems)) {
+                        Text("Show Camera")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding(.bottom, 8)
 
-                Button("Show All Recipes") {
-                    // Directly navigate to CocktailListView with an empty list
-                    appState.detectedItems = [] // Ensure detectedItems is empty
-                    isShowingCocktailList = true
+                    NavigationLink(destination: CocktailListView(detectedItems: appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)) {
+                        Text("Show All Recipes")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
                 }
                 .padding()
-                .sheet(isPresented: $isShowingCocktailList) {
-                    CocktailListView(detectedItems: appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
-                }
             }
-            .navigationTitle("Camera")
+            .navigationTitle("Cocktail Builder")
         }
     }
 }
