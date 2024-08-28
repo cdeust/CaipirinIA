@@ -9,9 +9,12 @@ import SwiftUI
 
 struct CocktailListView: View {
     var detectedItems: [DetectedItem]
+    var userEnteredIngredients: [String]
     @State private var cocktails: [Cocktail] = []
 
-    let columns = [GridItem(.adaptive(minimum: 80))]
+    let columns = [
+        GridItem(.adaptive(minimum: 80))
+    ]
 
     var body: some View {
         VStack {
@@ -29,6 +32,14 @@ struct CocktailListView: View {
                                     .offset(y: -10),
                                 alignment: .topTrailing
                             )
+                    }
+                }
+                .padding()
+
+                // Display user-entered ingredients
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
+                    ForEach(userEnteredIngredients, id: \.self) { ingredient in
+                        IngredientTag(name: ingredient)
                     }
                 }
                 .padding()
@@ -80,15 +91,29 @@ struct CocktailListView: View {
     }
 
     func fetchCocktails() {
-        let ingredientNames = detectedItems.map { $0.name }
-        NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let fetchedCocktails):
-                    self.cocktails = fetchedCocktails
-                case .failure(let error):
-                    print("Failed to fetch cocktails: \(error.localizedDescription)")
-                    // Handle error as needed, e.g., show an alert
+        let ingredientNames = detectedItems.map { $0.name } + userEnteredIngredients
+
+        if ingredientNames.isEmpty {
+            // Fetch all cocktails if no ingredients are provided
+            NetworkManager.fetchAllCocktails { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let fetchedCocktails):
+                        self.cocktails = fetchedCocktails
+                    case .failure(let error):
+                        print("Failed to fetch cocktails: \(error.localizedDescription)")
+                    }
+                }
+            }
+        } else {
+            NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let fetchedCocktails):
+                        self.cocktails = fetchedCocktails
+                    case .failure(let error):
+                        print("Failed to fetch cocktails: \(error.localizedDescription)")
+                    }
                 }
             }
         }

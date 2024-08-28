@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct CocktailResponse: Decodable {
+    let cocktails: [Cocktail]
+}
+
 struct Cocktail: Identifiable, Decodable {
     var id: Int
     var title: String

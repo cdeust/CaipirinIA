@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CameraScreen: View {
+    @EnvironmentObject var appState: AppState
     @Binding var detectedItems: [DetectedItem]
+    @State private var isShowingCocktailList = false
 
     var body: some View {
         ZStack {
@@ -17,6 +19,28 @@ struct CameraScreen: View {
                 .navigationBarHidden(true)
 
             DetectionOverlay(detectedItems: detectedItems)
+            
+            VStack {
+                Spacer()
+
+                if !detectedItems.isEmpty {
+                    Button(action: {
+                        isShowingCocktailList = true
+                    }) {
+                        Text("Show Recipes")
+                            .font(.headline)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
+                            .shadow(radius: 10)
+                    }
+                    .padding()
+                    .sheet(isPresented: $isShowingCocktailList) {
+                        CocktailListView(detectedItems: detectedItems, userEnteredIngredients: appState.cocktailIngredients)
+                    }
+                }
+            }
         }
     }
 }

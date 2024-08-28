@@ -10,7 +10,7 @@ import SwiftUI
 struct FormView: View {
     @EnvironmentObject var appState: AppState
     @State private var favoriteCocktail: String = ""
-    @State private var cocktailIngredients: String = ""
+    @State private var cocktailIngredient: String = ""
 
     var body: some View {
         NavigationView {
@@ -30,7 +30,17 @@ struct FormView: View {
                 }
 
                 Section(header: Text("Cocktail Ingredients")) {
-                    TextField("Enter cocktail ingredients", text: $cocktailIngredients)
+                    HStack {
+                        TextField("Enter cocktail ingredients", text: $cocktailIngredient)
+                        Button(action: {
+                            if !favoriteCocktail.isEmpty {
+                                appState.cocktailIngredients.append(cocktailIngredient)
+                                cocktailIngredient = ""
+                            }
+                        }) {
+                            Text("Add")
+                        }
+                    }
                 }
 
                 Section(header: Text("Favorite Cocktails")) {

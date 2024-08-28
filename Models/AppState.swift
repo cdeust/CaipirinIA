@@ -10,5 +10,6 @@ import Combine
 
 class AppState: ObservableObject {
     @Published var favoriteCocktails: [String] = []
+    @Published var cocktailIngredients: [String] = []
     @Published var detectedItems: [DetectedItem] = []
 }
