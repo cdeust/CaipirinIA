@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct Recipe: Identifiable, Decodable {
+struct Cocktail: Identifiable, Decodable {
     var id: Int
     var title: String
-    var imageType: String
-    var usedIngredientCount: Int
-    var missedIngredientCount: Int
+    var image: String
     var extendedIngredients: [Ingredient]
-    var analyzedInstructions: [Instruction]
+    var instructions: String
 }
 
 struct Ingredient: Identifiable, Decodable {
     var id: Int
+    var name: String
+    var amount: Double
     var original: String
 }
 

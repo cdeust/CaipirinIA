@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct RecipeDetailView: View {
-    var recipe: Recipe
+struct CocktailDetailView: View {
+    var cocktail: Cocktail
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                if let url = URL(string: "https://spoonacular.com/recipeImages/\(recipe.id)-636x393.\(recipe.imageType)") {
+                // Display the cocktail image
+                if let url = URL(string: "https://spoonacular.com/cocktailImages/\(cocktail.id)-636x393.\(cocktail.image)") {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
@@ -24,7 +25,8 @@ struct RecipeDetailView: View {
                     .frame(maxWidth: .infinity)
                 }
 
-                Text(recipe.title)
+                // Display the cocktail title
+                Text(cocktail.title)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
@@ -35,8 +37,8 @@ struct RecipeDetailView: View {
                         .font(.headline)
                         .padding(.bottom, 4)
 
-                    ForEach(recipe.extendedIngredients, id: \.id) { ingredient in
-                        Text("• \(ingredient.original)")
+                    ForEach(cocktail.extendedIngredients) { ingredient in
+                        Text("• \(ingredient.name): \(String(format: "%.2f", ingredient.amount)) \(ingredient.original)")
                             .padding(.bottom, 2)
                     }
                 }
@@ -48,20 +50,12 @@ struct RecipeDetailView: View {
                         .font(.headline)
                         .padding(.bottom, 4)
 
-                    ForEach(recipe.analyzedInstructions.flatMap { $0.steps }, id: \.number) { step in
-                        Text("\(step.number). \(step.step)")
-                            .padding(.bottom, 4)
-                    }
+                    Text(cocktail.instructions)
+                        .padding(.bottom, 4)
                 }
             }
             .padding()
         }
-        .navigationTitle("Recipe Detail")
-    }
-}
-
-struct RecipeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeDetailView(recipe: Recipe(id: 1, title: "Sample Recipe", imageType: "jpg", usedIngredientCount: 2, missedIngredientCount: 3, extendedIngredients: [Ingredient(id: 1, original: "1 Apple"), Ingredient(id: 2, original: "2 Bananas")], analyzedInstructions: [Instruction(steps: [Step(number: 1, step: "Cut the apple"), Step(number: 2, step: "Peel the bananas")])]))
+        .navigationTitle("Cocktail Detail")
     }
 }

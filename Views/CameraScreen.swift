@@ -44,17 +44,32 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     private let captureSession = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer!
+    private var audioPlayer: AVAudioPlayer?
     private var visionRequests = [VNRequest]()
     private var detectionOverlay: CALayer! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupAudio()
         setupCamera()
         setupVision()
         setupLayers()
     }
 
+    private func setupAudio() {
+        guard let soundURL = Bundle.main.url(forResource: "bottle_detected", withExtension: "mp3") else {
+            print("Sound file not found")
+            return
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.prepareToPlay()
+        } catch {
+            print("Error loading sound: \(error)")
+        }
+    }
+    
     private func setupCamera() {
         captureSession.sessionPreset = .hd1920x1080
 
@@ -124,6 +139,10 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         }
     }
 
+    private func playSound() {
+        audioPlayer?.play()
+    }
+    
     private func processVisionRequest(_ request: VNRequest, error: Error?) {
         guard let observations = request.results as? [VNRecognizedObjectObservation] else {
             print("No results from Vision request: \(error?.localizedDescription ?? "Unknown error")")
@@ -131,9 +150,10 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         }
 
         detectionOverlay.sublayers?.removeAll() // Clear previous detection overlays
-
+        
         var newDetectedItems: [DetectedItem] = []
-
+        var bottleDetected = false
+        
         for objectObservation in observations {
             let boundingBox = objectObservation.boundingBox
             let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
@@ -150,6 +170,18 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 boundingBox: transformedRect
             )
             newDetectedItems.append(detectedItem)
+            
+            if objectObservation.labels.first?.identifier == "Vodka" ||
+                objectObservation.labels.first?.identifier == "Rhum" ||
+                objectObservation.labels.first?.identifier == "Gin" ||
+                objectObservation.labels.first?.identifier == "Aperol" ||
+                objectObservation.labels.first?.identifier == "Perrier" {
+                bottleDetected = true
+            }
+            
+            if bottleDetected {
+                playSound()
+            }
         }
 
         detectedItems?.wrappedValue = newDetectedItems
@@ -157,33 +189,28 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     private func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
         let textLayer = CATextLayer()
-        textLayer.string = "\(identifier)\nConfidence: \(String(format: "%.2f", confidence))"
-        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.height - 10, height: bounds.width - 10)
-        textLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        textLayer.foregroundColor = UIColor.red.cgColor
+        textLayer.string = "\(identifier) \(String(format: "%.2f", confidence))"
+        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: 40)
+        textLayer.position = CGPoint(x: bounds.midX, y: bounds.minY - 20)
+        textLayer.foregroundColor = UIColor.white.cgColor
+        textLayer.backgroundColor = UIColor.black.withAlphaComponent(0.7).cgColor
         textLayer.shadowOpacity = 0.8
         textLayer.shadowRadius = 2.0
-        textLayer.shadowColor = UIColor.white.cgColor
+        textLayer.shadowColor = UIColor.black.cgColor
         textLayer.alignmentMode = .center
         textLayer.contentsScale = UIScreen.main.scale
         textLayer.cornerRadius = 5
-        textLayer.backgroundColor = UIColor.white.withAlphaComponent(0.5).cgColor
         textLayer.masksToBounds = true
-
-        // Rotate text layer
-        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat.pi / 2.0).scaledBy(x: 1.0, y: -1.0))
-
         return textLayer
     }
 
     private func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
-        let shapeLayer = CALayer()
-        shapeLayer.bounds = bounds
-        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        shapeLayer.backgroundColor = UIColor.clear.cgColor
-        shapeLayer.borderColor = UIColor.green.cgColor
-        shapeLayer.borderWidth = 2.0
-        shapeLayer.cornerRadius = 5.0
+        let shapeLayer = CAShapeLayer()
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 8.0)
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.green.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 2.0
         return shapeLayer
     }
 

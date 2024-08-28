@@ -14,7 +14,7 @@ class FoodClassifier {
     let model: VNCoreMLModel
     
     init() {
-        // Load the YOLOv3Tiny Core ML model
+        // Load the LimeDetectorV1 Core ML model
         guard let model = try? VNCoreMLModel(for: LimeDetectorV1(configuration: MLModelConfiguration()).model) else {
             fatalError("Failed to load model")
         }

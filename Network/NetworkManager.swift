@@ -18,7 +18,7 @@ class NetworkManager {
         case invalidData
     }
 
-    static func fetchRecipes(withIngredients ingredients: [String], completion: @escaping (Result<[Recipe], Error>) -> Void) {
+    static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], Error>) -> Void) {
         var urlComponents = URLComponents(string: baseUrl)!
         urlComponents.queryItems = [
             URLQueryItem(name: "ingredients", value: ingredients.joined(separator: ",")),
@@ -45,7 +45,7 @@ class NetworkManager {
             }
 
             do {
-                let recipes = try JSONDecoder().decode([Recipe].self, from: data)
+                let recipes = try JSONDecoder().decode([Cocktail].self, from: data)
                 completion(.success(recipes))
             } catch {
                 completion(.failure(error))

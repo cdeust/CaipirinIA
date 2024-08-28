@@ -7,13 +7,11 @@
 
 import SwiftUI
 
-struct RecipeListView: View {
+struct CocktailListView: View {
     var detectedItems: [DetectedItem]
-    @State private var recipes: [Recipe] = []
+    @State private var cocktails: [Cocktail] = []
 
-    let columns = [
-        GridItem(.adaptive(minimum: 80))
-    ]
+    let columns = [GridItem(.adaptive(minimum: 80))]
 
     var body: some View {
         VStack {
@@ -39,10 +37,10 @@ struct RecipeListView: View {
             .cornerRadius(10)
             .padding()
 
-            List(recipes) { recipe in
-                NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+            List(cocktails) { cocktail in
+                NavigationLink(destination: CocktailDetailView(cocktail: cocktail)) {
                     HStack {
-                        if let url = URL(string: "https://spoonacular.com/recipeImages/\(recipe.id)-312x231.\(recipe.imageType)") {
+                        if let url = URL(string: cocktail.image) {
                             AsyncImage(url: url) { phase in
                                 switch phase {
                                 case .empty:
@@ -65,9 +63,9 @@ struct RecipeListView: View {
                             }
                         }
                         VStack(alignment: .leading) {
-                            Text(recipe.title)
+                            Text(cocktail.title)
                                 .font(.headline)
-                            Text("Used: \(recipe.usedIngredientCount), Missed: \(recipe.missedIngredientCount)")
+                            Text("Ingredients: \(cocktail.extendedIngredients.count)")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -75,34 +73,24 @@ struct RecipeListView: View {
                 }
             }
             .onAppear {
-                fetchRecipes()
+                fetchCocktails()
             }
         }
-        .navigationTitle("Recipes")
+        .navigationTitle("Cocktails")
     }
 
-    func fetchRecipes() {
+    func fetchCocktails() {
         let ingredientNames = detectedItems.map { $0.name }
-        NetworkManager.fetchRecipes(withIngredients: ingredientNames) { result in
+        NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let fetchedRecipes):
-                    self.recipes = fetchedRecipes
+                case .success(let fetchedCocktails):
+                    self.cocktails = fetchedCocktails
                 case .failure(let error):
-                    print("Failed to fetch recipes: \(error.localizedDescription)")
+                    print("Failed to fetch cocktails: \(error.localizedDescription)")
                     // Handle error as needed, e.g., show an alert
                 }
             }
         }
-    }
-}
-
-struct RecipeListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeListView(detectedItems: [
-            DetectedItem(name: "Apple", confidence: 0.5, boundingBox: CGRect(x: 0, y: 0, width: 100, height: 100)),
-            DetectedItem(name: "Banana", confidence: 0.4, boundingBox: CGRect(x: 0, y: 0, width: 100, height: 100)),
-            DetectedItem(name: "Carrot", confidence: 0.6, boundingBox: CGRect(x: 0, y: 0, width: 100, height: 100))
-        ])
     }
 }

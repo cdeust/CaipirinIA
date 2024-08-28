@@ -9,28 +9,19 @@ import SwiftUI
 
 struct FormView: View {
     @EnvironmentObject var appState: AppState
-    @State private var favoriteFood: String = ""
-
-    let diets = ["Omnivore", "Vegetarian", "Vegan", "Meat Lover", "Vegetable Lover"]
+    @State private var favoriteCocktail: String = ""
+    @State private var cocktailIngredients: String = ""
 
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Diet")) {
-                    Picker("Diet", selection: $appState.diet) {
-                        ForEach(diets, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                }
-
-                Section(header: Text("Add Favorite Food")) {
+                Section(header: Text("Add Favorite Cocktail")) {
                     HStack {
-                        TextField("Enter favorite food", text: $favoriteFood)
+                        TextField("Enter favorite cocktail", text: $favoriteCocktail)
                         Button(action: {
-                            if !favoriteFood.isEmpty {
-                                appState.favoriteFoods.append(favoriteFood)
-                                favoriteFood = ""
+                            if !favoriteCocktail.isEmpty {
+                                appState.favoriteCocktails.append(favoriteCocktail)
+                                favoriteCocktail = ""
                             }
                         }) {
                             Text("Add")
@@ -38,17 +29,21 @@ struct FormView: View {
                     }
                 }
 
-                Section(header: Text("Favorite Foods")) {
-                    List(appState.favoriteFoods, id: \.self) { food in
-                        Text(food)
+                Section(header: Text("Cocktail Ingredients")) {
+                    TextField("Enter cocktail ingredients", text: $cocktailIngredients)
+                }
+
+                Section(header: Text("Favorite Cocktails")) {
+                    List(appState.favoriteCocktails, id: \.self) { cocktail in
+                        Text(cocktail)
                     }
                 }
 
                 NavigationLink(destination: CameraView()) {
-                    Text("Next")
+                    Text("Show Cocktail Recipes")
                 }
             }
-            .navigationTitle("User Preferences")
+            .navigationTitle("Cocktail Preferences")
         }
     }
 }

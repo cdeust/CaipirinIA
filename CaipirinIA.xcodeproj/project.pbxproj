@@ -25,8 +25,8 @@
 		7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */; };
 		7F7CFB642C7F4F5100797AF4 /* DetectionResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */; };
 		7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */; };
-		7F7CFB662C7F4F5100797AF4 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */; };
-		7F7CFB672C7F4F5100797AF4 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */; };
+		7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */; };
+		7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */; };
 		7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +51,8 @@
 		7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionResultsView.swift; sourceTree = "<group>"; };
 		7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
-		7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
-		7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
+		7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailDetailView.swift; sourceTree = "<group>"; };
+		7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailListView.swift; sourceTree = "<group>"; };
 		7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,8 +154,8 @@
 				7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */,
 				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
 				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
-				7F7CFB4F2C7F4F5100797AF4 /* RecipeDetailView.swift */,
-				7F7CFB502C7F4F5100797AF4 /* RecipeListView.swift */,
+				7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */,
+				7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,12 +240,12 @@
 				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
 				7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */,
 				7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */,
-				7F7CFB662C7F4F5100797AF4 /* RecipeDetailView.swift in Sources */,
+				7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */,
 				7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */,
 				7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */,
 				7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */,
 				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
-				7F7CFB672C7F4F5100797AF4 /* RecipeListView.swift in Sources */,
+				7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */,
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
 				7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */,
 				7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */,
