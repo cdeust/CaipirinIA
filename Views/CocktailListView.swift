@@ -19,30 +19,80 @@ struct CocktailListView: View {
         VStack {
             if let errorMessage = errorMessage {
                 ErrorView(message: errorMessage)
+                    .padding()
+                    .background(Color.red.opacity(0.1))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
             }
-            
-            ScrollView {
-                IngredientListView(
-                    title: "Detected Ingredients",
-                    items: detectedItems.map { $0.name },
-                    confidenceValues: detectedItems.map { $0.confidence },
-                    onDelete: { index in removeDetectedItem(at: index) }
-                )
 
-                IngredientListView(
-                    title: "User-Entered Ingredients",
-                    items: userEnteredIngredients
-                )
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Ingredients")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal)
+                        .padding(.top)
+
+                    if detectedItems.isEmpty && userEnteredIngredients.isEmpty {
+                        Text("No ingredients detected or entered yet.")
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                            .padding(.top)
+                    } else {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], alignment: .leading, spacing: 10) {
+                            ForEach(detectedItems.indices, id: \.self) { index in
+                                HStack {
+                                    IngredientTag(name: detectedItems[index].name)
+                                    Button(action: {
+                                        removeDetectedItem(at: index)
+                                    }) {
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+
+                            ForEach(userEnteredIngredients, id: \.self) { ingredient in
+                                IngredientTag(name: ingredient)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                .padding(.vertical)
             }
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(10)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.2)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .cornerRadius(20)
             .padding()
 
             CocktailListViewSection(cocktails: cocktails)
                 .onAppear {
                     fetchCocktails()
                 }
+                .padding(.horizontal)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white.opacity(0.8))
+                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                )
+                .padding(.bottom, 20)
         }
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.white]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .edgesIgnoringSafeArea(.horizontal)
         .navigationTitle("Cocktails")
     }
 
@@ -67,6 +117,21 @@ struct CocktailListView: View {
             self.errorMessage = nil
         case .failure(let error):
             self.errorMessage = error.localizedDescription
+        }
+    }
+}
+
+struct CocktailListView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            CocktailListView(
+                detectedItems: .constant([
+                    DetectedItem(name: "Lime", confidence: 0.95, boundingBox: .zero),
+                    DetectedItem(name: "Mint", confidence: 0.92, boundingBox: .zero)
+                ]),
+                userEnteredIngredients: ["Rum", "Sugar"]
+            )
+            .environmentObject(AppState())
         }
     }
 }

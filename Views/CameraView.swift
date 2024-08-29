@@ -13,50 +13,76 @@ struct CameraView: View {
 
     var body: some View {
         VStack {
-            Form {
-                IngredientInputView(cocktailIngredient: $cocktailIngredient, onAdd: addCocktailIngredient)
+            IngredientInputView(cocktailIngredient: $cocktailIngredient, onAdd: addCocktailIngredient)
+                .padding(.horizontal)
 
-                IngredientListView(
-                    title: "Ingredients List",
-                    items: appState.cocktailIngredients,
-                    onDelete: removeIngredient
-                )
-            }
-
-            VStack {
+            IngredientListView(
+                title: "Ingredients List",
+                items: appState.cocktailIngredients,
+                onDelete: removeIngredient
+            )
+            .padding(.horizontal)
+            .frame(maxHeight: .infinity)  // Make the list take up as much space as possible
+            
+            VStack(spacing: 16) {
                 // NavigationLink to CameraView
-                NavigationLink(destination: 
+                NavigationLink(destination:
                     CameraScreen(detectedItems: Binding(get: {
                         return appState.detectedItems.isEmpty ? [] : appState.detectedItems
                     }, set: { newValue in
                         appState.detectedItems = newValue
                     }))
-                        .environmentObject(appState))
-                {
+                        .environmentObject(appState)
+                ) {
                     Text("Show Camera")
+                        .font(.headline)
+                        .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
-                .padding(.bottom, 8)
+                .padding(.horizontal)
 
                 // NavigationLink to CocktailListView
-                NavigationLink(destination: 
+                NavigationLink(destination:
                     CocktailListView(detectedItems: $appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
                         .environmentObject(appState)
                 ) {
                     Text("Show All Recipes")
+                        .font(.headline)
+                        .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.green, Color.teal]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
+                .padding(.horizontal)
             }
-            .padding()
+            .padding(.bottom, 20)
         }
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.white]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .edgesIgnoringSafeArea(.horizontal)
         .navigationTitle("Cocktail Builder")
     }
 

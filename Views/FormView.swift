@@ -12,46 +12,87 @@ struct FormView: View {
     @State private var favoriteCocktail: String = ""
 
     var body: some View {
-        Form {
+        VStack(spacing: 20) {
             // Section for Adding Favorite Cocktail
             TextFieldWithButton(
-                text: $favoriteCocktail, 
+                text: $favoriteCocktail,
                 title: "Add Favorite Cocktail",
                 placeholder: "Enter favorite cocktail",
                 buttonText: "Add",
                 onButtonTap: addFavoriteCocktail
             )
-            
+            .environmentObject(appState)
+            .padding(.horizontal)
+
             // Section for Displaying Favorite Cocktails
             CocktailListSection(
                 title: "Favorite Cocktails",
                 items: appState.favoriteCocktails,
-                emptyMessage: "No favorite cocktails added yet."
+                emptyMessage: "No favorite cocktails added yet. \nNot yet linked with the filtering and generative proposition"
             )
-            
-            // NavigationLink to CameraView
-            Section {
-                NavigationLink(destination: 
+            .environmentObject(appState)
+            .padding(.horizontal)
+
+            Spacer()
+
+            // NavigationLink to CameraView and Recipes
+            VStack(spacing: 16) {
+                NavigationLink(destination:
                     CameraView()
                         .environmentObject(appState)
                 ) {
-                    Text("Show Camera")
-                        .foregroundColor(.blue)
+                    Text("Continue")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
-                NavigationLink(destination: 
+
+                NavigationLink(destination:
                     CocktailListView(detectedItems: $appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
                         .environmentObject(appState)
                 ) {
                     Text("Show All Recipes")
-                        .foregroundColor(.blue)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.green, Color.teal]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
             }
+            .padding(.horizontal)
+            .padding(.bottom, 20)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.white]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .edgesIgnoringSafeArea(.horizontal)
         .navigationTitle("Favorite Cocktails")
         .onAppear {
             print("FormView appeared with \(appState.cocktailIngredients.count) ingredients")
         }
-        
     }
 
     // Function to add favorite cocktail

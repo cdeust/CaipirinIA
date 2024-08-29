@@ -19,17 +19,17 @@ struct IngredientTag: View {
             .padding(.vertical, 8)
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.blue.opacity(0.9), Color.blue.opacity(0.7)]),
+                    gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.teal.opacity(0.8)]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
             )
             .foregroundColor(.white)
-            .clipShape(Capsule()) // Use Capsule for a pill-like shape
-            .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 2)
+            .clipShape(Capsule()) // Pill-like shape for a modern, sleek look
+            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2) // Enhanced shadow for better depth
             .overlay(
                 Capsule()
-                    .strokeBorder(Color.white.opacity(0.2), lineWidth: 1)
+                    .strokeBorder(Color.white.opacity(0.3), lineWidth: 1) // Softer border
             )
             .accessibilityLabel(name)
             .accessibilityAddTraits(.isButton)

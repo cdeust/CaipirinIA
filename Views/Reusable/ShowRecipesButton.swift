@@ -14,16 +14,27 @@ struct ShowRecipesButton: View {
     var body: some View {
         VStack {
             Spacer()
-            NavigationLink(destination: CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)) {
+            NavigationLink(
+                destination: CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)
+            ) {
                 Text("Show Recipes")
                     .font(.headline)
-                    .padding()
-                    .background(Color.blue)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 12)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(Capsule())
-                    .shadow(radius: 10)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
             }
-            .padding()
+            .padding(.bottom, 16)
         }
+        .padding(.horizontal)
     }
 }

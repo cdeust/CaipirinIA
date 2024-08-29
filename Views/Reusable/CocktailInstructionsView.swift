@@ -12,12 +12,37 @@ struct CocktailInstructionsView: View {
     var instructions: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 16) {
             Text("Instructions")
-                .font(.headline)
-                .padding(.bottom, 4)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
+                .padding(.bottom, 8)
+                .frame(maxWidth: .infinity, alignment: .center)
 
             Text(instructions)
+                .font(.body)
+                .foregroundColor(.primary)
+                .padding(.vertical)
         }
+        .padding(.horizontal)
+        .padding(.vertical, 16)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.teal.opacity(0.2), Color.white]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .padding(.horizontal)
+    }
+}
+
+struct CocktailInstructionsView_Previews: PreviewProvider {
+    static var previews: some View {
+        CocktailInstructionsView(instructions: "Shake all ingredients with ice and strain into a chilled cocktail glass.")
+            .environmentObject(AppState())
     }
 }

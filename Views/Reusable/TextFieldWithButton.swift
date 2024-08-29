@@ -16,22 +16,42 @@ struct TextFieldWithButton: View {
     var onButtonTap: () -> Void
 
     var body: some View {
-        Section(header: Text(title)) {
+        Section(header: Text(title).font(.headline).padding(.bottom, 4)) {
             HStack {
                 TextField(placeholder, text: $text)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocapitalization(.words)
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(UIColor.systemGray6))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.blue.opacity(0.7), lineWidth: 1)
+                    )
+                    .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
+                    .padding(.trailing, 8)
                 
                 Button(action: onButtonTap) {
                     Text(buttonText)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color.accentColor)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.orange, Color.red]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
                         .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .disabled(text.isEmpty)
+                .opacity(text.isEmpty ? 0.6 : 1.0)
             }
+            .padding(.horizontal)
         }
     }
 }

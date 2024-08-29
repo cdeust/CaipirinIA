@@ -21,7 +21,9 @@ struct IngredientListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.headline)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
                 .padding(.horizontal)
                 .padding(.top)
 
@@ -54,6 +56,7 @@ struct IngredientListView: View {
                 .padding(.horizontal)
             }
         }
+        .padding(.vertical, 16)
     }
 
     @ViewBuilder
@@ -69,5 +72,17 @@ struct IngredientListView: View {
         } else {
             EmptyView()
         }
+    }
+}
+
+struct IngredientListView_Previews: PreviewProvider {
+    static var previews: some View {
+        IngredientListView(
+            title: "Detected Ingredients",
+            items: ["Tequila", "Lime", "Mint"],
+            confidenceValues: [0.95, 0.85, 0.75],
+            onDelete: nil
+        )
+        .environmentObject(AppState())
     }
 }

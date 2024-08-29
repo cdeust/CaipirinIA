@@ -13,8 +13,15 @@ struct DetectionOverlay: View {
     var body: some View {
         GeometryReader { geometry in
             ForEach(detectedItems) { item in
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.green, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.green.opacity(0.8), Color.green.opacity(0.4)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 3
+                    )
                     .frame(
                         width: item.boundingBox.width * geometry.size.width,
                         height: item.boundingBox.height * geometry.size.height
@@ -26,10 +33,14 @@ struct DetectionOverlay: View {
                     .overlay(
                         Text("\(item.name) \(String(format: "%.2f", item.confidence))")
                             .font(.caption)
-                            .background(Color.black.opacity(0.6))
+                            .fontWeight(.bold)
+                            .padding(6)
+                            .background(Color.black.opacity(0.7))
                             .foregroundColor(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 5))
-                            .padding(5), alignment: .topLeading
+                            .shadow(color: Color.black.opacity(0.5), radius: 2, x: 0, y: 2)
+                            .padding([.top, .leading], 6),
+                        alignment: .topLeading
                     )
             }
         }

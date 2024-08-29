@@ -13,20 +13,41 @@ struct IngredientInputView: View {
     var onAdd: () -> Void
 
     var body: some View {
-        Section(header: Text("Cocktail Ingredients")) {
+        Section(header: Text("Cocktail Ingredients")
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
+                    .padding(.top, 8)) {
             HStack {
                 TextField("Enter cocktail ingredients", text: $cocktailIngredient)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(UIColor.systemGray6))
+                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    )
+                    .padding(.horizontal)
+
                 Button(action: onAdd) {
                     Text("Add")
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(Color.accentColor)
+                        .fontWeight(.semibold)
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 20)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.teal, Color.blue]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(10)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .disabled(cocktailIngredient.isEmpty)
+                .opacity(cocktailIngredient.isEmpty ? 0.5 : 1.0) // Slight transparency when disabled
             }
+            .padding(.horizontal)
         }
     }
 }
