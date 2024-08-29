@@ -37,6 +37,50 @@ class NetworkManager {
         }
     }
     
+    private static func buildCocktailDetailsURL(forCocktailName cocktailName: String) -> URL? {
+        let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php"
+        var components = URLComponents(string: baseURL)
+        components?.queryItems = [URLQueryItem(name: "s", value: cocktailName)]
+        return components?.url
+    }
+    
+    static func fetchCocktailDetails(forCocktailName cocktailName: String, completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
+        guard let url = buildCocktailDetailsURL(forCocktailName: cocktailName) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(.unknown(error)))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                completion(.failure(.serverError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.serverError))
+                return
+            }
+            
+            do {
+                let cocktailResponse = try JSONDecoder().decode(CocktailResponse.self, from: data)
+                if let cocktails = cocktailResponse.drinks, !cocktails.isEmpty {
+                    completion(.success(cocktails))
+                } else {
+                    completion(.failure(.noResults))
+                }
+            } catch {
+                completion(.failure(.decodingError))
+            }
+        }
+        
+        task.resume()
+    }
+    
     static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
         guard let url = buildCocktailURL(withIngredients: ingredients) else {
             completion(.failure(.invalidURL))

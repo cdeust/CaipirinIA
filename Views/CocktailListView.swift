@@ -10,10 +10,11 @@ import SwiftUI
 struct CocktailListView: View {
     @EnvironmentObject var appState: AppState
     @Binding var detectedItems: [DetectedItem]
-    var userEnteredIngredients: [String]
     @State private var cocktails: [Cocktail] = []
     @State private var errorMessage: String?
 
+    var userEnteredIngredients: [String]
+    
     var body: some View {
         VStack {
             if let errorMessage = errorMessage {

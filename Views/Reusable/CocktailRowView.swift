@@ -13,7 +13,7 @@ struct CocktailRowView: View {
 
     var body: some View {
         HStack {
-            if let url = URL(string: cocktail.strDrinkThumb) {
+            if let url = URL(string: cocktail.strDrinkThumb ?? "") {
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:

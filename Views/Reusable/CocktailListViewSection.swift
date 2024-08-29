@@ -13,7 +13,7 @@ struct CocktailListViewSection: View {
 
     var body: some View {
         List(cocktails) { cocktail in
-            NavigationLink(destination: CocktailDetailView(cocktail: cocktail)) {
+            NavigationLink(destination: CocktailDetailView(cocktailName: cocktail.strDrink)) {
                 CocktailRowView(cocktail: cocktail)
             }
         }

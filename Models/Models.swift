@@ -14,10 +14,22 @@ struct CocktailResponse: Codable {
 struct Cocktail: Codable, Identifiable {
     let idDrink: String
     let strDrink: String
-    let strDrinkThumb: String
+    let strDrinkAlternate: String?
+    let strTags: String?
+    let strVideo: String?
+    let strCategory: String?
+    let strIBA: String?
+    let strAlcoholic: String?
+    let strGlass: String?
     let strInstructions: String?
+    let strInstructionsES: String?
+    let strInstructionsDE: String?
+    let strInstructionsFR: String?
+    let strInstructionsIT: String?
+    let strInstructionsZH_HANS: String?
+    let strInstructionsZH_HANT: String?
+    let strDrinkThumb: String?
     
-    // Properties to hold ingredients and their measurements
     let strIngredient1: String?
     let strIngredient2: String?
     let strIngredient3: String?
@@ -49,7 +61,12 @@ struct Cocktail: Codable, Identifiable {
     let strMeasure13: String?
     let strMeasure14: String?
     let strMeasure15: String?
-
+    
+    let strImageSource: String?
+    let strImageAttribution: String?
+    let strCreativeCommonsConfirmed: String?
+    let dateModified: String?
+    
     // Computed property to combine ingredients and measurements
     var ingredients: [String] {
         var result: [String] = []
@@ -69,13 +86,13 @@ struct Cocktail: Codable, Identifiable {
         for (index, ingredient) in ingredients.enumerated() {
             if let ingredient = ingredient, !ingredient.isEmpty {
                 let measurement = measurements[index] ?? ""
-                result.append("\(ingredient) - \(measurement)")
+                result.append("\(ingredient) \(measurement)")
             }
         }
         
         return result
     }
-
+    
     var id: String { idDrink }
 }
 
