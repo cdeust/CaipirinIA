@@ -10,52 +10,48 @@ import SwiftUI
 struct FormView: View {
     @EnvironmentObject var appState: AppState
     @State private var favoriteCocktail: String = ""
-    @State private var cocktailIngredient: String = ""
 
     var body: some View {
-        NavigationView {
-            Form {
-                // Section for Adding Favorite Cocktail
-                Section(header: Text("Add Favorite Cocktail")) {
-                    HStack {
-                        TextField("Enter favorite cocktail", text: $favoriteCocktail)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(.words)
-                        
-                        Button(action: addFavoriteCocktail) {
-                            Text("Add")
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.accentColor)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .disabled(favoriteCocktail.isEmpty) // Disable button if text field is empty
-                    }
+        Form {
+            // Section for Adding Favorite Cocktail
+            TextFieldWithButton(
+                text: $favoriteCocktail, 
+                title: "Add Favorite Cocktail",
+                placeholder: "Enter favorite cocktail",
+                buttonText: "Add",
+                onButtonTap: addFavoriteCocktail
+            )
+            
+            // Section for Displaying Favorite Cocktails
+            CocktailListSection(
+                title: "Favorite Cocktails",
+                items: appState.favoriteCocktails,
+                emptyMessage: "No favorite cocktails added yet."
+            )
+            
+            // NavigationLink to CameraView
+            Section {
+                NavigationLink(destination: 
+                    CameraView()
+                        .environmentObject(appState)
+                ) {
+                    Text("Show Camera")
+                        .foregroundColor(.blue)
                 }
-                
-                // Section for Displaying Favorite Cocktails
-                Section(header: Text("Favorite Cocktails")) {
-                    if appState.favoriteCocktails.isEmpty {
-                        Text("No favorite cocktails added yet.")
-                            .foregroundColor(.secondary)
-                    } else {
-                        List(appState.favoriteCocktails, id: \.self) { cocktail in
-                            Text(cocktail)
-                        }
-                    }
-                }
-                
-                // NavigationLink to CameraView
-                Section {
-                    NavigationLink(destination: CameraView()) {
-                        Text("Show Cocktail Recipes")
-                            .foregroundColor(.blue)
-                    }
+                NavigationLink(destination: 
+                    CocktailListView(detectedItems: $appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
+                        .environmentObject(appState)
+                ) {
+                    Text("Show All Recipes")
+                        .foregroundColor(.blue)
                 }
             }
-            .navigationTitle("Favorite Cocktails")
         }
+        .navigationTitle("Favorite Cocktails")
+        .onAppear {
+            print("FormView appeared with \(appState.cocktailIngredients.count) ingredients")
+        }
+        
     }
 
     // Function to add favorite cocktail
@@ -69,6 +65,7 @@ struct FormView: View {
 
 struct FormView_Previews: PreviewProvider {
     static var previews: some View {
-        FormView().environmentObject(AppState())
+        FormView()
+            .environmentObject(AppState()) // Provide AppState for previews
     }
 }

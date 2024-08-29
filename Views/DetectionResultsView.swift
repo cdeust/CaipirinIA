@@ -29,7 +29,3 @@ struct DetectionResultsView: View {
         }
     }
 }
-
-#Preview {
-    DetectionResultsView(detectedItems: [DetectedItem]())
-}

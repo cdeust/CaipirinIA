@@ -28,6 +28,21 @@
 		7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */; };
 		7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */; };
 		7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */; };
+		7F7CFB6B2C8062CB00797AF4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */; };
+		7F7CFB6D2C80630D00797AF4 /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */; };
+		7F7CFB6F2C80634700797AF4 /* CocktailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */; };
+		7F7CFB712C80637500797AF4 /* CocktailListViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */; };
+		7F7CFB732C8063F100797AF4 /* CocktailInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */; };
+		7F7CFB752C80641500797AF4 /* CocktailIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */; };
+		7F7CFB772C80643800797AF4 /* CocktailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */; };
+		7F7CFB792C80644B00797AF4 /* CocktailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */; };
+		7F7CFB7B2C80673C00797AF4 /* IngredientInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */; };
+		7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */; };
+		7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */; };
+		7F7CFB832C806AA900797AF4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB822C806AA900797AF4 /* CameraViewController.swift */; };
+		7F7CFB852C806B1100797AF4 /* DetectionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */; };
+		7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */; };
+		7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +69,21 @@
 		7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailDetailView.swift; sourceTree = "<group>"; };
 		7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailListView.swift; sourceTree = "<group>"; };
 		7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListView.swift; sourceTree = "<group>"; };
+		7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailRowView.swift; sourceTree = "<group>"; };
+		7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListViewSection.swift; sourceTree = "<group>"; };
+		7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInstructionsView.swift; sourceTree = "<group>"; };
+		7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailIngredientsView.swift; sourceTree = "<group>"; };
+		7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTitleView.swift; sourceTree = "<group>"; };
+		7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailImageView.swift; sourceTree = "<group>"; };
+		7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientInputView.swift; sourceTree = "<group>"; };
+		7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecipesButton.swift; sourceTree = "<group>"; };
+		7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		7F7CFB822C806AA900797AF4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionOverlay.swift; sourceTree = "<group>"; };
+		7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithButton.swift; sourceTree = "<group>"; };
+		7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +171,20 @@
 		7F7CFB4A2C7F4F5100797AF4 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */,
 				7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */,
+				7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */,
+				7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */,
+				7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */,
+				7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */,
+				7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */,
+				7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */,
+				7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */,
+				7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */,
+				7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */,
+				7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */,
+				7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */,
+				7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -150,12 +193,14 @@
 			isa = PBXGroup;
 			children = (
 				7F7CFB4A2C7F4F5100797AF4 /* Reusable */,
+				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
+				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
 				7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */,
 				7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */,
-				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
-				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
-				7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */,
+				7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */,
+				7F7CFB822C806AA900797AF4 /* CameraViewController.swift */,
 				7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */,
+				7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,20 +279,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */,
+				7F7CFB6F2C80634700797AF4 /* CocktailRowView.swift in Sources */,
 				7F7CFB5B2C7F4F5100797AF4 /* FoodClassifier.swift in Sources */,
 				7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */,
+				7F7CFB752C80641500797AF4 /* CocktailIngredientsView.swift in Sources */,
 				7F7CFB642C7F4F5100797AF4 /* DetectionResultsView.swift in Sources */,
 				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
 				7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */,
 				7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */,
+				7F7CFB6B2C8062CB00797AF4 /* ErrorView.swift in Sources */,
+				7F7CFB7B2C80673C00797AF4 /* IngredientInputView.swift in Sources */,
+				7F7CFB832C806AA900797AF4 /* CameraViewController.swift in Sources */,
+				7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */,
+				7F7CFB712C80637500797AF4 /* CocktailListViewSection.swift in Sources */,
 				7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */,
+				7F7CFB852C806B1100797AF4 /* DetectionOverlay.swift in Sources */,
+				7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */,
 				7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */,
 				7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */,
 				7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */,
 				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
 				7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */,
+				7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */,
+				7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */,
+				7F7CFB792C80644B00797AF4 /* CocktailImageView.swift in Sources */,
+				7F7CFB772C80643800797AF4 /* CocktailTitleView.swift in Sources */,
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
+				7F7CFB6D2C80630D00797AF4 /* IngredientListView.swift in Sources */,
 				7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */,
+				7F7CFB732C8063F100797AF4 /* CocktailInstructionsView.swift in Sources */,
 				7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */,
 				7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */,
 			);

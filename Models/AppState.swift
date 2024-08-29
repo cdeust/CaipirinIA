@@ -12,4 +12,8 @@ class AppState: ObservableObject {
     @Published var favoriteCocktails: [String] = []
     @Published var cocktailIngredients: [String] = []
     @Published var detectedItems: [DetectedItem] = []
+    
+    init() {
+        print("AppState initialized")
+    }
 }
