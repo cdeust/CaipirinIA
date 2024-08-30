@@ -16,12 +16,8 @@ struct CocktailListViewSection: View {
             NavigationLink(destination: CocktailDetailView(cocktailName: cocktail.strDrink)) {
                 CocktailRowView(cocktail: cocktail)
                     .padding(.vertical, 8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(UIColor.systemBackground))
-                            .shadow(color: Color.primary.opacity(0.1), radius: 4, x: 0, y: 2)
-                    )
             }
+            .listRowSeparator(.hidden) // Hide the separator for each row
             .listRowBackground(Color.clear) // Make list row background clear to show custom background
             .listRowInsets(EdgeInsets()) // Remove default insets for a more modern look
         }

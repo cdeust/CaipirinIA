@@ -1,16 +1,10 @@
-//
-//  RecipeDetailView.swift
-//  GroceriesAI
-//
-//  Created by Clément Deust on 09/07/2024.
-//
-
 import SwiftUI
 
 struct CocktailDetailView: View {
     @EnvironmentObject var appState: AppState
     @State private var cocktail: Cocktail?
     @State private var errorMessage: String?
+    @Environment(\.colorScheme) var colorScheme // To detect dark mode
 
     let cocktailName: String
 
@@ -18,23 +12,30 @@ struct CocktailDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 if let cocktail = cocktail {
+                    // Cocktail Image
                     CocktailImageView(url: cocktail.strDrinkThumb)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 2)
                         .frame(maxWidth: .infinity, alignment: .center)
-
-                    CocktailTitleView(title: cocktail.strDrink)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
-                        .foregroundColor(.primary)
 
+                    // Cocktail Title
+                    CocktailTitleView(title: cocktail.strDrink)
+                        .padding(.horizontal)
+
+                    // Cocktail Info Section
+                    CocktailInfoSection(cocktail: cocktail)
+                        .padding(.horizontal)
+                        .padding(.top, 8) // Additional padding to match the layout
+
+                    // Ingredients Section
                     if !cocktail.ingredients.isEmpty {
                         CocktailIngredientsView(ingredients: cocktail.ingredients)
-                            .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                             .padding(.vertical)
                     }
 
+                    // Instructions Section
                     if let instructions = cocktail.strInstructions, !instructions.isEmpty {
                         CocktailInstructionsView(instructions: instructions)
                             .padding(.horizontal)
@@ -47,48 +48,41 @@ struct CocktailDetailView: View {
                             .background(Color(UIColor.systemGray5).opacity(0.8))
                             .cornerRadius(12)
                             .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                     }
                 } else if let errorMessage = errorMessage {
+                    // Error Message
                     Text(errorMessage)
                         .foregroundColor(.red)
                         .padding()
                         .background(Color.red.opacity(0.1))
                         .cornerRadius(12)
                         .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                 } else {
+                    // Loading Indicator
                     ProgressView("Loading...")
                         .padding()
                         .background(Color(UIColor.systemGray5).opacity(0.8))
                         .cornerRadius(12)
                         .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                 }
             }
-            .padding()
+            .padding(.vertical)
             .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(UIColor.systemBackground).opacity(0.8))
-                    .shadow(color: Color.primary.opacity(0.1), radius: 10, x: 0, y: 5)
-            )
-            .padding(.horizontal)
-            .navigationTitle(cocktail?.strDrink ?? "Cocktail Detail")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear(perform: fetchCocktailDetails)
         }
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.2)]),
+                gradient: Gradient(colors: colorScheme == .dark ? [Color.blue.opacity(0.2), Color.white] : [Color.blue.opacity(0.2), Color.white]),
                 startPoint: .top,
                 endPoint: .bottom
             )
-            .edgesIgnoringSafeArea(.all) // Ensure the gradient applies to the whole screen, including the navigation bar area
+            .edgesIgnoringSafeArea(.all)
         )
+        .navigationTitle(cocktail?.strDrink ?? "Cocktail Detail")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: fetchCocktailDetails)
     }
 
     private func fetchCocktailDetails() {

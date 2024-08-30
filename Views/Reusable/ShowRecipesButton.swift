@@ -10,45 +10,70 @@ import SwiftUI
 struct ShowRecipesButton: View {
     @EnvironmentObject var appState: AppState
     @Binding var detectedItems: [DetectedItem]
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        VStack {
-            Spacer()
-            NavigationLink(
-                destination: CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)
-            ) {
-                Text("Show Recipes")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 12)
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.blue, Color.purple]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
+        let isButtonDisabled = detectedItems.isEmpty && appState.cocktailIngredients.isEmpty
+
+        NavigationLink(
+            destination: CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)
+                .environmentObject(appState)
+        ) {
+            Text("Show All Recipes")
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: colorScheme == .dark ? [Color.green, Color.blue] : [Color.green, Color.teal]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
                     )
-                    .clipShape(Capsule())
-                    .shadow(color: Color.primary.opacity(0.3), radius: 5, x: 0, y: 2)
-            }
-            .padding(.bottom, 16)
+                )
+                .clipShape(Capsule())
+                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
         }
-        .padding(.horizontal)
+        .disabled(isButtonDisabled)
+        .opacity(isButtonDisabled ? 0.5 : 1.0) // Adjust opacity based on availability of ingredients
+        .padding(.bottom, 16)
     }
 }
 
 struct ShowRecipesButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ShowRecipesButton(detectedItems: .constant([]))
+            // Preview with ingredients (Button enabled)
+            ShowRecipesButton(detectedItems: .constant([DetectedItem(name: "Lime", confidence: 0.95, boundingBox: .zero)]))
                 .environmentObject(AppState())
+                .previewDisplayName("Button Enabled")
                 .preferredColorScheme(.light)
+                .previewLayout(.sizeThatFits)
+                .padding()
 
+            // Preview without ingredients (Button disabled)
             ShowRecipesButton(detectedItems: .constant([]))
                 .environmentObject(AppState())
+                .previewDisplayName("Button Disabled")
+                .preferredColorScheme(.light)
+                .previewLayout(.sizeThatFits)
+                .padding()
+
+            // Preview with ingredients in dark mode (Button enabled)
+            ShowRecipesButton(detectedItems: .constant([DetectedItem(name: "Lime", confidence: 0.95, boundingBox: .zero)]))
+                .environmentObject(AppState())
+                .previewDisplayName("Button Enabled - Dark Mode")
                 .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+                .padding()
+
+            // Preview without ingredients in dark mode (Button disabled)
+            ShowRecipesButton(detectedItems: .constant([]))
+                .environmentObject(AppState())
+                .previewDisplayName("Button Disabled - Dark Mode")
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+                .padding()
         }
     }
 }

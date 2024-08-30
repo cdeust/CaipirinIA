@@ -24,11 +24,7 @@ struct TextFieldWithButton: View {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color(UIColor.systemGray6))
                     )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.blue.opacity(0.7), lineWidth: 1)
-                    )
-                    .shadow(color: Color.primary.opacity(0.1), radius: 2, x: 0, y: 1)
+                    .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
                     .padding(.trailing, 8)
                 
                 Button(action: onButtonTap) {
@@ -46,7 +42,7 @@ struct TextFieldWithButton: View {
                         )
                         .foregroundColor(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .disabled(text.isEmpty)
                 .opacity(text.isEmpty ? 0.6 : 1.0)

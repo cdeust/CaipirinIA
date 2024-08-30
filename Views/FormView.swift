@@ -26,13 +26,41 @@ struct FormView: View {
             .padding(.horizontal)
 
             // Section for Displaying Favorite Cocktails
-            CocktailListSection(
-                title: "Favorite Cocktails",
-                items: appState.favoriteCocktails,
-                emptyMessage: "No favorite cocktails added yet.\nNot yet linked with the filtering and generative proposition"
-            )
-            .environmentObject(appState)
-            .padding(.horizontal)
+            if !appState.favoriteCocktails.isEmpty {
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(appState.favoriteCocktails, id: \.self) { cocktail in
+                        Text(cocktail)
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.teal.opacity(0.8)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                            .padding(.horizontal)
+                    }
+                }
+            } else {
+                Text("Favorite Cocktails")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
+                    .padding(.top)
+                
+                Text("No favorite cocktails added yet.\nNot yet linked with the filtering and generative proposition.")
+                    .foregroundColor(.secondary)
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 20)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal)
+            }
 
             Spacer()
 
@@ -57,26 +85,8 @@ struct FormView: View {
                         .clipShape(Capsule())
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
-
-                NavigationLink(destination:
-                    CocktailListView(detectedItems: $appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
-                        .environmentObject(appState)
-                ) {
-                    Text("Show All Recipes")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: colorScheme == .dark ? [Color.green, Color.blue] : [Color.green, Color.teal]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .clipShape(Capsule())
-                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                }
+                ShowRecipesButton(detectedItems: $appState.detectedItems)
+                    .environmentObject(appState)
             }
             .padding(.horizontal)
             .padding(.bottom, 20)

@@ -14,10 +14,6 @@ struct IngredientListView: View {
     var confidenceValues: [Float]? = nil
     var onDelete: ((Int) -> Void)? = nil
 
-    let columns = [
-        GridItem(.adaptive(minimum: 80))
-    ]
-
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
@@ -33,10 +29,10 @@ struct IngredientListView: View {
                     .padding(.horizontal)
                     .padding(.top)
             } else {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], alignment: .leading, spacing: 10) {
                     ForEach(items.indices, id: \.self) { index in
                         HStack {
-                            IngredientTag(name: items[index])
+                            IngredientTag(name: items[index], confidence: confidenceValues?[index])
                             if let onDelete = onDelete {
                                 Button(action: {
                                     onDelete(index)
@@ -47,34 +43,12 @@ struct IngredientListView: View {
                                 .buttonStyle(PlainButtonStyle())
                             }
                         }
-                        .overlay(
-                            confidenceOverlay(for: index),
-                            alignment: .topTrailing
-                        )
                     }
                 }
                 .padding(.horizontal)
             }
         }
         .padding(.vertical, 16)
-        .background(Color(UIColor.systemBackground)) // Background adapts to light/dark mode
-        .cornerRadius(12)
-        .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2) // Adaptive shadow
-    }
-
-    @ViewBuilder
-    private func confidenceOverlay(for index: Int) -> some View {
-        if let confidenceValues = confidenceValues {
-            Text(String(format: "Conf: %.2f", confidenceValues[index]))
-                .font(.caption)
-                .foregroundColor(.white)
-                .padding(4)
-                .background(Color.black.opacity(0.6))
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                .offset(y: -10)
-        } else {
-            EmptyView()
-        }
     }
 }
 

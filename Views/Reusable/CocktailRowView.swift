@@ -53,10 +53,11 @@ struct CocktailRowView: View {
                 Text(cocktail.strDrink)
                     .font(.headline)
                     .foregroundColor(.primary)
-
-                Text(cocktail.strCategory ?? "Category")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                if let category = cocktail.strCategory {
+                    Text(category)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Spacer()

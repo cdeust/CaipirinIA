@@ -42,32 +42,24 @@ struct CameraScreen: View {
                 }
                 
                 Spacer()
-                if !detectedItems.isEmpty {
-                    Button(action: showRecipes) {
-                        Text("Show Recipes")
-                            .font(.headline)
-                            .padding()
-                            .background(
-                                LinearGradient(
-                                    gradient: Gradient(colors: colorScheme == .dark ? [Color.orange, Color.red] : [Color.blue, Color.purple]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .foregroundColor(.white)
-                            .clipShape(Capsule())
-                            .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 10)
-                    }
-                    .padding()
-                }
+                ShowRecipesButton(detectedItems: $appState.detectedItems)
+                    .environmentObject(appState)
+                    .padding(.horizontal)
             }
         }
         .background(Color(.systemBackground))
         .navigationTitle("Camera")
+        .onAppear {
+            resetCamera()
+        }
         .navigationDestination(isPresented: $navigateToRecipes) {
             CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)
                 .environmentObject(appState)
         }
+    }
+
+    private func resetCamera() {
+        detectedItems.removeAll()
     }
 
     private func showRecipes() {

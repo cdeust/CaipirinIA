@@ -12,6 +12,8 @@ struct CocktailListView: View {
     @Binding var detectedItems: [DetectedItem]
     @State private var cocktails: [Cocktail] = []
     @State private var errorMessage: String?
+    
+    @Environment(\.presentationMode) var presentationMode
 
     var userEnteredIngredients: [String]
     
@@ -40,24 +42,19 @@ struct CocktailListView: View {
                             .padding(.horizontal)
                             .padding(.top)
                     } else {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], alignment: .leading, spacing: 10) {
-                            ForEach(detectedItems.indices, id: \.self) { index in
-                                HStack {
-                                    IngredientTag(name: detectedItems[index].name)
-                                    Button(action: {
-                                        removeDetectedItem(at: index)
-                                    }) {
-                                        Image(systemName: "minus.circle")
-                                            .foregroundColor(.red)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                            }
-
-                            ForEach(userEnteredIngredients, id: \.self) { ingredient in
-                                IngredientTag(name: ingredient)
-                            }
-                        }
+                        IngredientListView(
+                            title: "Detected Ingredients",
+                            items: detectedItems.map { $0.name },
+                            confidenceValues: detectedItems.map { $0.confidence },
+                            onDelete: removeDetectedItem(at:)
+                        )
+                        .padding(.horizontal)
+                        
+                        IngredientListView(
+                            title: "User-Entered Ingredients",
+                            items: userEnteredIngredients,
+                            onDelete: nil
+                        )
                         .padding(.horizontal)
                     }
                 }
@@ -68,10 +65,6 @@ struct CocktailListView: View {
                 .onAppear {
                     fetchCocktails()
                 }
-                .padding(.horizontal)
-                .background(
-                    Color.clear
-                )
                 .padding(.bottom, 20)
         }
         .background(
@@ -87,6 +80,9 @@ struct CocktailListView: View {
 
     private func removeDetectedItem(at index: Int) {
         detectedItems.remove(at: index)
+        if detectedItems.isEmpty {
+            presentationMode.wrappedValue.dismiss()  // Navigate back to the camera screen if no items left
+        }
     }
 
     private func fetchCocktails() {

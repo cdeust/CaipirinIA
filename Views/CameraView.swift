@@ -14,9 +14,11 @@ struct CameraView: View {
 
     var body: some View {
         VStack {
+            // Input Section
             IngredientInputView(cocktailIngredient: $cocktailIngredient, onAdd: addCocktailIngredient)
                 .padding(.horizontal)
 
+            // Ingredients List
             IngredientListView(
                 title: "Ingredients List",
                 items: appState.cocktailIngredients,
@@ -25,8 +27,9 @@ struct CameraView: View {
             .padding(.horizontal)
             .frame(maxHeight: .infinity)  // Make the list take up as much space as possible
             
+            // Navigation Buttons
             VStack(spacing: 16) {
-                // NavigationLink to CameraView
+                // NavigationLink to CameraScreen
                 NavigationLink(destination:
                     CameraScreen(detectedItems: Binding(get: {
                         return appState.detectedItems.isEmpty ? [] : appState.detectedItems
@@ -52,27 +55,9 @@ struct CameraView: View {
                 }
                 .padding(.horizontal)
 
-                // NavigationLink to CocktailListView
-                NavigationLink(destination:
-                    CocktailListView(detectedItems: $appState.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
-                        .environmentObject(appState)
-                ) {
-                    Text("Show All Recipes")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: colorScheme == .dark ? [Color.green, Color.blue] : [Color.green, Color.teal]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .clipShape(Capsule())
-                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                }
-                .padding(.horizontal)
+                ShowRecipesButton(detectedItems: $appState.detectedItems)
+                    .environmentObject(appState)
+                    .padding(.horizontal)
             }
             .padding(.bottom, 20)
         }
@@ -101,7 +86,16 @@ struct CameraView: View {
 
 struct CameraView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraView()
-            .environmentObject(AppState()) // Provide AppState for previews
+        Group {
+            CameraView()
+                .environmentObject(AppState())
+                .preferredColorScheme(.light)
+                .previewDisplayName("Light Mode")
+
+            CameraView()
+                .environmentObject(AppState())
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }

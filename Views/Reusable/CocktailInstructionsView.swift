@@ -10,6 +10,7 @@ import SwiftUI
 struct CocktailInstructionsView: View {
     @EnvironmentObject var appState: AppState
     var instructions: String
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -20,34 +21,39 @@ struct CocktailInstructionsView: View {
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .center)
 
-            Text(instructions)
-                .font(.body)
-                .foregroundColor(.primary)
-                .padding(.vertical)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            // Split instructions into steps
+            ForEach(instructions.split(separator: ".").filter { !$0.isEmpty }, id: \.self) { step in
+                Text(step.trimmingCharacters(in: .whitespacesAndNewlines) + ".")
+                    .font(.body)
+                    .foregroundColor(.primary)
+                    .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 16)
+        .padding()
         .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.teal.opacity(0.2), Color(UIColor.systemBackground)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(UIColor.systemGray5).opacity(0.8))
         )
-        .cornerRadius(12)
         .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
-        .padding(.horizontal)
+        .frame(maxWidth: .infinity) // Ensure the view takes full width
     }
 }
 
 struct CocktailInstructionsView_Previews: PreviewProvider {
     static var previews: some View {
-        CocktailInstructionsView(instructions: "Shake all ingredients with ice and strain into a chilled cocktail glass.")
-            .environmentObject(AppState())
-            .preferredColorScheme(.light) // Add this line to preview in light mode
-        CocktailInstructionsView(instructions: "Shake all ingredients with ice and strain into a chilled cocktail glass.")
-            .environmentObject(AppState())
-            .preferredColorScheme(.dark) // Add this line to preview in dark mode
+        Group {
+            CocktailInstructionsView(instructions: "Shake all ingredients with ice and strain into a chilled cocktail glass. Garnish with a lime wedge. Serve immediately.")
+                .environmentObject(AppState())
+                .preferredColorScheme(.light)
+                .previewLayout(.sizeThatFits)
+                .padding()
+
+            CocktailInstructionsView(instructions: "Shake all ingredients with ice and strain into a chilled cocktail glass. Garnish with a lime wedge. Serve immediately.")
+                .environmentObject(AppState())
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+                .padding()
+        }
     }
 }
