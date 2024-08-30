@@ -18,13 +18,27 @@ struct CocktailTitleView: View {
             .foregroundColor(.primary)
             .multilineTextAlignment(.center)
             .lineLimit(2)
-            .padding(.vertical, 8)
+            .padding(.vertical, 12)
             .frame(maxWidth: .infinity, alignment: .center)
             .background(
-                Color(UIColor.systemGray6)
-                    .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                Color(UIColor.systemBackground)
+                    .cornerRadius(12)
+                    .shadow(color: Color.primary.opacity(0.1), radius: 4, x: 0, y: 2)
             )
             .padding(.horizontal)
+    }
+}
+
+struct CocktailTitleView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CocktailTitleView(title: "Margarita")
+                .environmentObject(AppState())
+                .preferredColorScheme(.light)
+
+            CocktailTitleView(title: "Margarita")
+                .environmentObject(AppState())
+                .preferredColorScheme(.dark)
+        }
     }
 }

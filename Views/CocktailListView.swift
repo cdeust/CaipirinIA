@@ -63,15 +63,6 @@ struct CocktailListView: View {
                 }
                 .padding(.vertical)
             }
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.2)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
-            .cornerRadius(20)
-            .padding()
 
             CocktailListViewSection(cocktails: cocktails)
                 .onAppear {
@@ -79,9 +70,7 @@ struct CocktailListView: View {
                 }
                 .padding(.horizontal)
                 .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white.opacity(0.8))
-                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                    Color.clear
                 )
                 .padding(.bottom, 20)
         }

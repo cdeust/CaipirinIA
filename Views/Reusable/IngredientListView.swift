@@ -57,6 +57,9 @@ struct IngredientListView: View {
             }
         }
         .padding(.vertical, 16)
+        .background(Color(UIColor.systemBackground)) // Background adapts to light/dark mode
+        .cornerRadius(12)
+        .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2) // Adaptive shadow
     }
 
     @ViewBuilder
@@ -77,12 +80,30 @@ struct IngredientListView: View {
 
 struct IngredientListView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientListView(
-            title: "Detected Ingredients",
-            items: ["Tequila", "Lime", "Mint"],
-            confidenceValues: [0.95, 0.85, 0.75],
-            onDelete: nil
-        )
-        .environmentObject(AppState())
+        Group {
+            IngredientListView(
+                title: "Detected Ingredients",
+                items: ["Tequila", "Lime", "Mint"],
+                confidenceValues: [0.95, 0.85, 0.75],
+                onDelete: nil
+            )
+            .environmentObject(AppState())
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color(UIColor.systemBackground))
+            .environment(\.colorScheme, .light)
+
+            IngredientListView(
+                title: "Detected Ingredients",
+                items: ["Tequila", "Lime", "Mint"],
+                confidenceValues: [0.95, 0.85, 0.75],
+                onDelete: nil
+            )
+            .environmentObject(AppState())
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color(UIColor.systemBackground))
+            .environment(\.colorScheme, .dark)
+        }
     }
 }

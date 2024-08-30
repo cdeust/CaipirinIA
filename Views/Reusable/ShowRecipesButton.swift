@@ -31,10 +31,24 @@ struct ShowRecipesButton: View {
                         )
                     )
                     .clipShape(Capsule())
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                    .shadow(color: Color.primary.opacity(0.3), radius: 5, x: 0, y: 2)
             }
             .padding(.bottom, 16)
         }
         .padding(.horizontal)
+    }
+}
+
+struct ShowRecipesButton_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ShowRecipesButton(detectedItems: .constant([]))
+                .environmentObject(AppState())
+                .preferredColorScheme(.light)
+
+            ShowRecipesButton(detectedItems: .constant([]))
+                .environmentObject(AppState())
+                .preferredColorScheme(.dark)
+        }
     }
 }

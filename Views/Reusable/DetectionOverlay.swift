@@ -46,3 +46,21 @@ struct DetectionOverlay: View {
         }
     }
 }
+
+struct DetectionOverlay_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            DetectionOverlay(detectedItems: [
+                DetectedItem(name: "Lime", confidence: 0.95, boundingBox: CGRect(x: 0.2, y: 0.3, width: 0.5, height: 0.4)),
+                DetectedItem(name: "Mint", confidence: 0.87, boundingBox: CGRect(x: 0.5, y: 0.5, width: 0.3, height: 0.3))
+            ])
+            .preferredColorScheme(.light)
+            
+            DetectionOverlay(detectedItems: [
+                DetectedItem(name: "Lime", confidence: 0.95, boundingBox: CGRect(x: 0.2, y: 0.3, width: 0.5, height: 0.4)),
+                DetectedItem(name: "Mint", confidence: 0.87, boundingBox: CGRect(x: 0.5, y: 0.5, width: 0.3, height: 0.3))
+            ])
+            .preferredColorScheme(.dark)
+        }
+    }
+}

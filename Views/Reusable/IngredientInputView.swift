@@ -23,8 +23,8 @@ struct IngredientInputView: View {
                     .padding(12)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color(UIColor.systemGray6))
-                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            .fill(Color(UIColor.secondarySystemBackground)) // Adaptive background color
+                            .shadow(color: Color.primary.opacity(0.1), radius: 4, x: 0, y: 2)
                     )
                     .padding(.horizontal)
 
@@ -42,12 +42,32 @@ struct IngredientInputView: View {
                         )
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .disabled(cocktailIngredient.isEmpty)
                 .opacity(cocktailIngredient.isEmpty ? 0.5 : 1.0) // Slight transparency when disabled
             }
             .padding(.horizontal)
+        }
+    }
+}
+
+struct IngredientInputView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            IngredientInputView(cocktailIngredient: .constant(""), onAdd: {})
+                .previewLayout(.sizeThatFits)
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .environmentObject(AppState())
+                .environment(\.colorScheme, .light)
+
+            IngredientInputView(cocktailIngredient: .constant("Mint"), onAdd: {})
+                .previewLayout(.sizeThatFits)
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .environmentObject(AppState())
+                .environment(\.colorScheme, .dark)
         }
     }
 }

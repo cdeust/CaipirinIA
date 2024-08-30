@@ -12,12 +12,13 @@ struct CameraScreen: View {
     @Binding var detectedItems: [DetectedItem]
     @State private var navigateToRecipes = false
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         ZStack {
             CameraPreview(detectedItems: $detectedItems)
                 .edgesIgnoringSafeArea(.all)
-                .navigationBarHidden(true) // Hide the default navigation bar
+                .navigationBarHidden(true)
 
             DetectionOverlay(detectedItems: detectedItems)
 
@@ -25,7 +26,7 @@ struct CameraScreen: View {
                 HStack {
                     // Custom back button
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss() // Navigate back
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "arrow.left")
                             .foregroundColor(.white)
@@ -46,15 +47,22 @@ struct CameraScreen: View {
                         Text("Show Recipes")
                             .font(.headline)
                             .padding()
-                            .background(Color.blue)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: colorScheme == .dark ? [Color.orange, Color.red] : [Color.blue, Color.purple]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
                             .foregroundColor(.white)
                             .clipShape(Capsule())
-                            .shadow(radius: 10)
+                            .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 10)
                     }
                     .padding()
                 }
             }
         }
+        .background(Color(.systemBackground))
         .navigationTitle("Camera")
         .navigationDestination(isPresented: $navigateToRecipes) {
             CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)

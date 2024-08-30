@@ -10,6 +10,7 @@ import SwiftUI
 struct CameraView: View {
     @EnvironmentObject var appState: AppState
     @State private var cocktailIngredient: String = ""
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack {
@@ -41,13 +42,13 @@ struct CameraView: View {
                         .frame(maxWidth: .infinity)
                         .background(
                             LinearGradient(
-                                gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                gradient: Gradient(colors: colorScheme == .dark ? [Color.orange, Color.red] : [Color.orange, Color.yellow]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .clipShape(Capsule())
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .padding(.horizontal)
 
@@ -63,13 +64,13 @@ struct CameraView: View {
                         .frame(maxWidth: .infinity)
                         .background(
                             LinearGradient(
-                                gradient: Gradient(colors: [Color.green, Color.teal]),
+                                gradient: Gradient(colors: colorScheme == .dark ? [Color.green, Color.blue] : [Color.green, Color.teal]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .clipShape(Capsule())
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
                 .padding(.horizontal)
             }
@@ -77,7 +78,7 @@ struct CameraView: View {
         }
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.white]),
+                gradient: Gradient(colors: colorScheme == .dark ? [Color.black, Color.gray] : [Color.blue.opacity(0.2), Color.white]),
                 startPoint: .top,
                 endPoint: .bottom
             )

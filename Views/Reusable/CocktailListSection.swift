@@ -14,15 +14,13 @@ struct CocktailListSection: View {
     var emptyMessage: String
 
     var body: some View {
-        Section(header: Text(title)
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal)
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-        ) {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.primary)
+                .padding(.horizontal)
+                .padding(.vertical, 4)
+
             if items.isEmpty {
                 Text(emptyMessage)
                     .foregroundColor(.secondary)
@@ -30,6 +28,7 @@ struct CocktailListSection: View {
                     .padding(.vertical, 8)
                     .background(Color(UIColor.systemGray5))
                     .cornerRadius(8)
+                    .shadow(color: Color.primary.opacity(0.1), radius: 4, x: 0, y: 2)
             } else {
                 List(items, id: \.self) { item in
                     Text(item)
@@ -38,10 +37,22 @@ struct CocktailListSection: View {
                         .padding(.vertical, 8)
                 }
                 .listStyle(PlainListStyle())
-                .background(Color(UIColor.systemBackground))
+                .background(Color.clear) // Background clear to blend with the view
                 .cornerRadius(8)
+                .shadow(color: Color.primary.opacity(0.1), radius: 4, x: 0, y: 2)
             }
         }
         .padding(.horizontal)
+    }
+}
+
+struct CocktailListSection_Previews: PreviewProvider {
+    static var previews: some View {
+        CocktailListSection(
+            title: "Favorite Cocktails",
+            items: ["Margarita", "Mojito", "Old Fashioned"],
+            emptyMessage: "No favorite cocktails added yet."
+        )
+        .environmentObject(AppState())
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct FormView: View {
     @EnvironmentObject var appState: AppState
     @State private var favoriteCocktail: String = ""
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(spacing: 20) {
@@ -28,7 +29,7 @@ struct FormView: View {
             CocktailListSection(
                 title: "Favorite Cocktails",
                 items: appState.favoriteCocktails,
-                emptyMessage: "No favorite cocktails added yet. \nNot yet linked with the filtering and generative proposition"
+                emptyMessage: "No favorite cocktails added yet.\nNot yet linked with the filtering and generative proposition"
             )
             .environmentObject(appState)
             .padding(.horizontal)
@@ -48,13 +49,13 @@ struct FormView: View {
                         .frame(maxWidth: .infinity)
                         .background(
                             LinearGradient(
-                                gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                gradient: Gradient(colors: colorScheme == .dark ? [Color.orange, Color.red] : [Color.orange, Color.yellow]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .clipShape(Capsule())
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
 
                 NavigationLink(destination:
@@ -68,13 +69,13 @@ struct FormView: View {
                         .frame(maxWidth: .infinity)
                         .background(
                             LinearGradient(
-                                gradient: Gradient(colors: [Color.green, Color.teal]),
+                                gradient: Gradient(colors: colorScheme == .dark ? [Color.green, Color.blue] : [Color.green, Color.teal]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .clipShape(Capsule())
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
             }
             .padding(.horizontal)
@@ -83,7 +84,7 @@ struct FormView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.white]),
+                gradient: Gradient(colors: colorScheme == .dark ? [Color.black, Color.gray] : [Color.blue.opacity(0.2), Color.white]),
                 startPoint: .top,
                 endPoint: .bottom
             )

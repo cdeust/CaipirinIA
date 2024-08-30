@@ -29,13 +29,13 @@ struct CocktailIngredientsView: View {
             .padding()
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.orange.opacity(0.2), Color.white]),
+                    gradient: Gradient(colors: [Color.orange.opacity(0.2), Color(UIColor.systemBackground)]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
             )
             .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+            .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
@@ -44,7 +44,14 @@ struct CocktailIngredientsView: View {
 
 struct CocktailIngredientsView_Previews: PreviewProvider {
     static var previews: some View {
-        CocktailIngredientsView(ingredients: ["1 oz Tequila", "1/2 oz Blue Curacao", "1 oz Lime juice", "Salt"])
-            .environmentObject(AppState())
+        Group {
+            CocktailIngredientsView(ingredients: ["1 oz Tequila", "1/2 oz Blue Curacao", "1 oz Lime juice", "Salt"])
+                .environmentObject(AppState())
+                .preferredColorScheme(.light)
+
+            CocktailIngredientsView(ingredients: ["1 oz Tequila", "1/2 oz Blue Curacao", "1 oz Lime juice", "Salt"])
+                .environmentObject(AppState())
+                .preferredColorScheme(.dark)
+        }
     }
 }
