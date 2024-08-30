@@ -6,8 +6,9 @@
 //
 
 import AVFoundation
-import SwiftUI
 import Vision
+import UIKit
+import SwiftUI
 
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var detectedItems: Binding<[DetectedItem]>?
@@ -64,7 +65,15 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             let objectRecognition = VNCoreMLRequest(model: visionModel) { [weak self] request, error in
                 self?.processVisionRequest(request, error: error)
             }
-            visionRequests = [objectRecognition]
+
+            let textRecognition = VNRecognizeTextRequest { [weak self] request, error in
+                self?.processTextRequest(request, error: error)
+            }
+            textRecognition.recognitionLevel = .accurate
+            textRecognition.usesLanguageCorrection = true
+            textRecognition.minimumTextHeight = 0.02 // Adjust this to filter small text
+
+            visionRequests = [objectRecognition, textRecognition]
         } catch {
             print("Error loading Core ML model: \(error)")
         }
@@ -72,7 +81,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     private func setupOverlay() {
         detectionOverlay = CALayer()
-        detectionOverlay.name = "DetectionOverlay"
+        detectionOverlay.name = "DetectionResultsView"
         detectionOverlay.bounds = view.bounds
         detectionOverlay.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         view.layer.addSublayer(detectionOverlay)
@@ -108,24 +117,58 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
                 // Check if the detected item already exists
                 if let existingIndex = self.detectedItems?.wrappedValue.firstIndex(where: { $0.name == identifier }) {
-                    // Update the confidence score if the new confidence is higher
-                    if let existingItem = self.detectedItems?.wrappedValue[existingIndex] {
-                        if confidence > existingItem.confidence {
-                            self.detectedItems?.wrappedValue[existingIndex].confidence = confidence
-                            self.detectedItems?.wrappedValue[existingIndex].boundingBox = transformedRect
-                        }
+                    if let existingItem = self.detectedItems?.wrappedValue[existingIndex], confidence > existingItem.confidence {
+                        self.detectedItems?.wrappedValue[existingIndex].confidence = confidence
+                        self.detectedItems?.wrappedValue[existingIndex].boundingBox = transformedRect
                     }
                 } else {
-                    // Add the new detected item
                     let detectedItem = DetectedItem(name: identifier, confidence: confidence, boundingBox: transformedRect)
                     self.detectedItems?.wrappedValue.append(detectedItem)
                 }
 
                 // Update the detection overlay
-                let shapeLayer = self.createRoundedRectLayer(withBounds: transformedRect)
+                let shapeLayer = self.createSubtleRoundedRectLayer(withBounds: transformedRect)
                 let textLayer = self.createTextLayer(inBounds: transformedRect, identifier: identifier, confidence: confidence)
 
                 shapeLayer.addSublayer(textLayer)
+                self.detectionOverlay.addSublayer(shapeLayer)
+            }
+        }
+    }
+
+    private func processTextRequest(_ request: VNRequest, error: Error?) {
+        guard let observations = request.results as? [VNRecognizedTextObservation], !observations.isEmpty else {
+            print("No text detected: \(error?.localizedDescription ?? "Unknown error")")
+            return
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            // Clear existing layers
+            self.detectionOverlay.sublayers?.removeAll()
+
+            // Filter out very small text
+            let filteredObservations = observations.filter { $0.boundingBox.height > 0.02 }
+
+            // Merge or eliminate overlapping boxes (simple overlap removal example)
+            var nonOverlappingObservations = [VNRecognizedTextObservation]()
+            for observation in filteredObservations {
+                if !nonOverlappingObservations.contains(where: { $0.boundingBox.intersects(observation.boundingBox) }) {
+                    nonOverlappingObservations.append(observation)
+                }
+            }
+
+            for textObservation in nonOverlappingObservations {
+                let boundingBox = textObservation.boundingBox
+                let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
+
+                let text = textObservation.topCandidates(1).first?.string ?? ""
+                let textLayer = self.createTextLayer(inBounds: transformedRect, identifier: text, confidence: 1.0)
+
+                let shapeLayer = self.createSubtleRoundedRectLayer(withBounds: transformedRect)
+                shapeLayer.addSublayer(textLayer)
+
                 self.detectionOverlay.addSublayer(shapeLayer)
             }
         }
@@ -137,7 +180,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     private func createTextLayer(inBounds bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
         let textLayer = CATextLayer()
-        textLayer.string = "\(identifier) \(String(format: "%.2f", confidence))"
+        textLayer.string = identifier // Display only the text for recognized text
+        textLayer.fontSize = 14
         textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: 40)
         textLayer.position = CGPoint(x: bounds.midX, y: bounds.minY - 20)
         textLayer.foregroundColor = UIColor.white.cgColor
@@ -148,12 +192,16 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         return textLayer
     }
 
-    private func createRoundedRectLayer(withBounds bounds: CGRect) -> CALayer {
+    private func createSubtleRoundedRectLayer(withBounds bounds: CGRect) -> CALayer {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 8.0).cgPath
-        shapeLayer.strokeColor = UIColor.green.cgColor
+        shapeLayer.strokeColor = UIColor.white.withAlphaComponent(0.7).cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineWidth = 2.0
+        shapeLayer.lineWidth = 1.0
+        shapeLayer.shadowColor = UIColor.black.cgColor
+        shapeLayer.shadowOpacity = 0.3
+        shapeLayer.shadowOffset = CGSize(width: 2, height: 2)
+        shapeLayer.shadowRadius = 4
         return shapeLayer
     }
 

@@ -40,7 +40,6 @@
 		7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */; };
 		7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */; };
 		7F7CFB832C806AA900797AF4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB822C806AA900797AF4 /* CameraViewController.swift */; };
-		7F7CFB852C806B1100797AF4 /* DetectionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */; };
 		7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */; };
 		7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */; };
 		7F7CFB8E2C81E2CA00797AF4 /* RemoveListSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */; };
@@ -83,7 +82,6 @@
 		7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecipesButton.swift; sourceTree = "<group>"; };
 		7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		7F7CFB822C806AA900797AF4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionOverlay.swift; sourceTree = "<group>"; };
 		7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithButton.swift; sourceTree = "<group>"; };
 		7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListSection.swift; sourceTree = "<group>"; };
 		7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListSeparators.swift; sourceTree = "<group>"; };
@@ -176,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */,
+				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
 				7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */,
 				7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */,
 				7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */,
@@ -189,7 +188,6 @@
 				7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */,
 				7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */,
 				7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */,
-				7F7CFB842C806B1100797AF4 /* DetectionOverlay.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -200,7 +198,6 @@
 				7F7CFB8C2C81E2AC00797AF4 /* ViewModifier */,
 				7F7CFB4A2C7F4F5100797AF4 /* Reusable */,
 				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
-				7F7CFB4D2C7F4F5100797AF4 /* DetectionResultsView.swift */,
 				7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */,
 				7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */,
 				7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */,
@@ -308,7 +305,6 @@
 				7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */,
 				7F7CFB712C80637500797AF4 /* CocktailListViewSection.swift in Sources */,
 				7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */,
-				7F7CFB852C806B1100797AF4 /* DetectionOverlay.swift in Sources */,
 				7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */,
 				7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */,
 				7F7CFB902C8210F800797AF4 /* CocktailInfoSection.swift in Sources */,

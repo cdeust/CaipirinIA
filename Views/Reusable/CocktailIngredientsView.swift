@@ -16,9 +16,9 @@ struct CocktailIngredientsView: View {
         VStack(alignment: .leading, spacing: 8) {
             ForEach(ingredients, id: \.self) { ingredient in
                 HStack {
-                    Image(systemName: icon(for: ingredient))
-                        .foregroundColor(color(for: ingredient))
-                        .font(.system(size: 16))
+                    Image(systemName: "circle.fill") // Simple dot icon
+                        .foregroundColor(.primary) // Same color for all ingredients
+                        .font(.system(size: 6)) // Smaller size for a breadcrumb effect
                     Text(ingredient)
                         .font(.body)
                         .foregroundColor(.primary)
@@ -33,34 +33,6 @@ struct CocktailIngredientsView: View {
         )
         .shadow(color: Color.primary.opacity(0.1), radius: 5, x: 0, y: 2)
         .frame(maxWidth: .infinity)
-    }
-
-    // Determine the appropriate icon based on the ingredient
-    private func icon(for ingredient: String) -> String {
-        let lowercasedIngredient = ingredient.lowercased()
-        if lowercasedIngredient.contains("lime") || lowercasedIngredient.contains("lemon") || lowercasedIngredient.contains("juice") {
-            return "hourglass.bottomhalf.filled"
-        } else if lowercasedIngredient.contains("sugar") {
-            return "cube.box.fill"
-        } else if lowercasedIngredient.contains("salt") || lowercasedIngredient.contains("ice") {
-            return "cube.fill"
-        } else {
-            return "hourglass.bottomhalf.filled"
-        }
-    }
-
-    // Determine the color based on the ingredient type
-    private func color(for ingredient: String) -> Color {
-        let lowercasedIngredient = ingredient.lowercased()
-        if lowercasedIngredient.contains("lime") || lowercasedIngredient.contains("lemon") || lowercasedIngredient.contains("juice") {
-            return .yellow
-        } else if lowercasedIngredient.contains("syrup") || lowercasedIngredient.contains("sugar") {
-            return .orange
-        } else if lowercasedIngredient.contains("salt") {
-            return .gray
-        } else {
-            return .white
-        }
     }
 }
 
