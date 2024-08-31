@@ -44,6 +44,8 @@
 		7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */; };
 		7F7CFB8E2C81E2CA00797AF4 /* RemoveListSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */; };
 		7F7CFB902C8210F800797AF4 /* CocktailInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB8F2C8210F800797AF4 /* CocktailInfoSection.swift */; };
+		7F85D5C22C8305E000EDC90E /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C12C8305E000EDC90E /* SoundManager.swift */; };
+		7F85D5C42C83072300EDC90E /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C32C83072300EDC90E /* StarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,8 @@
 		7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListSection.swift; sourceTree = "<group>"; };
 		7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListSeparators.swift; sourceTree = "<group>"; };
 		7F7CFB8F2C8210F800797AF4 /* CocktailInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInfoSection.swift; sourceTree = "<group>"; };
+		7F85D5C12C8305E000EDC90E /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		7F85D5C32C83072300EDC90E /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 				7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */,
 				7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */,
 				7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */,
+				7F85D5C12C8305E000EDC90E /* SoundManager.swift */,
+				7F85D5C32C83072300EDC90E /* StarView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -322,6 +328,8 @@
 				7F7CFB732C8063F100797AF4 /* CocktailInstructionsView.swift in Sources */,
 				7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */,
 				7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */,
+				7F85D5C42C83072300EDC90E /* StarView.swift in Sources */,
+				7F85D5C22C8305E000EDC90E /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -115,7 +115,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 let boundingBox = objectObservation.boundingBox
                 let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
 
-                // Check if the detected item already exists
+                // Check if the detected item already exists or add a new one
                 if let existingIndex = self.detectedItems?.wrappedValue.firstIndex(where: { $0.name == identifier }) {
                     if let existingItem = self.detectedItems?.wrappedValue[existingIndex], confidence > existingItem.confidence {
                         self.detectedItems?.wrappedValue[existingIndex].confidence = confidence
@@ -124,14 +124,17 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 } else {
                     let detectedItem = DetectedItem(name: identifier, confidence: confidence, boundingBox: transformedRect)
                     self.detectedItems?.wrappedValue.append(detectedItem)
+
+                    // Play sound once for the detected item
+                    if self.isAlcohol(identifier) {
+                        SoundManager.shared.playSound(named: "Yeepee")
+                    } else {
+                        SoundManager.shared.playSound(named: "Yum")
+                    }
+
+                    // Trigger star animation around the detected item
+                    self.showStars(around: transformedRect)
                 }
-
-                // Update the detection overlay
-                let shapeLayer = self.createSubtleRoundedRectLayer(withBounds: transformedRect)
-                let textLayer = self.createTextLayer(inBounds: transformedRect, identifier: identifier, confidence: confidence)
-
-                shapeLayer.addSublayer(textLayer)
-                self.detectionOverlay.addSublayer(shapeLayer)
             }
         }
     }
@@ -177,6 +180,74 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func stopDetection() {
         captureSession.stopRunning()
     }
+    
+    private func showStars(around rect: CGRect) {
+        let starCount = 5  // Number of stars to display
+        let animationDuration: CFTimeInterval = 1.5  // Total duration of the animation
+
+        for i in 0..<starCount {
+            let starLayer = createStarLayer()
+
+            // Randomly place stars around the sides of the bounding box
+            let startPoint = CGPoint(
+                x: rect.origin.x + (i % 2 == 0 ? rect.size.width : 0),
+                y: rect.origin.y + CGFloat.random(in: 0...rect.size.height)
+            )
+            starLayer.position = startPoint
+            view.layer.addSublayer(starLayer)
+
+            // Create the path for the star's movement (upward and then down)
+            let upwardPath = UIBezierPath()
+            upwardPath.move(to: startPoint)
+
+            let controlPoint = CGPoint(
+                x: startPoint.x + CGFloat.random(in: -rect.size.width...rect.size.width),
+                y: startPoint.y - rect.size.height * 1.5
+            )
+
+            let endPoint = CGPoint(
+                x: startPoint.x + CGFloat.random(in: -rect.size.width / 2...rect.size.width / 2),
+                y: startPoint.y + rect.size.height * 2
+            )
+            upwardPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+
+            // Path animation
+            let pathAnimation = CAKeyframeAnimation(keyPath: "position")
+            pathAnimation.path = upwardPath.cgPath
+            pathAnimation.duration = animationDuration
+            pathAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+
+            // Fade out animation
+            let fadeOutAnimation = CABasicAnimation(keyPath: "opacity")
+            fadeOutAnimation.fromValue = 1.0
+            fadeOutAnimation.toValue = 0.0
+            fadeOutAnimation.duration = animationDuration
+            fadeOutAnimation.timingFunction = CAMediaTimingFunction(name: .easeIn)
+
+            // Group animations
+            let animationGroup = CAAnimationGroup()
+            animationGroup.animations = [pathAnimation, fadeOutAnimation]
+            animationGroup.duration = animationDuration
+
+            starLayer.add(animationGroup, forKey: nil)
+
+            // Remove the star layer after animation completes
+            DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+                starLayer.removeFromSuperlayer()
+            }
+        }
+    }
+
+    private func createStarLayer() -> CALayer {
+        let starLayer = CATextLayer()
+        starLayer.string = "⭐️"
+        starLayer.fontSize = 24
+        starLayer.alignmentMode = .center
+        starLayer.bounds = CGRect(x: 0, y: 0, width: 24, height: 24)
+        starLayer.contentsScale = UIScreen.main.scale
+        starLayer.opacity = 1.0
+        return starLayer
+    }
 
     private func createTextLayer(inBounds bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
         let textLayer = CATextLayer()
@@ -218,5 +289,11 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         super.viewDidLayoutSubviews()
         previewLayer.frame = view.bounds
         detectionOverlay.frame = view.bounds
+    }
+    
+    private func isAlcohol(_ itemName: String) -> Bool {
+        let alcoholKeywords = ["vodka", "rum", "gin", "tequila", "whiskey", "whisky", "bourbon", "brandy", "cognac", "vermouth", "liqueur", "schnapps", "absinthe", "mezcal", "beer", "wine", "champagne"]
+
+        return alcoholKeywords.contains(where: { itemName.lowercased().contains($0) })
     }
 }

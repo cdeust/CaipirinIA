@@ -37,6 +37,7 @@ class NetworkManager {
         }
     }
     
+    // Builds URL for searching cocktail details by name
     private static func buildCocktailDetailsURL(forCocktailName cocktailName: String) -> URL? {
         let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php"
         var components = URLComponents(string: baseURL)
@@ -44,6 +45,7 @@ class NetworkManager {
         return components?.url
     }
     
+    // Fetches cocktail details by name
     static func fetchCocktailDetails(forCocktailName cocktailName: String, completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
         guard let url = buildCocktailDetailsURL(forCocktailName: cocktailName) else {
             completion(.failure(.invalidURL))
@@ -81,6 +83,7 @@ class NetworkManager {
         task.resume()
     }
     
+    // Fetches cocktails based on one or more ingredients
     static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
         guard let url = buildCocktailURL(withIngredients: ingredients) else {
             completion(.failure(.invalidURL))
@@ -118,8 +121,11 @@ class NetworkManager {
         task.resume()
     }
     
+    // Constructs the URL for searching cocktails by one or more ingredients
     private static func buildCocktailURL(withIngredients ingredients: [String]) -> URL? {
-        let ingredientQuery = ingredients.joined(separator: ",")
+        guard !ingredients.isEmpty else { return nil }
+        let encodedIngredients = ingredients.map { $0.replacingOccurrences(of: " ", with: "_") }
+        let ingredientQuery = encodedIngredients.joined(separator: ",")
         let urlString = "\(baseUrl)filter.php?i=\(ingredientQuery)"
         return URL(string: urlString)
     }

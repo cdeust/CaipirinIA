@@ -12,6 +12,7 @@ struct CocktailListView: View {
     @Binding var detectedItems: [DetectedItem]
     @State private var cocktails: [Cocktail] = []
     @State private var errorMessage: String?
+    @State private var isLoading = false
     
     @Environment(\.presentationMode) var presentationMode
 
@@ -61,11 +62,13 @@ struct CocktailListView: View {
                 .padding(.vertical)
             }
 
-            CocktailListViewSection(cocktails: cocktails)
-                .onAppear {
-                    fetchCocktails()
-                }
-                .padding(.bottom, 20)
+            if isLoading {
+                ProgressView("Loading cocktails...")
+                    .padding(.bottom, 20)
+            } else {
+                CocktailListViewSection(cocktails: cocktails)
+                    .padding(.bottom, 20)
+            }
         }
         .background(
             LinearGradient(
@@ -76,20 +79,29 @@ struct CocktailListView: View {
         )
         .edgesIgnoringSafeArea(.horizontal)
         .navigationTitle("Cocktails")
+        .onAppear {
+            fetchCocktails()
+        }
     }
 
     private func removeDetectedItem(at index: Int) {
         detectedItems.remove(at: index)
-        if detectedItems.isEmpty {
+        if detectedItems.isEmpty && userEnteredIngredients.isEmpty {
             presentationMode.wrappedValue.dismiss()  // Navigate back to the camera screen if no items left
+        } else {
+            fetchCocktails()
         }
     }
 
     private func fetchCocktails() {
+        guard !detectedItems.isEmpty || !userEnteredIngredients.isEmpty else { return }
+        
+        isLoading = true
         let ingredientNames = detectedItems.map { $0.name } + userEnteredIngredients
 
         NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
             DispatchQueue.main.async {
+                isLoading = false
                 handleFetchResult(result)
             }
         }

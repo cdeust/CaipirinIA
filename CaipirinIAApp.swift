@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct CaipirinIAApp: App {
     @StateObject private var appState: AppState = AppState()
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
