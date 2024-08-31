@@ -115,3 +115,17 @@ struct DetectedItem: Identifiable {
     var confidence: Float
     var boundingBox: CGRect
 }
+
+enum IngredientType {
+    case baseSpirit
+    case modifier
+    case sweetener
+    case sour
+    case bitter
+    case garnish
+}
+
+struct Ingredient {
+    let name: String
+    let type: IngredientType
+}

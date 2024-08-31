@@ -11,63 +11,64 @@ struct CocktailListView: View {
     @EnvironmentObject var appState: AppState
     @Binding var detectedItems: [DetectedItem]
     @State private var cocktails: [Cocktail] = []
+    @State private var generatedCocktails: [Cocktail] = []
     @State private var errorMessage: String?
-    @State private var isLoading = false
     
     @Environment(\.presentationMode) var presentationMode
 
     var userEnteredIngredients: [String]
     
     var body: some View {
-        VStack {
+        VStack { // Reduced spacing between all elements
             if let errorMessage = errorMessage {
                 ErrorView(message: errorMessage)
-                    .padding()
+                    .padding(8)
                     .background(Color.red.opacity(0.1))
                     .cornerRadius(8)
                     .padding(.horizontal)
             }
-
             ScrollView {
-                VStack(spacing: 20) {
-                    Text("Ingredients")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .padding(.horizontal)
-                        .padding(.top)
-
+                VStack(spacing: 5) {  // Reduced spacing between rows
                     if detectedItems.isEmpty && userEnteredIngredients.isEmpty {
                         Text("No ingredients detected or entered yet.")
                             .foregroundColor(.secondary)
                             .padding(.horizontal)
                             .padding(.top)
                     } else {
+                        let availableIngredients = detectedItems.map { $0.name } + userEnteredIngredients
+                        let missingIngredients = determineMissingIngredients(from: availableIngredients)
+
                         IngredientListView(
-                            title: "Detected Ingredients",
-                            items: detectedItems.map { $0.name },
+                            title: "Detected & Entered Ingredients",
+                            items: availableIngredients,
                             confidenceValues: detectedItems.map { $0.confidence },
+                            missingItems: missingIngredients,
                             onDelete: removeDetectedItem(at:)
                         )
                         .padding(.horizontal)
-                        
-                        IngredientListView(
-                            title: "User-Entered Ingredients",
-                            items: userEnteredIngredients,
-                            onDelete: nil
-                        )
-                        .padding(.horizontal)
+                        .frame(maxHeight: 200)  // Limit the height of the ingredient list
                     }
                 }
-                .padding(.vertical)
-            }
-
-            if isLoading {
-                ProgressView("Loading cocktails...")
-                    .padding(.bottom, 20)
-            } else {
-                CocktailListViewSection(cocktails: cocktails)
-                    .padding(.bottom, 20)
+                
+                // Display both generated and fetched cocktails
+                if !cocktails.isEmpty || !generatedCocktails.isEmpty {
+                    VStack(spacing: 8) {  // Reduced spacing between rows
+                        ForEach(generatedCocktails + cocktails, id: \.id) { cocktail in
+                            NavigationLink(destination: CocktailDetailView(cocktailName: cocktail.strDrink)) {
+                                CocktailRowView(cocktail: cocktail)
+                                    .padding(.vertical, 6)  // Reduced padding for a more compact view
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
+                        }
+                    }
+                    .padding(.horizontal)
+                } else if cocktails.isEmpty && generatedCocktails.isEmpty {
+                    Text("No cocktails found or generated.")
+                        .foregroundColor(.secondary)
+                        .padding(.top)
+                }
             }
         }
         .background(
@@ -80,28 +81,36 @@ struct CocktailListView: View {
         .edgesIgnoringSafeArea(.horizontal)
         .navigationTitle("Cocktails")
         .onAppear {
-            fetchCocktails()
+            fetchAndGenerateCocktails()
         }
+    }
+
+    private func determineMissingIngredients(from availableIngredients: [String]) -> [String] {
+        let allIngredientNames = ingredientsCatalog.map { $0.name }
+        return allIngredientNames.filter { !availableIngredients.contains($0) }
     }
 
     private func removeDetectedItem(at index: Int) {
         detectedItems.remove(at: index)
-        if detectedItems.isEmpty && userEnteredIngredients.isEmpty {
+        if detectedItems.isEmpty {
             presentationMode.wrappedValue.dismiss()  // Navigate back to the camera screen if no items left
-        } else {
-            fetchCocktails()
         }
     }
 
-    private func fetchCocktails() {
-        guard !detectedItems.isEmpty || !userEnteredIngredients.isEmpty else { return }
-        
-        isLoading = true
+    private func fetchAndGenerateCocktails() {
         let ingredientNames = detectedItems.map { $0.name } + userEnteredIngredients
+        
+        // Generate custom cocktails based on the ingredients
+        let cocktailGenerator = CocktailGenerator()
+        self.generatedCocktails = cocktailGenerator.generateCocktails(fromDetected: ingredientNames)
+        
+        // Fetch cocktails from CocktailDB
+        fetchCocktails(from: ingredientNames)
+    }
 
-        NetworkManager.fetchCocktails(withIngredients: ingredientNames) { result in
+    private func fetchCocktails(from ingredients: [String]) {
+        NetworkManager.fetchCocktails(withIngredients: ingredients) { result in
             DispatchQueue.main.async {
-                isLoading = false
                 handleFetchResult(result)
             }
         }

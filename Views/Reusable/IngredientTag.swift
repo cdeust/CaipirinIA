@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct IngredientTag: View {
     @EnvironmentObject var appState: AppState
     var name: String
     var confidence: Float? = nil  // Optional confidence score
+    var isMissing: Bool = false // Whether the ingredient is missing
 
     var body: some View {
         HStack {
@@ -22,7 +21,7 @@ struct IngredientTag: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)  // Scale down text slightly if needed
                 .truncationMode(.tail)
-                .foregroundColor(.white)
+                .foregroundColor(isMissing ? .red : .white) // Red for missing ingredients, white otherwise
             
             if let confidence = confidence {
                 Text(String(format: "%.2f", confidence))
@@ -39,7 +38,7 @@ struct IngredientTag: View {
         .padding(.vertical, 8)
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.teal.opacity(0.8)]),
+                gradient: Gradient(colors: isMissing ? [Color.red.opacity(0.8), Color.orange.opacity(0.8)] : [Color.blue.opacity(0.8), Color.teal.opacity(0.8)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )

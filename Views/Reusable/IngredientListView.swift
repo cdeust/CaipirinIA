@@ -12,6 +12,7 @@ struct IngredientListView: View {
     let title: String
     let items: [String]
     var confidenceValues: [Float]? = nil
+    var missingItems: [String] = []  // Pass the missing items here
     var onDelete: ((Int) -> Void)? = nil
 
     var body: some View {
@@ -23,16 +24,12 @@ struct IngredientListView: View {
                 .padding(.horizontal)
                 .padding(.top)
 
-            if items.isEmpty {
-                Text("No ingredients added yet.")
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
-                    .padding(.top)
-            } else {
+            ScrollView {  // ScrollView to handle long lists
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], alignment: .leading, spacing: 10) {
+                    // Show available ingredients
                     ForEach(items.indices, id: \.self) { index in
                         HStack {
-                            IngredientTag(name: items[index], confidence: confidenceValues?[index])
+                            IngredientTag(name: items[index], confidence: confidenceValues?.indices.contains(index) == true ? confidenceValues?[index] : nil)
                             if let onDelete = onDelete {
                                 Button(action: {
                                     onDelete(index)
@@ -44,11 +41,16 @@ struct IngredientListView: View {
                             }
                         }
                     }
+                    // Display missing ingredients in red
+                    ForEach(missingItems, id: \.self) { missingItem in
+                        IngredientTag(name: missingItem, isMissing: true)
+                    }
                 }
                 .padding(.horizontal)
             }
         }
         .padding(.vertical, 16)
+        .frame(maxHeight: .infinity)  // Make the list take up all available vertical space
     }
 }
 
