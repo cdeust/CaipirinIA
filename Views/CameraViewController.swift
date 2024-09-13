@@ -55,7 +55,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     }
 
     private func setupVision() {
-        guard let modelURL = Bundle.main.url(forResource: "LimeDetectorV1", withExtension: "mlmodelc") else {
+        guard let modelURL = Bundle.main.url(forResource: Constants.Models.detectorModelName, withExtension: "mlmodelc") else {
             print("Model file not found")
             return
         }
@@ -66,14 +66,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 self?.processVisionRequest(request, error: error)
             }
 
-            let textRecognition = VNRecognizeTextRequest { [weak self] request, error in
-                self?.processTextRequest(request, error: error)
-            }
-            textRecognition.recognitionLevel = .accurate
-            textRecognition.usesLanguageCorrection = true
-            textRecognition.minimumTextHeight = 0.02 // Adjust this to filter small text
-
-            visionRequests = [objectRecognition, textRecognition]
+            visionRequests = [objectRecognition]
         } catch {
             print("Error loading Core ML model: \(error)")
         }
@@ -112,6 +105,12 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
                 let identifier = objectObservation.labels.first?.identifier ?? "Unknown"
                 let confidence = objectObservation.confidence
+
+                // Filter out annotations below 70% confidence
+                if confidence < 0.7 {
+                    continue
+                }
+
                 let boundingBox = objectObservation.boundingBox
                 let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
 
@@ -135,44 +134,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                     // Trigger star animation around the detected item
                     self.showStars(around: transformedRect)
                 }
-            }
-        }
-    }
-
-    private func processTextRequest(_ request: VNRequest, error: Error?) {
-        guard let observations = request.results as? [VNRecognizedTextObservation], !observations.isEmpty else {
-            print("No text detected: \(error?.localizedDescription ?? "Unknown error")")
-            return
-        }
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-
-            // Clear existing layers
-            self.detectionOverlay.sublayers?.removeAll()
-
-            // Filter out very small text
-            let filteredObservations = observations.filter { $0.boundingBox.height > 0.02 }
-
-            // Merge or eliminate overlapping boxes (simple overlap removal example)
-            var nonOverlappingObservations = [VNRecognizedTextObservation]()
-            for observation in filteredObservations {
-                if !nonOverlappingObservations.contains(where: { $0.boundingBox.intersects(observation.boundingBox) }) {
-                    nonOverlappingObservations.append(observation)
-                }
-            }
-
-            for textObservation in nonOverlappingObservations {
-                let boundingBox = textObservation.boundingBox
-                let transformedRect = self.previewLayer.layerRectConverted(fromMetadataOutputRect: boundingBox)
-
-                let text = textObservation.topCandidates(1).first?.string ?? ""
-                let textLayer = self.createTextLayer(inBounds: transformedRect, identifier: text, confidence: 1.0)
-
-                let shapeLayer = self.createSubtleRoundedRectLayer(withBounds: transformedRect)
-                shapeLayer.addSublayer(textLayer)
-
-                self.detectionOverlay.addSublayer(shapeLayer)
             }
         }
     }

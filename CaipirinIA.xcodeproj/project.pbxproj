@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7F7CFB542C7F4F5100797AF4 /* FoodClassifierML.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */; };
-		7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */; };
 		7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */; };
 		7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3C2C7F4F5100797AF4 /* LICENSE */; };
 		7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */; };
 		7F7CFB592C7F4F5100797AF4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3F2C7F4F5100797AF4 /* README.md */; };
 		7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB402C7F4F5100797AF4 /* AppState.swift */; };
-		7F7CFB5B2C7F4F5100797AF4 /* FoodClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */; };
+		7F7CFB5B2C7F4F5100797AF4 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB412C7F4F5100797AF4 /* Classifier.swift */; };
 		7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB422C7F4F5100797AF4 /* Models.swift */; };
 		7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */; };
 		7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */; };
@@ -50,19 +49,21 @@
 		7F85D5C92C83120600EDC90E /* CocktailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */; };
 		7F85D5CB2C83163D00EDC90E /* CocktailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5CA2C83163D00EDC90E /* CocktailCardView.swift */; };
 		7F85D5CD2C832EF100EDC90E /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5CC2C832EF100EDC90E /* KeyboardResponsiveModifier.swift */; };
+		7FCFB1912C906DDC00F85975 /* BottleDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */; };
+		7FCFB1942C906FC600F85975 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1932C906FC600F85975 /* Constants.swift */; };
+		7FCFB1982C93232500F85975 /* CaipiV3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1972C93232500F85975 /* CaipiV3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaipirinIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CaipirinIA-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodClassifierML.mlmodel; sourceTree = "<group>"; };
-		7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LimeDetectorV1.mlmodel; sourceTree = "<group>"; };
 		7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7F7CFB3C2C7F4F5100797AF4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F7CFB3F2C7F4F5100797AF4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7F7CFB402C7F4F5100797AF4 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodClassifier.swift; sourceTree = "<group>"; };
+		7F7CFB412C7F4F5100797AF4 /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
 		7F7CFB422C7F4F5100797AF4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaipirinIAApp.swift; sourceTree = "<group>"; };
 		7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Resized.swift"; sourceTree = "<group>"; };
@@ -98,6 +99,9 @@
 		7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailGenerator.swift; sourceTree = "<group>"; };
 		7F85D5CA2C83163D00EDC90E /* CocktailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailCardView.swift; sourceTree = "<group>"; };
 		7F85D5CC2C832EF100EDC90E /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
+		7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = BottleDetector.mlmodel; sourceTree = "<group>"; };
+		7FCFB1932C906FC600F85975 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7FCFB1972C93232500F85975 /* CaipiV3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiV3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 		7F7CFB1C2C7F4ED400797AF4 = {
 			isa = PBXGroup;
 			children = (
+				7FCFB1922C906FB300F85975 /* Constants */,
 				7F85D5C72C8311DD00EDC90E /* Mixology */,
 				7F7CFB392C7F4F5100797AF4 /* ML */,
 				7F7CFB432C7F4F5100797AF4 /* Models */,
@@ -142,8 +147,9 @@
 		7F7CFB392C7F4F5100797AF4 /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				7FCFB1972C93232500F85975 /* CaipiV3.mlmodel */,
+				7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */,
 				7F7CFB372C7F4F5100797AF4 /* FoodClassifierML.mlmodel */,
-				7F7CFB382C7F4F5100797AF4 /* LimeDetectorV1.mlmodel */,
 			);
 			path = ML;
 			sourceTree = "<group>";
@@ -168,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				7F7CFB402C7F4F5100797AF4 /* AppState.swift */,
-				7F7CFB412C7F4F5100797AF4 /* FoodClassifier.swift */,
+				7F7CFB412C7F4F5100797AF4 /* Classifier.swift */,
 				7F7CFB422C7F4F5100797AF4 /* Models.swift */,
 				7F85D5C52C8310C200EDC90E /* IngredientsCatalog.swift */,
 			);
@@ -240,6 +246,14 @@
 				7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */,
 			);
 			path = Mixology;
+			sourceTree = "<group>";
+		};
+		7FCFB1922C906FB300F85975 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				7FCFB1932C906FC600F85975 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,13 +332,14 @@
 				7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */,
 				7F7CFB6F2C80634700797AF4 /* CocktailRowView.swift in Sources */,
 				7F7CFB8E2C81E2CA00797AF4 /* RemoveListSeparators.swift in Sources */,
-				7F7CFB5B2C7F4F5100797AF4 /* FoodClassifier.swift in Sources */,
+				7F7CFB5B2C7F4F5100797AF4 /* Classifier.swift in Sources */,
 				7F85D5C92C83120600EDC90E /* CocktailGenerator.swift in Sources */,
+				7FCFB1982C93232500F85975 /* CaipiV3.mlmodel in Sources */,
 				7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */,
 				7F7CFB752C80641500797AF4 /* CocktailIngredientsView.swift in Sources */,
 				7F7CFB642C7F4F5100797AF4 /* DetectionResultsView.swift in Sources */,
 				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
-				7F7CFB552C7F4F5100797AF4 /* LimeDetectorV1.mlmodel in Sources */,
+				7FCFB1942C906FC600F85975 /* Constants.swift in Sources */,
 				7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */,
 				7F7CFB6B2C8062CB00797AF4 /* ErrorView.swift in Sources */,
 				7F7CFB7B2C80673C00797AF4 /* IngredientInputView.swift in Sources */,
@@ -339,6 +354,7 @@
 				7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */,
 				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
 				7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */,
+				7FCFB1912C906DDC00F85975 /* BottleDetector.mlmodel in Sources */,
 				7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */,
 				7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */,
 				7F7CFB792C80644B00797AF4 /* CocktailImageView.swift in Sources */,

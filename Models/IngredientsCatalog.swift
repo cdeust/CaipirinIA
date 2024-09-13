@@ -7,6 +7,148 @@
 
 import Foundation
 
+let ingredientMapping: [String: String] = [
+    // Base Spirits
+    "vodka": "Vodka",
+    "vodka bottle": "Vodka",
+    "whisky": "Whiskey",
+    "whiskey": "Whiskey",
+    "scotch whisky": "Whiskey",
+    "scotch": "Whiskey",
+    "bourbon": "Bourbon",
+    "gin": "Gin",
+    "gin bottle": "Gin",
+    "rum": "Rum",
+    "white rum": "Rum",
+    "dark rum": "Rum",
+    "tequila": "Tequila",
+    "mezcal": "Tequila",
+    "brandy": "Brandy",
+    "cognac": "Brandy",
+    "absinthe": "Absinthe",
+    "schnapps": "Schnapps",
+    "champagne": "Champagne",
+    "beer": "Beer",
+    "cider": "Cider",
+    "wine": "Wine",
+    "red wine": "Wine",
+    "white wine": "Wine",
+
+    // Modifiers
+    "vermouth": "Vermouth",
+    "dry vermouth": "Vermouth",
+    "sweet vermouth": "Vermouth",
+    "triple sec": "Triple Sec",
+    "cointreau": "Triple Sec",
+    "orange liqueur": "Triple Sec",
+    "blue curacao": "Curacao",
+    "curacao": "Curacao",
+    "amaretto": "Amaretto",
+    "campari": "Campari",
+    "aperol": "Aperol",
+    "maraschino liqueur": "Maraschino Liqueur",
+    "baileys": "Irish Cream Liqueur",
+    "bailey's irish cream": "Irish Cream Liqueur",
+    "kahlua": "Coffee Liqueur",
+    "coffee liqueur": "Coffee Liqueur",
+    "grand marnier": "Grand Marnier",
+    "cherry liqueur": "Cherry Liqueur",
+    "peach schnapps": "Peach Schnapps",
+
+    // Sweeteners
+    "simple syrup": "Simple Syrup",
+    "syrup": "Simple Syrup",
+    "honey syrup": "Honey Syrup",
+    "honey": "Honey Syrup",
+    "maple syrup": "Maple Syrup",
+    "agave syrup": "Agave Syrup",
+    "grenadine": "Grenadine",
+    "orgeat syrup": "Orgeat Syrup",
+    "falernum": "Falernum",
+
+    // Sours
+    "lemon juice": "Lemon Juice",
+    "lemon": "Lemon Juice",
+    "lime juice": "Lime Juice",
+    "lime": "Lime Juice",
+    "orange juice": "Orange Juice",
+    "grapefruit juice": "Grapefruit Juice",
+    "pineapple juice": "Pineapple Juice",
+    "cranberry juice": "Cranberry Juice",
+    "pomegranate juice": "Pomegranate Juice",
+
+    // Bitters
+    "angostura bitters": "Angostura Bitters",
+    "orange bitters": "Orange Bitters",
+    "peychaud's bitters": "Peychaud's Bitters",
+    "chocolate bitters": "Chocolate Bitters",
+    "coffee bitters": "Coffee Bitters",
+
+    // Mixers (Sodas)
+    "club soda": "Soda Water",
+    "soda water": "Soda Water",
+    "tonic": "Tonic Water",
+    "tonic water": "Tonic Water",
+    "ginger beer": "Ginger Beer",
+    "ginger ale": "Ginger Ale",
+    "cola": "Cola",
+    "coca-cola": "Cola",
+    "pepsi": "Cola",
+    "sprite": "Lemon-Lime Soda",
+    "7up": "Lemon-Lime Soda",
+    "mountain dew": "Citrus Soda",
+    "root beer": "Root Beer",
+    "club soda": "Soda Water",
+    "cream soda": "Cream Soda",
+
+    // Dairy and Non-Dairy
+    "milk": "Milk",
+    "cream": "Cream",
+    "half and half": "Cream",
+    "coconut milk": "Coconut Milk",
+    "almond milk": "Almond Milk",
+    "evaporated milk": "Evaporated Milk",
+
+    // Garnishes
+    "mint": "Mint",
+    "lime wedge": "Lime Wedge",
+    "lemon twist": "Lemon Twist",
+    "orange slice": "Orange Slice",
+    "cherry": "Cherry",
+    "maraschino cherry": "Cherry",
+    "olive": "Olive",
+    "cucumber slice": "Cucumber Slice",
+    "rosemary sprig": "Rosemary Sprig",
+    "cinnamon stick": "Cinnamon Stick",
+    "sugar rim": "Sugar Rim",
+    "salt rim": "Salt Rim",
+    "chocolate shavings": "Chocolate Shavings",
+
+    // Fruits and Vegetables
+    "strawberry": "Strawberry",
+    "banana": "Banana",
+    "blueberries": "Blueberry",
+    "blackberries": "Blackberry",
+    "raspberry": "Raspberry",
+    "cucumber": "Cucumber",
+    "pineapple": "Pineapple",
+    "peach": "Peach",
+    "watermelon": "Watermelon",
+    "orange": "Orange",
+    "lemon": "Lemon",
+    "lime": "Lime",
+
+    // Miscellaneous
+    "egg white": "Egg White",
+    "egg yolk": "Egg Yolk",
+    "sugar": "Sugar",
+    "powdered sugar": "Powdered Sugar",
+    "vanilla extract": "Vanilla Extract",
+    "nutmeg": "Nutmeg",
+    "cinnamon": "Cinnamon",
+    "ice": "Ice"
+]
+
 let ingredientsCatalog: [Ingredient] = [
     // Base Spirits
     Ingredient(name: "Vodka", type: .baseSpirit),
