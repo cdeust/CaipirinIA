@@ -16,25 +16,52 @@ struct DetectionResultsView: View {
                 DetectionResultItemView(item: item)
             }
         }
+        .animation(.easeInOut, value: detectedItems) // Animate when detected items change
     }
 }
 
 struct DetectionResultItemView: View {
     var item: DetectedItem
+    @State private var animateStars = false
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.white.opacity(0.8), lineWidth: 0.5) // Very thin border
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.clear)
-            )
+        // Detection bounding box
+        RoundedRectangle(cornerRadius: 3)
+            .stroke(Color.red, lineWidth: 2) // Adjust the bounding box stroke
             .frame(width: item.boundingBox.width, height: item.boundingBox.height)
             .position(x: item.boundingBox.midX, y: item.boundingBox.midY)
+            .onAppear {
+                // Trigger star animation when item appears
+                withAnimation(.easeInOut(duration: 1.5)) {
+                    animateStars = true
+                }
+            }
             .overlay(
-                DetectionLabelView(item: item),
-                alignment: item.name.isEmpty ? .center : .top // Center the label if it's text detection
+                ZStack {
+                    DetectionLabelView(item: item)
+                    if animateStars {
+                        createStarView(around: item.boundingBox) // Add star animation around bounding box
+                    }
+                }
             )
+    }
+
+    // Creates the star view to animate around the bounding box
+    private func createStarView(around rect: CGRect) -> some View {
+        ForEach(0..<5) { index in
+            Image(systemName: "star.fill")
+                .foregroundColor(.yellow)
+                .position(randomStarPosition(around: rect, index: index))
+                .transition(.opacity)
+                .animation(.easeInOut(duration: 1.5).delay(Double(index) * 0.2), value: animateStars)
+        }
+    }
+
+    // Helper method to randomize star positions
+    private func randomStarPosition(around rect: CGRect, index: Int) -> CGPoint {
+        let xOffset = CGFloat.random(in: -rect.width/2...rect.width/2)
+        let yOffset = CGFloat.random(in: -rect.height...rect.height/2)
+        return CGPoint(x: rect.midX + xOffset, y: rect.midY + yOffset)
     }
 }
 

@@ -19,7 +19,7 @@ struct CocktailListView: View {
     var userEnteredIngredients: [String]
     
     var body: some View {
-        VStack { // Reduced spacing between all elements
+        VStack {
             if let errorMessage = errorMessage {
                 ErrorView(message: errorMessage)
                     .padding(8)
@@ -27,14 +27,16 @@ struct CocktailListView: View {
                     .cornerRadius(8)
                     .padding(.horizontal)
             }
+
             ScrollView {
-                VStack(spacing: 5) {  // Reduced spacing between rows
+                VStack(spacing: 5) {
                     if detectedItems.isEmpty && userEnteredIngredients.isEmpty {
                         Text("No ingredients detected or entered yet.")
                             .foregroundColor(.secondary)
                             .padding(.horizontal)
                             .padding(.top)
                     } else {
+                        // Combine userEnteredIngredients and detectedItems into one list for display
                         let availableIngredients = detectedItems.map { $0.name } + userEnteredIngredients
                         let missingIngredients = determineMissingIngredients(from: availableIngredients)
 
@@ -43,20 +45,19 @@ struct CocktailListView: View {
                             items: availableIngredients,
                             confidenceValues: detectedItems.map { $0.confidence },
                             missingItems: missingIngredients,
-                            onDelete: removeDetectedItem(at:)
+                            onDelete: removeIngredient(at:)  // Updated to handle both types of ingredients
                         )
                         .padding(.horizontal)
-                        .frame(maxHeight: 200)  // Limit the height of the ingredient list
+                        .frame(maxHeight: 200)
                     }
                 }
                 
-                // Display both generated and fetched cocktails
                 if !cocktails.isEmpty || !generatedCocktails.isEmpty {
-                    VStack(spacing: 8) {  // Reduced spacing between rows
+                    VStack(spacing: 8) {
                         ForEach(generatedCocktails + cocktails, id: \.id) { cocktail in
                             NavigationLink(destination: CocktailDetailView(cocktailName: cocktail.strDrink)) {
                                 CocktailRowView(cocktail: cocktail)
-                                    .padding(.vertical, 6)  // Reduced padding for a more compact view
+                                    .padding(.vertical, 6)
                             }
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
@@ -86,14 +87,22 @@ struct CocktailListView: View {
     }
 
     private func determineMissingIngredients(from availableIngredients: [String]) -> [String] {
-        let allIngredientNames = ingredientsCatalog.map { $0.name }
+        let allIngredientNames = IngredientMapper.ingredientsCatalog.map { $0.name }
         return allIngredientNames.filter { !availableIngredients.contains($0) }
     }
 
-    private func removeDetectedItem(at index: Int) {
-        detectedItems.remove(at: index)
-        if detectedItems.isEmpty {
-            presentationMode.wrappedValue.dismiss()  // Navigate back to the camera screen if no items left
+    private func removeIngredient(at index: Int) {
+        // Check if the ingredient is from detectedItems or userEnteredIngredients
+        if index < detectedItems.count {
+            detectedItems.remove(at: index)
+        } else {
+            let userIndex = index - detectedItems.count
+            appState.cocktailIngredients.remove(at: userIndex)
+        }
+        
+        // If no ingredients left, dismiss the view and return to CameraView
+        if detectedItems.isEmpty && appState.cocktailIngredients.isEmpty {
+            presentationMode.wrappedValue.dismiss()
         }
     }
 

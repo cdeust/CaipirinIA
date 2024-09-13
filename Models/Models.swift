@@ -109,11 +109,19 @@ struct Step: Identifiable, Decodable {
     }
 }
 
-struct DetectedItem: Identifiable {
-    var id = UUID()
+struct DetectedItem: Identifiable, Equatable {
+    let id = UUID() // Unique identifier
     var name: String
     var confidence: Float
     var boundingBox: CGRect
+
+    static func == (lhs: DetectedItem, rhs: DetectedItem) -> Bool {
+        // Define the equality logic for DetectedItem
+        return lhs.id == rhs.id
+            && lhs.name == rhs.name
+            && lhs.confidence == rhs.confidence
+            && lhs.boundingBox == rhs.boundingBox
+    }
 }
 
 enum IngredientType {

@@ -96,32 +96,32 @@ class CocktailGenerator {
     }
 
     private func selectBaseSpirit(from detectedIngredients: [String]) -> String? {
-        let baseSpirits = ingredientsCatalog.filter { $0.type == .baseSpirit }
+        let baseSpirits = IngredientMapper.ingredientsCatalog.filter { $0.type == .baseSpirit }
         return baseSpirits.first { detectedIngredients.contains($0.name) }?.name
     }
 
     private func selectModifiers(from detectedIngredients: [String]) -> [String] {
-        let modifiers = ingredientsCatalog.filter { $0.type == .modifier }
+        let modifiers = IngredientMapper.ingredientsCatalog.filter { $0.type == .modifier }
         return modifiers.filter { detectedIngredients.contains($0.name) }.map { $0.name }
     }
 
     private func selectSweeteners(from detectedIngredients: [String]) -> [String] {
-        let sweeteners = ingredientsCatalog.filter { $0.type == .sweetener }
+        let sweeteners = IngredientMapper.ingredientsCatalog.filter { $0.type == .sweetener }
         return sweeteners.filter { detectedIngredients.contains($0.name) }.map { $0.name }
     }
 
     private func selectSours(from detectedIngredients: [String]) -> [String] {
-        let sours = ingredientsCatalog.filter { $0.type == .sour }
+        let sours = IngredientMapper.ingredientsCatalog.filter { $0.type == .sour }
         return sours.filter { detectedIngredients.contains($0.name) }.map { $0.name }
     }
 
     private func selectBitters(from detectedIngredients: [String]) -> [String] {
-        let bitters = ingredientsCatalog.filter { $0.type == .bitter }
+        let bitters = IngredientMapper.ingredientsCatalog.filter { $0.type == .bitter }
         return bitters.filter { detectedIngredients.contains($0.name) }.map { $0.name }
     }
 
     private func selectGarnishes(from detectedIngredients: [String]) -> [Ingredient] {
-        let garnishes = ingredientsCatalog.filter { $0.type == .garnish }
+        let garnishes = IngredientMapper.ingredientsCatalog.filter { $0.type == .garnish }
         return garnishes.filter { detectedIngredients.contains($0.name) }
     }
 

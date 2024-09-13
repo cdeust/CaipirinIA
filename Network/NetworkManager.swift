@@ -83,9 +83,9 @@ class NetworkManager {
         task.resume()
     }
     
-    // Fetches cocktails based on one or more ingredients, using the mapping
+    // Fetches cocktails based on one or more ingredients, using the mapping from IngredientMapper
     static func fetchCocktails(withIngredients ingredients: [String], completion: @escaping (Result<[Cocktail], NetworkError>) -> Void) {
-        let mappedIngredients = mapIngredients(ingredients)
+        let mappedIngredients = IngredientMapper.mapIngredients(ingredients)
         guard let url = buildCocktailURL(withIngredients: mappedIngredients) else {
             completion(.failure(.invalidURL))
             return
@@ -120,14 +120,6 @@ class NetworkManager {
         }
         
         task.resume()
-    }
-    
-    // Maps the detected or user-entered ingredients to match CocktailDB's format
-    private static func mapIngredients(_ ingredients: [String]) -> [String] {
-        return ingredients.map { ingredient in
-            // Use the mapping to get the correct name, or use the original name if not found in the mapping
-            ingredientMapping[ingredient.lowercased()] ?? ingredient
-        }
     }
     
     // Constructs the URL for searching cocktails by one or more ingredients

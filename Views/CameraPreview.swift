@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CameraPreview: UIViewControllerRepresentable {
     @Binding var detectedItems: [DetectedItem]
@@ -26,6 +27,7 @@ struct CameraPreview: UIViewControllerRepresentable {
     }
 
     func stopDetection() {
+        // We now call the coordinator to access the viewController and stop detection
         makeCoordinator().viewController?.stopDetection()
     }
 

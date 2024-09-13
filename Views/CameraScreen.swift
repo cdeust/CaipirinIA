@@ -21,6 +21,7 @@ struct CameraScreen: View {
                 .navigationBarHidden(true)
 
             DetectionResultsView(detectedItems: detectedItems)
+                .edgesIgnoringSafeArea(.all)
 
             VStack {
                 HStack {
