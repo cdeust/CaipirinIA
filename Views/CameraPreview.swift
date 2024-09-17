@@ -6,37 +6,72 @@
 //
 
 import SwiftUI
-import AVFoundation
+import UIKit
 
 struct CameraPreview: UIViewControllerRepresentable {
     @Binding var detectedItems: [DetectedItem]
+    var confidenceThreshold: Float
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
     func makeUIViewController(context: Context) -> CameraViewController {
-        let viewController = CameraViewController()
-        viewController.detectedItems = $detectedItems
-        context.coordinator.viewController = viewController
-        return viewController
+        let cameraViewController = CameraViewController()
+        cameraViewController.detectedItems = $detectedItems
+        cameraViewController.confidenceThreshold = confidenceThreshold
+
+        // Assign the viewController to the coordinator
+        context.coordinator.viewController = cameraViewController
+
+        // Observe the stopCamera notification
+        NotificationCenter.default.addObserver(context.coordinator,
+                                               selector: #selector(Coordinator.handleStopCameraNotification),
+                                               name: .stopCamera,
+                                               object: nil)
+
+        // Observe the startCamera notification
+        NotificationCenter.default.addObserver(context.coordinator,
+                                               selector: #selector(Coordinator.handleStartCameraNotification),
+                                               name: .startCamera,
+                                               object: nil)
+
+        return cameraViewController
     }
 
     func updateUIViewController(_ uiViewController: CameraViewController, context: Context) {
-        // Handle any updates to the view controller if needed
+        uiViewController.confidenceThreshold = confidenceThreshold
     }
 
     func stopDetection() {
-        // We now call the coordinator to access the viewController and stop detection
-        makeCoordinator().viewController?.stopDetection()
+        // Post the notification to stop the camera
+        NotificationCenter.default.post(name: .stopCamera, object: nil)
     }
 
     class Coordinator: NSObject {
         var parent: CameraPreview
-        var viewController: CameraViewController?
+        weak var viewController: CameraViewController?
 
         init(_ parent: CameraPreview) {
             self.parent = parent
         }
+
+        @objc func handleStopCameraNotification() {
+            viewController?.stopDetection()
+        }
+
+        @objc func handleStartCameraNotification() {
+            viewController?.startDetection()
+        }
+
+        deinit {
+            NotificationCenter.default.removeObserver(self, name: .stopCamera, object: nil)
+            NotificationCenter.default.removeObserver(self, name: .startCamera, object: nil)
+        }
     }
+}
+
+extension Notification.Name {
+    static let stopCamera = Notification.Name("stopCamera")
+    static let startCamera = Notification.Name("startCamera")
 }

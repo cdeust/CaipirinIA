@@ -37,6 +37,9 @@ struct ShowRecipesButton: View {
         .disabled(isButtonDisabled)
         .opacity(isButtonDisabled ? 0.5 : 1.0) // Adjust opacity based on availability of ingredients
         .padding(.bottom, 16)
+        .onChange(of: detectedItems) { newValue in
+            print("ShowRecipesButton - Detected Items Changed: \(newValue.count)")
+        }
     }
 }
 

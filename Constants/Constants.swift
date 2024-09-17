@@ -10,7 +10,7 @@ import Vision
 
 struct Constants {
     struct Models {
-        static let detectorModelName = "CaipiV3" //Change only this value to the model you want to use
+        static let detectorModelName = "BottleDetector" //Change only this value to the model you want to use
         
         static var detectorVNModel: VNCoreMLModel {
             guard let modelURL = Bundle.main.url(forResource: detectorModelName, withExtension: "mlmodelc") else {

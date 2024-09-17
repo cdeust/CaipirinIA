@@ -9,68 +9,59 @@ import SwiftUI
 import CoreML
 import Vision
 
+protocol ObjectDetectorDelegate: AnyObject {
+    func didDetectItems(_ items: [DetectedItem])
+}
+
 class ObjectDetector {
-    private var visionRequests = [VNRequest]()
-    var onDetection: (([DetectedItem]) -> Void)?
-    
+    weak var delegate: ObjectDetectorDelegate?
+    private let detectionQueue = DispatchQueue(label: "com.mobileapp.cdeust.detectionQueue")
+    private let model: VNCoreMLModel
+    private let request: VNCoreMLRequest
+
     init() {
-        setupVisionModel()
-    }
-    
-    // Set up the Vision model (e.g., CoreML model)
-    private func setupVisionModel() {
-        guard let modelURL = Bundle.main.url(forResource: Constants.Models.detectorModelName, withExtension: "mlmodelc") else {
-            print("Model file not found")
-            return
-        }
+        let mlModel = Constants.Models.detectorVNModel
+        self.model = mlModel
 
-        do {
-            let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
-            let objectRecognitionRequest = VNCoreMLRequest(model: visionModel) { [weak self] request, error in
-                self?.processDetection(request, error: error)
+        request = VNCoreMLRequest(model: mlModel)
+        request.imageCropAndScaleOption = .scaleFill
+    }
+
+    func detect(pixelBuffer: CVPixelBuffer) {
+        detectionQueue.async { [weak self] in
+            guard let self = self else { return }
+
+            let request = VNCoreMLRequest(model: self.model) { request, error in
+                if let results = request.results as? [VNRecognizedObjectObservation] {
+                    let detectedItems = results.map { observation in
+                        if let topLabel = observation.labels.first {
+                            return DetectedItem(
+                                name: topLabel.identifier,
+                                confidence: topLabel.confidence,
+                                boundingBox: observation.boundingBox
+                            )
+                        } else {
+                            return DetectedItem(
+                                name: "Unknown",
+                                confidence: 0.0,
+                                boundingBox: observation.boundingBox
+                            )
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate?.didDetectItems(detectedItems)
+                    }
+                }
             }
-            visionRequests = [objectRecognitionRequest]
-        } catch {
-            print("Error loading Core ML model: \(error)")
-        }
-    }
 
-    // Detect objects in the given pixel buffer
-    func detect(in pixelBuffer: CVPixelBuffer) {
-        let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
-        do {
-            try requestHandler.perform(visionRequests)
-        } catch {
-            print("Error performing Vision request: \(error)")
-        }
-    }
+            request.imageCropAndScaleOption = .scaleFill
 
-    // Process detection results
-    private func processDetection(_ request: VNRequest, error: Error?) {
-        guard let observations = request.results as? [VNRecognizedObjectObservation], !observations.isEmpty else {
-            print("No results from Vision request: \(error?.localizedDescription ?? "Unknown error")")
-            return
+            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
+            do {
+                try handler.perform([request])
+            } catch {
+                print("Failed to perform detection: \(error)")
+            }
         }
-
-        let detectedItems = observations.compactMap { observation -> DetectedItem? in
-            // Cast observation to recognized object type
-            let objectObservation = observation as VNRecognizedObjectObservation
-            
-//            // Filter by confidence threshold
-//            guard objectObservation.confidence >= 0.7 else {
-//                return nil
-//            }
-            
-            // Return the detected item
-            let identifier = objectObservation.labels.first?.identifier ?? "Unknown"
-            return DetectedItem(
-                name: identifier,
-                confidence: objectObservation.confidence,
-                boundingBox: objectObservation.boundingBox
-            )
-        }
-
-        // Notify detection completion
-        onDetection?(detectedItems)
     }
 }
