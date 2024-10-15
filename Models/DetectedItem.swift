@@ -12,4 +12,5 @@ struct DetectedItem: Identifiable, Equatable {
     let name: String
     let confidence: Float
     let boundingBox: CGRect
+    var count: Int
 }

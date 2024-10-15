@@ -16,7 +16,7 @@ class CameraManager: NSObject {
     private let fps: Int
     public let previewLayer: AVCaptureVideoPreviewLayer
     weak var delegate: CameraManagerDelegate?
-
+    
     init(fps: Int = 30) {
         self.fps = fps
         self.previewLayer = AVCaptureVideoPreviewLayer()

@@ -11,7 +11,7 @@ struct CameraView: View {
     @StateObject private var viewModel = CameraViewModel()
     @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode // For dismissal
-    
+
     var body: some View {
         ZStack {
             // Camera Preview Layer
@@ -30,12 +30,12 @@ struct CameraView: View {
                 if !viewModel.detectedIngredients.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            ForEach(viewModel.detectedIngredients, id: \.self) { ingredient in
-                                Text(ingredient)
+                            ForEach(viewModel.detectedIngredients) { ingredient in
+                                Text(ingredient.name)
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 16)
-                                    .background(Color.white.opacity(0.7))
-                                    .foregroundColor(.black)
+                                    .background(ingredient.count > 40 ? Color.green.opacity(0.7) : Color.gray.opacity(0.7))
+                                    .foregroundColor(.white)
                                     .clipShape(Capsule())
                             }
                         }
@@ -50,7 +50,6 @@ struct CameraView: View {
                         viewModel.processDetection()
                     } else {
                         // Trigger detection logic if needed
-                        // For example: capture photo or continue detecting
                     }
                 }) {
                     ZStack {
@@ -65,22 +64,20 @@ struct CameraView: View {
                             .animation(.linear(duration: 0.2), value: viewModel.detectionCount)
                             .frame(width: 80, height: 80)
                         
-                        if viewModel.isThresholdReached {
-                            Circle()
-                                .fill(Color.green)
+                        ZStack {
+                            // Display CentralButtonEmpty with fading effect
+                            Image("CentralButtonEmpty")
+                                .resizable()
+                                .scaledToFit()
                                 .frame(width: 60, height: 60)
-                            
-                            Text("GO")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                        } else {
-                            Circle()
-                                .fill(Color.white)
+                                .opacity(1.0 - viewModel.detectionProgress) // Fades out as progress increases
+
+                            // Display CentralButton as it fades in
+                            Image("CentralButton")
+                                .resizable()
+                                .scaledToFit()
                                 .frame(width: 60, height: 60)
-                            
-                            Image(systemName: "camera")
-                                .font(.title)
-                                .foregroundColor(.black)
+                                .opacity(viewModel.detectionProgress) // Fades in as progress increases
                         }
                     }
                 }
@@ -89,7 +86,7 @@ struct CameraView: View {
                 
                 // Hidden NavigationLink
                 NavigationLink(
-                    destination: CocktailListView(ingredients: viewModel.detectedIngredients)
+                    destination: CocktailListView(ingredients: viewModel.detectedIngredients.map { $0.name })
                         .environmentObject(appState),
                     isActive: $viewModel.showCocktailGrid
                 ) {
@@ -103,6 +100,9 @@ struct CameraView: View {
         }
         .onDisappear {
             viewModel.stopCamera()
+        }
+        .onDisappear {
+            viewModel.resetDetectionState() // Reset state on back
         }
     }
 }

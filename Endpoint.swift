@@ -31,7 +31,7 @@ extension Endpoint {
 enum CocktailDBEndpoint: Endpoint {
     case searchCocktailByName(String)
     case filterCocktailsByIngredients([String])
-    case lookupCocktailByID(String) // New case for fetching cocktail details by ID
+    case lookupCocktailByID(String)
 
     var path: String {
         switch self {

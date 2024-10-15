@@ -10,27 +10,23 @@ import Combine
 import AVFoundation
 
 class CameraViewModel: ObservableObject {
-    // Dependencies
     let cameraService: CameraServiceProtocol
-    
-    // Published Properties
+
     @Published var detectedItems: [DetectedItem] = []
-    @Published var detectedIngredients: [String] = []
+    @Published var detectedIngredients: [DetectedItem] = [] // Store ingredient and count
     @Published var showCocktailGrid: Bool = false // Navigation trigger
     @Published var detectionCount: Int = 0 // Track number of detections
     @Published var isThresholdReached: Bool = false // Indicates if detection threshold is met
     @Published var detectionProgress: Double = 0.0 // Value between 0 and 1
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
-    // Threshold for detections
     let detectionThreshold = 40 // Adjust as needed
-    
+
     init(cameraService: CameraServiceProtocol = CameraService(cameraManager: CameraManager())) {
         self.cameraService = cameraService
         setupBindings()
     }
-    
+
     private func setupBindings() {
         cameraService.detectedItemsPublisher
             .receive(on: DispatchQueue.main)
@@ -39,36 +35,30 @@ class CameraViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     private func handleDetectedItems(_ items: [DetectedItem]) {
-        // Update detected items
         self.detectedItems = items
-        
-        // Update detected ingredients
         updateDetectedIngredients(from: items)
-        
-        // Update detection count and progress
         updateDetectionProgress(from: items)
-        
-        // Check if threshold is reached
         checkThreshold()
     }
-    
+
     private func updateDetectedIngredients(from items: [DetectedItem]) {
-        // Extract unique ingredient names
-        let ingredients = Set(items.map { $0.name })
-        self.detectedIngredients = Array(ingredients)
+        for item in items {
+            if let existingIngredientIndex = detectedIngredients.firstIndex(where: { $0.name == item.name }) {
+                detectedIngredients[existingIngredientIndex].count += 1
+            } else {
+                detectedIngredients.append(DetectedItem(name: item.name, confidence: item.confidence, boundingBox: item.boundingBox, count: 1))
+            }
+        }
     }
-    
+
     private func updateDetectionProgress(from items: [DetectedItem]) {
-        // Increment detection count based on new detections
         self.detectionCount += items.count
-        
-        // Update progress
         let progress = Double(self.detectionCount) / Double(detectionThreshold)
         self.detectionProgress = min(progress, 1.0)
     }
-    
+
     private func checkThreshold() {
         if self.detectionCount >= detectionThreshold && !self.isThresholdReached {
             self.isThresholdReached = true
@@ -76,27 +66,26 @@ class CameraViewModel: ObservableObject {
             self.showCocktailGrid = false
         }
     }
-    
+
     func startCamera() {
         cameraService.startSession()
-        resetDetectionState()
+        // Don't reset detection state here to keep ingredients persistent
     }
-    
+
     func stopCamera() {
         cameraService.stopSession()
-        resetDetectionState()
+        // Only reset detection state when stopping the camera and navigating back
     }
-    
-    func processDetection() {
-        // Trigger navigation to CocktailGridView
-        self.showCocktailGrid = true
-    }
-    
+
     func resetDetectionState() {
         self.detectedItems = []
-        self.detectedIngredients = []
+        self.detectedIngredients = [] // Reset ingredients only on back
         self.detectionCount = 0
         self.isThresholdReached = false
         self.detectionProgress = 0.0
+    }
+
+    func processDetection() {
+        self.showCocktailGrid = true
     }
 }

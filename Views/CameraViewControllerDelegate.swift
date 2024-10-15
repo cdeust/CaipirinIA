@@ -21,6 +21,11 @@ class CameraViewController: UIViewController {
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var detectionRequest: VNCoreMLRequest!
 
+    // Dictionary to keep track of detection counts for each item
+    private var detectionCounts: [String: Int] = [:]
+
+    private let visionQueue = DispatchQueue(label: "com.caipirinia.visionQueue")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCamera()
@@ -30,6 +35,11 @@ class CameraViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer.frame = view.bounds
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopCaptureSession() // Stop capture session when the view is about to disappear
     }
 
     private func setupCamera() {
@@ -71,10 +81,23 @@ class CameraViewController: UIViewController {
             let identifier = observation.labels.first?.identifier ?? "Unknown"
             let confidence = observation.labels.first?.confidence ?? 0.0
             let boundingBox = observation.boundingBox
-            return DetectedItem(name: identifier, confidence: confidence, boundingBox: boundingBox)
+            
+            // Update detection count for each identifier
+            let currentCount = detectionCounts[identifier, default: 0] + 1
+            detectionCounts[identifier] = currentCount
+
+            return DetectedItem(name: identifier, confidence: confidence, boundingBox: boundingBox, count: currentCount)
         }
 
-        delegate?.cameraViewController(self, didDetect: detectedItems)
+        DispatchQueue.main.async { // Ensure UI updates happen on the main thread
+            self.delegate?.cameraViewController(self, didDetect: detectedItems)
+        }
+    }
+
+    private func stopCaptureSession() {
+        if captureSession.isRunning {
+            captureSession.stopRunning() // Stop the capture session when not in use
+        }
     }
 }
 
@@ -82,11 +105,14 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
-        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
-        do {
-            try handler.perform([detectionRequest])
-        } catch {
-            print("Failed to perform detection: \(error)")
+        // Process the frame on a background thread
+        visionQueue.async {
+            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
+            do {
+                try handler.perform([self.detectionRequest])
+            } catch {
+                print("Failed to perform detection: \(error.localizedDescription)")
+            }
         }
     }
 }

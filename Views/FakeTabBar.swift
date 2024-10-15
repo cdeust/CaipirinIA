@@ -17,7 +17,7 @@ struct FakeTabBar: View {
             // Camera Button inside NavigationLink
             CircularNavigationButton(
                 destination: CameraView().environmentObject(appState),
-                systemImageName: "camera",
+                assetImageName: "CentralButton",
                 backgroundColor: .white,
                 foregroundColor: .black,
                 size: 80, // Adjusted size for consistency

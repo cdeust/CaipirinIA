@@ -40,6 +40,7 @@
 		7FDE9F822CBDD36500504226 /* Preparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F812CBDD36500504226 /* Preparation.swift */; };
 		7FDE9F842CBDD42D00504226 /* PreparationStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */; };
 		7FDE9F862CBDD55A00504226 /* PreparationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */; };
+		7FDE9F892CBE94CA00504226 /* IngredientMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F882CBE949F00504226 /* IngredientMapper.swift */; };
 		7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */; };
 		7FED592B2CB96718006C7F2B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FED592A2CB96718006C7F2B /* Config.plist */; };
 		7FED592D2CB967A6006C7F2B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED592C2CB967A6006C7F2B /* Configuration.swift */; };
@@ -109,6 +110,7 @@
 		7FDE9F812CBDD36500504226 /* Preparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preparation.swift; sourceTree = "<group>"; };
 		7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationStepsView.swift; sourceTree = "<group>"; };
 		7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationCardView.swift; sourceTree = "<group>"; };
+		7FDE9F882CBE949F00504226 /* IngredientMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMapper.swift; sourceTree = "<group>"; };
 		7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiriniaDetector.mlmodel; sourceTree = "<group>"; };
 		7FED592A2CB96718006C7F2B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7FED592C2CB967A6006C7F2B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		7F7CFB1C2C7F4ED400797AF4 = {
 			isa = PBXGroup;
 			children = (
+				7FDE9F872CBE948800504226 /* Mapper */,
 				7FDE9F672CBD578500504226 /* FrameProcessor.swift */,
 				7FED59802CBD3483006C7F2B /* DependencyContainer.swift */,
 				7F7CFB392C7F4F5100797AF4 /* ML */,
@@ -281,6 +284,14 @@
 				7FCFB1932C906FC600F85975 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		7FDE9F872CBE948800504226 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				7FDE9F882CBE949F00504226 /* IngredientMapper.swift */,
+			);
+			path = Mapper;
 			sourceTree = "<group>";
 		};
 		7FED59692CBD2F5B006C7F2B /* ViewModels */ = {
@@ -454,6 +465,7 @@
 				7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */,
 				7FDE9F622CBD495D00504226 /* DetectionOverlayManager.swift in Sources */,
 				7FDE9F782CBDBCDE00504226 /* CircularButtonModifier.swift in Sources */,
+				7FDE9F892CBE94CA00504226 /* IngredientMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

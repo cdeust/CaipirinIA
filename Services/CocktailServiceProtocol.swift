@@ -21,7 +21,10 @@ class CocktailService: CocktailServiceProtocol {
     }
 
     func fetchCocktails(withIngredients ingredients: [String]) -> AnyPublisher<[Cocktail], NetworkError> {
-        let endpoint = CocktailDBEndpoint.filterCocktailsByIngredients(ingredients)
+        // Map ingredients using IngredientMapper
+        let mappedIngredients = IngredientMapper.mapIngredients(ingredients)
+        let endpoint = CocktailDBEndpoint.filterCocktailsByIngredients(mappedIngredients)
+        
         return networkManager.request(endpoint, responseType: CocktailResponse.self)
             .map { $0.drinks ?? [] }
             .eraseToAnyPublisher()

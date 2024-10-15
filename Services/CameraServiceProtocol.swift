@@ -25,6 +25,9 @@ class CameraService: NSObject, CameraServiceProtocol {
     private let detectionQueue = DispatchQueue(label: "com.caipirinia.detectionQueue")
     private let detectedItemsSubject = PassthroughSubject<[DetectedItem], Never>()
 
+    private var detectedItemsDict: [String: DetectedItem] = [:]
+    private let detectionAccessQueue = DispatchQueue(label: "com.caipirinia.detectionAccessQueue", attributes: .concurrent)
+    
     var captureSession: AVCaptureSession {
         cameraManager.captureSession
     }
@@ -65,28 +68,51 @@ class CameraService: NSObject, CameraServiceProtocol {
 
 // MARK: - CameraManagerDelegate
 extension CameraService: CameraManagerDelegate {
-    func didOutput(sampleBuffer: CMSampleBuffer) {
-        detectionQueue.async { [weak self] in
-            guard let self = self,
-                  let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
-            do {
-                try handler.perform([self.detectionRequest])
-                if let results = self.detectionRequest.results as? [VNRecognizedObjectObservation] {
-                    let detectedItems = results.map { observation -> DetectedItem in
-                        let identifier = observation.labels.first?.identifier ?? "Unknown"
-                        let confidence = observation.labels.first?.confidence ?? 0.0
-                        let boundingBox = observation.boundingBox
-                        return DetectedItem(name: identifier, confidence: confidence, boundingBox: boundingBox)
+    func didOutput(sampleBuffer: CMSampleBuffer) {
+        detectionQueue.async {
+            self.processSampleBuffer(sampleBuffer)
+        }
+    }
+
+    // Refactor the logic into a separate function to avoid weak self issues
+    private func processSampleBuffer(_ sampleBuffer: CMSampleBuffer) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
+        do {
+            try handler.perform([self.detectionRequest])
+
+            if let results = self.detectionRequest.results as? [VNRecognizedObjectObservation] {
+                let detectedItems = results.map { observation -> DetectedItem in
+                    let identifier = observation.labels.first?.identifier ?? "Unknown"
+                    let confidence = observation.labels.first?.confidence ?? 0.0
+                    let boundingBox = observation.boundingBox
+                    
+                    // Check if the item has already been detected
+                    var detectedItem: DetectedItem?
+                    // Use .barrier for safe writing
+                    self.detectionAccessQueue.sync(flags: .barrier) {
+                        if let existingItem = self.detectedItemsDict[identifier] {
+                            // Increment count if previously detected
+                            let updatedCount = existingItem.count + 1
+                            detectedItem = DetectedItem(name: identifier, confidence: confidence, boundingBox: boundingBox, count: updatedCount)
+                            self.detectedItemsDict[identifier] = detectedItem
+                        } else {
+                            // New item detected, set count to 1
+                            detectedItem = DetectedItem(name: identifier, confidence: confidence, boundingBox: boundingBox, count: 1)
+                            self.detectedItemsDict[identifier] = detectedItem
+                        }
                     }
-                    DispatchQueue.main.async {
-                        self.detectedItemsSubject.send(detectedItems)
-                    }
+                    return detectedItem!
                 }
-            } catch {
-                print("Failed to perform detection: \(error.localizedDescription)")
+                
+                DispatchQueue.main.async {
+                    self.detectedItemsSubject.send(detectedItems)
+                }
             }
+        } catch {
+            print("Failed to perform detection: \(error.localizedDescription)")
         }
     }
 }

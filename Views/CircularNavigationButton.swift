@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CircularNavigationButton<Destination: View>: View {
     var destination: Destination
-    var systemImageName: String
+    var assetImageName: String? // Optional asset image name
+    var systemImageName: String? // Optional system image name
     var backgroundColor: Color
     var foregroundColor: Color
     var progress: Double = 0.0 // Default value when not used
@@ -20,6 +21,7 @@ struct CircularNavigationButton<Destination: View>: View {
     var body: some View {
         NavigationLink(destination: destination) {
             CircularButtonView(
+                assetImageName: assetImageName,
                 systemImageName: systemImageName,
                 backgroundColor: backgroundColor,
                 foregroundColor: foregroundColor,
@@ -38,17 +40,19 @@ struct CircularNavigationButton_Previews: PreviewProvider {
         VStack(spacing: 20) {
             CircularNavigationButton(
                 destination: CameraView(),
-                systemImageName: "camera.fill",
+                assetImageName: "CentralButton", // Using asset image
+                systemImageName: nil, // No system image provided
                 backgroundColor: Color("AccentColor"),
                 foregroundColor: .white,
                 size: 80,
                 accessibilityLabelText: Text("Open Camera")
             )
             
-            // Example without threshold
+            // Example with system image
             CircularNavigationButton(
                 destination: HomeView(),
-                systemImageName: "house.fill",
+                assetImageName: nil, // No asset image provided
+                systemImageName: "house.fill", // Using system image
                 backgroundColor: Color("AccentColor"),
                 foregroundColor: .white,
                 size: 80,

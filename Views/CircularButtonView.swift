@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct CircularButtonView: View {
-    var systemImageName: String
+    var assetImageName: String? // Optional asset image name
+    var systemImageName: String? // Optional system image name
     var backgroundColor: Color
     var foregroundColor: Color
     var progress: Double = 0.0 // Value between 0 and 1
@@ -46,9 +45,16 @@ struct CircularButtonView: View {
                     .fill(Color.white)
                     .frame(width: size * 0.75, height: size * 0.75)
                 
-                Image(systemName: systemImageName)
-                    .font(.title)
-                    .foregroundColor(.black)
+                if let assetImageName = assetImageName {
+                    Image(assetImageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size * 0.5, height: size * 0.5)
+                } else if let systemImageName = systemImageName {
+                    Image(systemName: systemImageName)
+                        .font(.title)
+                        .foregroundColor(.black)
+                }
             }
         }
     }
@@ -58,7 +64,8 @@ struct CircularButtonView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 20) {
             CircularButtonView(
-                systemImageName: "camera.fill",
+                assetImageName: "CentralButton", // Use your asset image
+                systemImageName: nil,
                 backgroundColor: Color("AccentColor"),
                 foregroundColor: .white,
                 progress: 0.5,
@@ -67,7 +74,8 @@ struct CircularButtonView_Previews: PreviewProvider {
             )
             
             CircularButtonView(
-                systemImageName: "camera.fill",
+                assetImageName: "CentralButton",
+                systemImageName: nil,
                 backgroundColor: Color("AccentColor"),
                 foregroundColor: .white,
                 progress: 1.0,
