@@ -75,7 +75,6 @@ extension CameraService: CameraManagerDelegate {
         }
     }
 
-    // Refactor the logic into a separate function to avoid weak self issues
     private func processSampleBuffer(_ sampleBuffer: CMSampleBuffer) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
@@ -84,14 +83,18 @@ extension CameraService: CameraManagerDelegate {
             try handler.perform([self.detectionRequest])
 
             if let results = self.detectionRequest.results as? [VNRecognizedObjectObservation] {
-                let detectedItems = results.map { observation -> DetectedItem in
+                let detectedItems = results.compactMap { observation -> DetectedItem? in
                     let identifier = observation.labels.first?.identifier ?? "Unknown"
                     let confidence = observation.labels.first?.confidence ?? 0.0
                     let boundingBox = observation.boundingBox
                     
+                    // Filter out items with confidence lower than 65%
+                    guard confidence >= 0.65 else {
+                        return nil // Ignore items below confidence threshold
+                    }
+                    
                     // Check if the item has already been detected
                     var detectedItem: DetectedItem?
-                    // Use .barrier for safe writing
                     self.detectionAccessQueue.sync(flags: .barrier) {
                         if let existingItem = self.detectedItemsDict[identifier] {
                             // Increment count if previously detected
@@ -104,7 +107,7 @@ extension CameraService: CameraManagerDelegate {
                             self.detectedItemsDict[identifier] = detectedItem
                         }
                     }
-                    return detectedItem!
+                    return detectedItem
                 }
                 
                 DispatchQueue.main.async {

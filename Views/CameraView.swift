@@ -26,15 +26,15 @@ struct CameraView: View {
             VStack {
                 Spacer()
                 
-                // Detected Ingredients Pills
-                if !viewModel.detectedIngredients.isEmpty {
+                // Show only validated ingredients (green pills)
+                if !viewModel.validatedIngredients.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            ForEach(viewModel.detectedIngredients) { ingredient in
+                            ForEach(viewModel.validatedIngredients) { ingredient in
                                 Text(ingredient.name)
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 16)
-                                    .background(ingredient.count > 40 ? Color.green.opacity(0.7) : Color.gray.opacity(0.7))
+                                    .background(Color.green.opacity(0.7))
                                     .foregroundColor(.white)
                                     .clipShape(Capsule())
                             }
@@ -58,10 +58,10 @@ struct CameraView: View {
                             .frame(width: 80, height: 80)
                         
                         Circle()
-                            .trim(from: 0.0, to: CGFloat(min(viewModel.detectionCount, viewModel.detectionThreshold)) / CGFloat(viewModel.detectionThreshold))
+                            .trim(from: 0.0, to: CGFloat(min(viewModel.detectionProgress, 1.0)))
                             .stroke(viewModel.isThresholdReached ? Color.green : Color.blue, lineWidth: 5)
                             .rotationEffect(Angle(degrees: -90))
-                            .animation(.linear(duration: 0.2), value: viewModel.detectionCount)
+                            .animation(.linear(duration: 0.2), value: viewModel.detectionProgress)
                             .frame(width: 80, height: 80)
                         
                         ZStack {
@@ -86,7 +86,7 @@ struct CameraView: View {
                 
                 // Hidden NavigationLink
                 NavigationLink(
-                    destination: CocktailListView(ingredients: viewModel.detectedIngredients.map { $0.name })
+                    destination: CocktailListView(ingredients: viewModel.validatedIngredients.map { $0.name }) // Only pass validated ingredients
                         .environmentObject(appState),
                     isActive: $viewModel.showCocktailGrid
                 ) {
