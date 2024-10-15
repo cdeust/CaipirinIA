@@ -24,7 +24,7 @@ class IngredientMapper {
         "Wine": ["wine", "vin", "red wine", "white wine", "vin rouge", "vin blanc"],
 
         // Modifiers
-        "Vermouth": ["vermouth", "dry vermouth", "sweet vermouth"],
+        "Sweet Vermouth": ["vermouth", "dry vermouth", "sweet vermouth"],
         "Triple Sec": ["triple sec", "cointreau", "orange liqueur"],
         "Curacao": ["blue curacao", "curacao"],
         "Amaretto": ["amaretto"],
@@ -137,7 +137,7 @@ class IngredientMapper {
         Ingredient(name: "Sake", type: .baseSpirit),
 
         // Modifiers
-        Ingredient(name: "Vermouth", type: .modifier),
+        Ingredient(name: "Sweet Vermouth", type: .modifier),
         Ingredient(name: "Triple Sec", type: .modifier),
         Ingredient(name: "Cointreau", type: .modifier),
         Ingredient(name: "Amaretto", type: .modifier),

@@ -29,7 +29,7 @@ struct CameraView: View {
                 // Show only validated ingredients (green pills)
                 if !viewModel.validatedIngredients.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
+                        VStack(spacing: 10) {
                             ForEach(viewModel.validatedIngredients) { ingredient in
                                 Text(ingredient.name)
                                     .padding(.vertical, 8)
