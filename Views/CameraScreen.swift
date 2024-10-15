@@ -8,98 +8,58 @@
 import SwiftUI
 
 struct CameraScreen: View {
+    @StateObject private var viewModel = CameraViewModel()
     @EnvironmentObject var appState: AppState
-    @Binding var detectedItems: [DetectedItem]
-    @State private var navigateToRecipes = false
-    @State private var hasNavigated = false
-    @State private var confidenceThreshold: Float = 0.6
-    @Environment(\.presentationMode) var presentationMode
-
-    private var cameraPreview: CameraPreview {
-        CameraPreview(detectedItems: $detectedItems, confidenceThreshold: confidenceThreshold)
+    
+    private var cameraPreview: some View {
+        CameraPreview(detectedItems: $viewModel.detectedItems, confidenceThreshold: 0.6)
     }
     
-    // Reference to the CameraViewController
-    @State private var cameraViewController: CameraViewController?
-
     var body: some View {
         ZStack {
-            CameraPreview(detectedItems: $detectedItems, confidenceThreshold: confidenceThreshold)
+            cameraPreview
                 .edgesIgnoringSafeArea(.all)
                 .navigationBarHidden(true)
                 .onDisappear {
-                    // Properly stop the camera
                     NotificationCenter.default.post(name: .stopCamera, object: nil)
                 }
-
+            
             VStack {
-                VStack(alignment: .leading) {
-                    Text("Confidence Threshold: \(String(format: "%.1f", confidenceThreshold))")
-                        .font(.headline)
-                        .foregroundColor(Color.primary)
-                    Slider(value: $confidenceThreshold, in: 0.0...1.0, step: 0.1)
-                        .tint(Color.accentColor)
-                }
-                .padding()
-                .background(Color(UIColor.secondarySystemBackground))
-                .cornerRadius(8)
-                .padding(.horizontal)
-                .shadow(radius: 2)
+                IngredientTagListView(temporaryItems: $viewModel.temporaryDetectedItems)
                 Spacer()
-                HStack {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.black.opacity(0.5))
-                            .clipShape(Circle())
-                            .shadow(radius: 10)
-                    }
-                    .padding(.leading, 16)
-                    .padding(.top, 16)
-
-                    Spacer()
-                }
-                
+            }
+            
+            VStack {
                 Spacer()
-                ShowRecipesButton(detectedItems: $appState.detectedItems)
-                    .environmentObject(appState)
-                    .padding(.horizontal)
+                DetectionButton(viewModel: viewModel)
+                if viewModel.showDetailButtons {
+                    DetailButtonBar()
+                }
             }
         }
-        .background(Color(.systemBackground))
-        .navigationTitle("Camera")
         .onAppear {
-            resetCamera()
-            // Start detection when the view appears
-            NotificationCenter.default.post(name: .startCamera, object: nil)
+            setupCamera()
         }
         .onDisappear {
-            // Properly stop the camera
-            NotificationCenter.default.post(name: .stopCamera, object: nil)
+            stopCamera()
         }
-        .onChange(of: detectedItems) { oldItems, newItems in
-            if !hasNavigated && newItems.contains(where: { $0.name.lowercased().contains("bottle") }) {
-                hasNavigated = true
-                navigateToRecipes = true
-            }
+        .onChange(of: viewModel.detectedItems) { newItems in
+            viewModel.handleNewDetections(newItems)
         }
-        .onChange(of: navigateToRecipes) { isNavigating in
-            if isNavigating {
-                // Navigating to CocktailListView, stop the camera
-                NotificationCenter.default.post(name: .stopCamera, object: nil)
-            }
-        }
-        .navigationDestination(isPresented: $navigateToRecipes) {
-            CocktailListView(detectedItems: $detectedItems, userEnteredIngredients: appState.cocktailIngredients)
+        .navigationDestination(isPresented: $viewModel.navigateToRecipes) {
+            CocktailListView(detectedItems: $viewModel.detectedItems, userEnteredIngredients: appState.cocktailIngredients)
                 .environmentObject(appState)
         }
     }
-
-    private func resetCamera() {
-        detectedItems.removeAll()
-        hasNavigated = false
+    
+    // Modularize camera setup actions
+    private func setupCamera() {
+        viewModel.resetCamera()
+        NotificationCenter.default.post(name: .startCamera, object: nil)
+    }
+    
+    // Modularize camera stop actions
+    private func stopCamera() {
+        NotificationCenter.default.post(name: .stopCamera, object: nil)
     }
 }

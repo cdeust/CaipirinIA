@@ -7,61 +7,73 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F6421002C98866C0067AD24 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6420FF2C98866C0067AD24 /* CameraManager.swift */; };
-		7F6421022C9887000067AD24 /* StarAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6421012C9887000067AD24 /* StarAnimator.swift */; };
-		7F6421042C9A035B0067AD24 /* CaipiV3-2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F6421032C9A035B0067AD24 /* CaipiV3-2.mlmodel */; };
 		7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */; };
 		7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3C2C7F4F5100797AF4 /* LICENSE */; };
 		7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */; };
 		7F7CFB592C7F4F5100797AF4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3F2C7F4F5100797AF4 /* README.md */; };
 		7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB402C7F4F5100797AF4 /* AppState.swift */; };
 		7F7CFB5B2C7F4F5100797AF4 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB412C7F4F5100797AF4 /* Classifier.swift */; };
-		7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB422C7F4F5100797AF4 /* Models.swift */; };
+		7F7CFB5C2C7F4F5100797AF4 /* DetectedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB422C7F4F5100797AF4 /* DetectedItem.swift */; };
 		7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */; };
 		7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */; };
 		7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */; };
 		7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB482C7F4F5100797AF4 /* ContentView.swift */; };
-		7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */; };
-		7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */; };
 		7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */; };
-		7F7CFB642C7F4F5100797AF4 /* DetectionOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4D2C7F4F5100797AF4 /* DetectionOverlayManager.swift */; };
-		7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */; };
-		7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */; };
-		7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */; };
 		7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */; };
-		7F7CFB6B2C8062CB00797AF4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */; };
-		7F7CFB6D2C80630D00797AF4 /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */; };
-		7F7CFB6F2C80634700797AF4 /* CocktailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */; };
-		7F7CFB712C80637500797AF4 /* CocktailListViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */; };
-		7F7CFB732C8063F100797AF4 /* CocktailInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */; };
-		7F7CFB752C80641500797AF4 /* CocktailIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */; };
-		7F7CFB772C80643800797AF4 /* CocktailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */; };
-		7F7CFB792C80644B00797AF4 /* CocktailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */; };
-		7F7CFB7B2C80673C00797AF4 /* IngredientInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */; };
-		7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */; };
-		7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */; };
-		7F7CFB832C806AA900797AF4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB822C806AA900797AF4 /* CameraViewController.swift */; };
-		7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */; };
-		7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */; };
-		7F7CFB8E2C81E2CA00797AF4 /* RemoveListSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */; };
-		7F7CFB902C8210F800797AF4 /* CocktailInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB8F2C8210F800797AF4 /* CocktailInfoSection.swift */; };
-		7F85D5C22C8305E000EDC90E /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C12C8305E000EDC90E /* SoundManager.swift */; };
-		7F85D5C42C83072300EDC90E /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C32C83072300EDC90E /* StarView.swift */; };
-		7F85D5C92C83120600EDC90E /* CocktailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */; };
-		7F85D5CB2C83163D00EDC90E /* CocktailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5CA2C83163D00EDC90E /* CocktailCardView.swift */; };
-		7F85D5CD2C832EF100EDC90E /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85D5CC2C832EF100EDC90E /* KeyboardResponsiveModifier.swift */; };
-		7FCFB1912C906DDC00F85975 /* BottleDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */; };
 		7FCFB1942C906FC600F85975 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1932C906FC600F85975 /* Constants.swift */; };
-		7FCFB19A2C946BDD00F85975 /* IngredientMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB1992C946BDD00F85975 /* IngredientMapper.swift */; };
-		7FCFB19C2C9471BC00F85975 /* CameraViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB19B2C9471BC00F85975 /* CameraViewControllerDelegate.swift */; };
-		7FCFB19E2C94740D00F85975 /* FrameProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB19D2C94740D00F85975 /* FrameProcessor.swift */; };
-		7FCFB1A02C94742F00F85975 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFB19F2C94742F00F85975 /* ObjectDetector.swift */; };
+		7FDE9F602CBD3EF700504226 /* BoundingBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F5F2CBD3EF700504226 /* BoundingBoxView.swift */; };
+		7FDE9F622CBD495D00504226 /* DetectionOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F612CBD495D00504226 /* DetectionOverlayManager.swift */; };
+		7FDE9F642CBD4FF300504226 /* ObjectDetectorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F632CBD4FF300504226 /* ObjectDetectorProtocol.swift */; };
+		7FDE9F662CBD509200504226 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F652CBD509200504226 /* CameraManager.swift */; };
+		7FDE9F682CBD578500504226 /* FrameProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F672CBD578500504226 /* FrameProcessor.swift */; };
+		7FDE9F6A2CBDA33200504226 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F692CBDA33200504226 /* EmptyStateView.swift */; };
+		7FDE9F6C2CBDA69000504226 /* DetectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F6B2CBDA69000504226 /* DetectionOverlayView.swift */; };
+		7FDE9F6E2CBDB7B100504226 /* CocktailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F6D2CBDB7B100504226 /* CocktailCardView.swift */; };
+		7FDE9F702CBDB94E00504226 /* CocktailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F6F2CBDB94E00504226 /* CocktailGridView.swift */; };
+		7FDE9F722CBDB96000504226 /* NoCocktailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */; };
+		7FDE9F762CBDBC6900504226 /* CircularButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F752CBDBC6900504226 /* CircularButtonView.swift */; };
+		7FDE9F782CBDBCDE00504226 /* CircularButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F772CBDBCDE00504226 /* CircularButtonModifier.swift */; };
+		7FDE9F7A2CBDBD9500504226 /* CircularActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F792CBDBD9500504226 /* CircularActionButton.swift */; };
+		7FDE9F7C2CBDBE8100504226 /* CircularNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F7B2CBDBE8100504226 /* CircularNavigationButton.swift */; };
+		7FDE9F7E2CBDBF2A00504226 /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F7D2CBDBF2A00504226 /* CachedAsyncImage.swift */; };
+		7FDE9F802CBDC97000504226 /* CocktailDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F7F2CBDC97000504226 /* CocktailDetailViewModel.swift */; };
+		7FDE9F822CBDD36500504226 /* Preparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F812CBDD36500504226 /* Preparation.swift */; };
+		7FDE9F842CBDD42D00504226 /* PreparationStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */; };
+		7FDE9F862CBDD55A00504226 /* PreparationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */; };
+		7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */; };
+		7FED592B2CB96718006C7F2B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FED592A2CB96718006C7F2B /* Config.plist */; };
+		7FED592D2CB967A6006C7F2B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED592C2CB967A6006C7F2B /* Configuration.swift */; };
+		7FED59422CBD28FE006C7F2B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59412CBD28FE006C7F2B /* HomeView.swift */; };
+		7FED59442CBD291C006C7F2B /* PreviousCocktailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */; };
+		7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59452CBD2947006C7F2B /* FakeTabBar.swift */; };
+		7FED59482CBD295F006C7F2B /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59472CBD295F006C7F2B /* CircleButton.swift */; };
+		7FED594A2CBD29CF006C7F2B /* DetectedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59492CBD29CF006C7F2B /* DetectedItemsView.swift */; };
+		7FED594C2CBD29E5006C7F2B /* DetectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED594B2CBD29E5006C7F2B /* DetectionButton.swift */; };
+		7FED594E2CBD2A76006C7F2B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED594D2CBD2A76006C7F2B /* CameraViewModel.swift */; };
+		7FED59502CBD2A8A006C7F2B /* CocktailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED594F2CBD2A8A006C7F2B /* CocktailListView.swift */; };
+		7FED59522CBD2AD0006C7F2B /* CocktailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59512CBD2AD0006C7F2B /* CocktailDetailView.swift */; };
+		7FED59542CBD2AE9006C7F2B /* IngredientTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59532CBD2AE9006C7F2B /* IngredientTag.swift */; };
+		7FED59562CBD2AF9006C7F2B /* CocktailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59552CBD2AF9006C7F2B /* CocktailRowView.swift */; };
+		7FED59582CBD2B06006C7F2B /* CocktailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59572CBD2B06006C7F2B /* CocktailImageView.swift */; };
+		7FED595A2CBD2B14006C7F2B /* CocktailInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59592CBD2B14006C7F2B /* CocktailInfoSection.swift */; };
+		7FED595C2CBD2B22006C7F2B /* CocktailIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED595B2CBD2B22006C7F2B /* CocktailIngredientsView.swift */; };
+		7FED595E2CBD2B2E006C7F2B /* CocktailInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED595D2CBD2B2E006C7F2B /* CocktailInstructionsView.swift */; };
+		7FED59602CBD2CA5006C7F2B /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED595F2CBD2CA5006C7F2B /* CameraPreview.swift */; };
+		7FED59622CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59612CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift */; };
+		7FED59642CBD2CDB006C7F2B /* CocktailListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59632CBD2CDB006C7F2B /* CocktailListViewModel.swift */; };
+		7FED596B2CBD3105006C7F2B /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED596A2CBD3105006C7F2B /* Cocktail.swift */; };
+		7FED596F2CBD31C0006C7F2B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED596E2CBD31BA006C7F2B /* Config.swift */; };
+		7FED59712CBD325B006C7F2B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59702CBD325B006C7F2B /* Endpoint.swift */; };
+		7FED59732CBD3294006C7F2B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59722CBD3294006C7F2B /* DataManager.swift */; };
+		7FED59762CBD32E2006C7F2B /* CameraServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */; };
+		7FED59772CBD32E8006C7F2B /* CocktailServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */; };
+		7FED597B2CBD3369006C7F2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED597A2CBD3364006C7F2B /* Extensions.swift */; };
+		7FED597F2CBD3466006C7F2B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED597E2CBD3466006C7F2B /* NetworkError.swift */; };
+		7FED59812CBD3483006C7F2B /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59802CBD3483006C7F2B /* DependencyContainer.swift */; };
+		7FED59822CBD3689006C7F2B /* TitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED597D2CBD339E006C7F2B /* TitleModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7F6420FF2C98866C0067AD24 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		7F6421012C9887000067AD24 /* StarAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarAnimator.swift; sourceTree = "<group>"; };
-		7F6421032C9A035B0067AD24 /* CaipiV3-2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "CaipiV3-2.mlmodel"; sourceTree = "<group>"; };
 		7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaipirinIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CaipirinIA-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -70,46 +82,64 @@
 		7F7CFB3F2C7F4F5100797AF4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7F7CFB402C7F4F5100797AF4 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		7F7CFB412C7F4F5100797AF4 /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
-		7F7CFB422C7F4F5100797AF4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		7F7CFB422C7F4F5100797AF4 /* DetectedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectedItem.swift; sourceTree = "<group>"; };
 		7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaipirinIAApp.swift; sourceTree = "<group>"; };
 		7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Resized.swift"; sourceTree = "<group>"; };
 		7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+ToArray.swift"; sourceTree = "<group>"; };
 		7F7CFB482C7F4F5100797AF4 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientTag.swift; sourceTree = "<group>"; };
-		7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
 		7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		7F7CFB4D2C7F4F5100797AF4 /* DetectionOverlayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionOverlayManager.swift; sourceTree = "<group>"; };
-		7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
-		7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailDetailView.swift; sourceTree = "<group>"; };
-		7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailListView.swift; sourceTree = "<group>"; };
 		7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListView.swift; sourceTree = "<group>"; };
-		7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailRowView.swift; sourceTree = "<group>"; };
-		7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListViewSection.swift; sourceTree = "<group>"; };
-		7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInstructionsView.swift; sourceTree = "<group>"; };
-		7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailIngredientsView.swift; sourceTree = "<group>"; };
-		7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTitleView.swift; sourceTree = "<group>"; };
-		7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailImageView.swift; sourceTree = "<group>"; };
-		7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientInputView.swift; sourceTree = "<group>"; };
-		7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecipesButton.swift; sourceTree = "<group>"; };
-		7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
-		7F7CFB822C806AA900797AF4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithButton.swift; sourceTree = "<group>"; };
-		7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListSection.swift; sourceTree = "<group>"; };
-		7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListSeparators.swift; sourceTree = "<group>"; };
-		7F7CFB8F2C8210F800797AF4 /* CocktailInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInfoSection.swift; sourceTree = "<group>"; };
-		7F85D5C12C8305E000EDC90E /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		7F85D5C32C83072300EDC90E /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
-		7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailGenerator.swift; sourceTree = "<group>"; };
-		7F85D5CA2C83163D00EDC90E /* CocktailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailCardView.swift; sourceTree = "<group>"; };
-		7F85D5CC2C832EF100EDC90E /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
-		7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = BottleDetector.mlmodel; sourceTree = "<group>"; };
 		7FCFB1932C906FC600F85975 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		7FCFB1992C946BDD00F85975 /* IngredientMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMapper.swift; sourceTree = "<group>"; };
-		7FCFB19B2C9471BC00F85975 /* CameraViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerDelegate.swift; sourceTree = "<group>"; };
-		7FCFB19D2C94740D00F85975 /* FrameProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameProcessor.swift; sourceTree = "<group>"; };
-		7FCFB19F2C94742F00F85975 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
+		7FDE9F5F2CBD3EF700504226 /* BoundingBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxView.swift; sourceTree = "<group>"; };
+		7FDE9F612CBD495D00504226 /* DetectionOverlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionOverlayManager.swift; sourceTree = "<group>"; };
+		7FDE9F632CBD4FF300504226 /* ObjectDetectorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectorProtocol.swift; sourceTree = "<group>"; };
+		7FDE9F652CBD509200504226 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		7FDE9F672CBD578500504226 /* FrameProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameProcessor.swift; sourceTree = "<group>"; };
+		7FDE9F692CBDA33200504226 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		7FDE9F6B2CBDA69000504226 /* DetectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionOverlayView.swift; sourceTree = "<group>"; };
+		7FDE9F6D2CBDB7B100504226 /* CocktailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailCardView.swift; sourceTree = "<group>"; };
+		7FDE9F6F2CBDB94E00504226 /* CocktailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailGridView.swift; sourceTree = "<group>"; };
+		7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCocktailsView.swift; sourceTree = "<group>"; };
+		7FDE9F752CBDBC6900504226 /* CircularButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButtonView.swift; sourceTree = "<group>"; };
+		7FDE9F772CBDBCDE00504226 /* CircularButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButtonModifier.swift; sourceTree = "<group>"; };
+		7FDE9F792CBDBD9500504226 /* CircularActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularActionButton.swift; sourceTree = "<group>"; };
+		7FDE9F7B2CBDBE8100504226 /* CircularNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularNavigationButton.swift; sourceTree = "<group>"; };
+		7FDE9F7D2CBDBF2A00504226 /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImage.swift; sourceTree = "<group>"; };
+		7FDE9F7F2CBDC97000504226 /* CocktailDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailViewModel.swift; sourceTree = "<group>"; };
+		7FDE9F812CBDD36500504226 /* Preparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preparation.swift; sourceTree = "<group>"; };
+		7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationStepsView.swift; sourceTree = "<group>"; };
+		7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationCardView.swift; sourceTree = "<group>"; };
+		7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiriniaDetector.mlmodel; sourceTree = "<group>"; };
+		7FED592A2CB96718006C7F2B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		7FED592C2CB967A6006C7F2B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		7FED59412CBD28FE006C7F2B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousCocktailsList.swift; sourceTree = "<group>"; };
+		7FED59452CBD2947006C7F2B /* FakeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeTabBar.swift; sourceTree = "<group>"; };
+		7FED59472CBD295F006C7F2B /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		7FED59492CBD29CF006C7F2B /* DetectedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedItemsView.swift; sourceTree = "<group>"; };
+		7FED594B2CBD29E5006C7F2B /* DetectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionButton.swift; sourceTree = "<group>"; };
+		7FED594D2CBD2A76006C7F2B /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		7FED594F2CBD2A8A006C7F2B /* CocktailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListView.swift; sourceTree = "<group>"; };
+		7FED59512CBD2AD0006C7F2B /* CocktailDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailView.swift; sourceTree = "<group>"; };
+		7FED59532CBD2AE9006C7F2B /* IngredientTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTag.swift; sourceTree = "<group>"; };
+		7FED59552CBD2AF9006C7F2B /* CocktailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailRowView.swift; sourceTree = "<group>"; };
+		7FED59572CBD2B06006C7F2B /* CocktailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailImageView.swift; sourceTree = "<group>"; };
+		7FED59592CBD2B14006C7F2B /* CocktailInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInfoSection.swift; sourceTree = "<group>"; };
+		7FED595B2CBD2B22006C7F2B /* CocktailIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailIngredientsView.swift; sourceTree = "<group>"; };
+		7FED595D2CBD2B2E006C7F2B /* CocktailInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailInstructionsView.swift; sourceTree = "<group>"; };
+		7FED595F2CBD2CA5006C7F2B /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		7FED59612CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerDelegate.swift; sourceTree = "<group>"; };
+		7FED59632CBD2CDB006C7F2B /* CocktailListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailListViewModel.swift; sourceTree = "<group>"; };
+		7FED596A2CBD3105006C7F2B /* Cocktail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktail.swift; sourceTree = "<group>"; };
+		7FED596E2CBD31BA006C7F2B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		7FED59702CBD325B006C7F2B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		7FED59722CBD3294006C7F2B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailServiceProtocol.swift; sourceTree = "<group>"; };
+		7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraServiceProtocol.swift; sourceTree = "<group>"; };
+		7FED597A2CBD3364006C7F2B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7FED597D2CBD339E006C7F2B /* TitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModifier.swift; sourceTree = "<group>"; };
+		7FED597E2CBD3466006C7F2B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7FED59802CBD3483006C7F2B /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,21 +156,30 @@
 		7F7CFB1C2C7F4ED400797AF4 = {
 			isa = PBXGroup;
 			children = (
-				7FCFB1922C906FB300F85975 /* Constants */,
-				7F85D5C72C8311DD00EDC90E /* Mixology */,
+				7FDE9F672CBD578500504226 /* FrameProcessor.swift */,
+				7FED59802CBD3483006C7F2B /* DependencyContainer.swift */,
 				7F7CFB392C7F4F5100797AF4 /* ML */,
-				7F7CFB432C7F4F5100797AF4 /* Models */,
-				7F7CFB3B2C7F4F5100797AF4 /* Network */,
-				7F7CFB3E2C7F4F5100797AF4 /* Preview Content */,
-				7F7CFB512C7F4F5100797AF4 /* Views */,
-				7F7CFB262C7F4ED400797AF4 /* Products */,
 				7F7CFB472C7F4F5100797AF4 /* Extensions */,
+				7F7CFB402C7F4F5100797AF4 /* AppState.swift */,
+				7F7CFB412C7F4F5100797AF4 /* Classifier.swift */,
+				7FED59702CBD325B006C7F2B /* Endpoint.swift */,
+				7FCFB1922C906FB300F85975 /* Constants */,
+				7F7CFB432C7F4F5100797AF4 /* Models */,
+				7F7CFB3B2C7F4F5100797AF4 /* Managers */,
+				7F7CFB512C7F4F5100797AF4 /* Views */,
+				7FED597C2CBD3394006C7F2B /* ViewModifiers */,
+				7FED59692CBD2F5B006C7F2B /* ViewModels */,
+				7FED596C2CBD3186006C7F2B /* Services */,
+				7FED596D2CBD3195006C7F2B /* Utilities */,
+				7F7CFB262C7F4ED400797AF4 /* Products */,
+				7F7CFB3E2C7F4F5100797AF4 /* Preview Content */,
 				7F7CFB522C7F4F5100797AF4 /* Assets.xcassets */,
 				7F7CFB442C7F4F5100797AF4 /* CaipirinIAApp.swift */,
 				7F7CFB482C7F4F5100797AF4 /* ContentView.swift */,
 				7F7CFB3C2C7F4F5100797AF4 /* LICENSE */,
 				7F7CFB3F2C7F4F5100797AF4 /* README.md */,
 				7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */,
+				7FED592A2CB96718006C7F2B /* Config.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,18 +194,21 @@
 		7F7CFB392C7F4F5100797AF4 /* ML */ = {
 			isa = PBXGroup;
 			children = (
-				7F6421032C9A035B0067AD24 /* CaipiV3-2.mlmodel */,
-				7FCFB1902C906DDC00F85975 /* BottleDetector.mlmodel */,
+				7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */,
 			);
 			path = ML;
 			sourceTree = "<group>";
 		};
-		7F7CFB3B2C7F4F5100797AF4 /* Network */ = {
+		7F7CFB3B2C7F4F5100797AF4 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE9F652CBD509200504226 /* CameraManager.swift */,
+				7FDE9F612CBD495D00504226 /* DetectionOverlayManager.swift */,
+				7FED597E2CBD3466006C7F2B /* NetworkError.swift */,
+				7FED59722CBD3294006C7F2B /* DataManager.swift */,
 				7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */,
 			);
-			path = Network;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		7F7CFB3E2C7F4F5100797AF4 /* Preview Content */ = {
@@ -180,9 +222,9 @@
 		7F7CFB432C7F4F5100797AF4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7F7CFB402C7F4F5100797AF4 /* AppState.swift */,
-				7F7CFB412C7F4F5100797AF4 /* Classifier.swift */,
-				7F7CFB422C7F4F5100797AF4 /* Models.swift */,
+				7FDE9F812CBDD36500504226 /* Preparation.swift */,
+				7FED596A2CBD3105006C7F2B /* Cocktail.swift */,
+				7F7CFB422C7F4F5100797AF4 /* DetectedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,82 +232,93 @@
 		7F7CFB472C7F4F5100797AF4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7FED597A2CBD3364006C7F2B /* Extensions.swift */,
 				7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */,
 				7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		7F7CFB4A2C7F4F5100797AF4 /* Reusable */ = {
-			isa = PBXGroup;
-			children = (
-				7F7CFB6A2C8062CB00797AF4 /* ErrorView.swift */,
-				7F7CFB4D2C7F4F5100797AF4 /* DetectionOverlayManager.swift */,
-				7F6420FF2C98866C0067AD24 /* CameraManager.swift */,
-				7F6421012C9887000067AD24 /* StarAnimator.swift */,
-				7F7CFB492C7F4F5100797AF4 /* IngredientTag.swift */,
-				7F7CFB7A2C80673C00797AF4 /* IngredientInputView.swift */,
-				7F7CFB6C2C80630D00797AF4 /* IngredientListView.swift */,
-				7F7CFB6E2C80634700797AF4 /* CocktailRowView.swift */,
-				7F7CFB8F2C8210F800797AF4 /* CocktailInfoSection.swift */,
-				7F7CFB882C806CC600797AF4 /* CocktailListSection.swift */,
-				7F7CFB702C80637500797AF4 /* CocktailListViewSection.swift */,
-				7F7CFB722C8063F100797AF4 /* CocktailInstructionsView.swift */,
-				7F7CFB742C80641500797AF4 /* CocktailIngredientsView.swift */,
-				7F7CFB762C80643800797AF4 /* CocktailTitleView.swift */,
-				7F7CFB782C80644B00797AF4 /* CocktailImageView.swift */,
-				7F7CFB7E2C806A1E00797AF4 /* ShowRecipesButton.swift */,
-				7F7CFB862C806CA300797AF4 /* TextFieldWithButton.swift */,
-				7F85D5C12C8305E000EDC90E /* SoundManager.swift */,
-				7F85D5C32C83072300EDC90E /* StarView.swift */,
-				7F85D5CA2C83163D00EDC90E /* CocktailCardView.swift */,
-			);
-			path = Reusable;
-			sourceTree = "<group>";
-		};
 		7F7CFB512C7F4F5100797AF4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7F7CFB8C2C81E2AC00797AF4 /* ViewModifier */,
-				7F7CFB4A2C7F4F5100797AF4 /* Reusable */,
-				7F7CFB4E2C7F4F5100797AF4 /* FormView.swift */,
-				7F7CFB4B2C7F4F5100797AF4 /* CameraScreen.swift */,
+				7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */,
+				7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */,
+				7FDE9F7B2CBDBE8100504226 /* CircularNavigationButton.swift */,
+				7FDE9F792CBDBD9500504226 /* CircularActionButton.swift */,
+				7FDE9F752CBDBC6900504226 /* CircularButtonView.swift */,
+				7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */,
+				7FDE9F6F2CBDB94E00504226 /* CocktailGridView.swift */,
+				7FDE9F6D2CBDB7B100504226 /* CocktailCardView.swift */,
+				7FDE9F6B2CBDA69000504226 /* DetectionOverlayView.swift */,
+				7FDE9F692CBDA33200504226 /* EmptyStateView.swift */,
+				7FDE9F5F2CBD3EF700504226 /* BoundingBoxView.swift */,
+				7FED59612CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift */,
+				7FED595F2CBD2CA5006C7F2B /* CameraPreview.swift */,
+				7FED595D2CBD2B2E006C7F2B /* CocktailInstructionsView.swift */,
+				7FED595B2CBD2B22006C7F2B /* CocktailIngredientsView.swift */,
+				7FED59592CBD2B14006C7F2B /* CocktailInfoSection.swift */,
+				7FED59572CBD2B06006C7F2B /* CocktailImageView.swift */,
+				7FED59552CBD2AF9006C7F2B /* CocktailRowView.swift */,
+				7FED59532CBD2AE9006C7F2B /* IngredientTag.swift */,
+				7FED59512CBD2AD0006C7F2B /* CocktailDetailView.swift */,
+				7FED594F2CBD2A8A006C7F2B /* CocktailListView.swift */,
+				7FED594B2CBD29E5006C7F2B /* DetectionButton.swift */,
+				7FED59492CBD29CF006C7F2B /* DetectedItemsView.swift */,
+				7FED59472CBD295F006C7F2B /* CircleButton.swift */,
+				7FED59452CBD2947006C7F2B /* FakeTabBar.swift */,
+				7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */,
+				7FED59412CBD28FE006C7F2B /* HomeView.swift */,
 				7F7CFB4C2C7F4F5100797AF4 /* CameraView.swift */,
-				7F7CFB802C806A6C00797AF4 /* CameraPreview.swift */,
-				7F7CFB822C806AA900797AF4 /* CameraViewController.swift */,
-				7FCFB19B2C9471BC00F85975 /* CameraViewControllerDelegate.swift */,
-				7FCFB19D2C94740D00F85975 /* FrameProcessor.swift */,
-				7FCFB19F2C94742F00F85975 /* ObjectDetector.swift */,
-				7F7CFB502C7F4F5100797AF4 /* CocktailListView.swift */,
-				7F7CFB4F2C7F4F5100797AF4 /* CocktailDetailView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		7F7CFB8C2C81E2AC00797AF4 /* ViewModifier */ = {
-			isa = PBXGroup;
-			children = (
-				7F7CFB8D2C81E2CA00797AF4 /* RemoveListSeparators.swift */,
-				7F85D5CC2C832EF100EDC90E /* KeyboardResponsiveModifier.swift */,
-			);
-			path = ViewModifier;
-			sourceTree = "<group>";
-		};
-		7F85D5C72C8311DD00EDC90E /* Mixology */ = {
-			isa = PBXGroup;
-			children = (
-				7F85D5C82C83120600EDC90E /* CocktailGenerator.swift */,
-				7FCFB1992C946BDD00F85975 /* IngredientMapper.swift */,
-			);
-			path = Mixology;
 			sourceTree = "<group>";
 		};
 		7FCFB1922C906FB300F85975 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				7FED592C2CB967A6006C7F2B /* Configuration.swift */,
 				7FCFB1932C906FC600F85975 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		7FED59692CBD2F5B006C7F2B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7FDE9F7F2CBDC97000504226 /* CocktailDetailViewModel.swift */,
+				7FED594D2CBD2A76006C7F2B /* CameraViewModel.swift */,
+				7FED59632CBD2CDB006C7F2B /* CocktailListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7FED596C2CBD3186006C7F2B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7FDE9F632CBD4FF300504226 /* ObjectDetectorProtocol.swift */,
+				7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */,
+				7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7FED596D2CBD3195006C7F2B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7FDE9F7D2CBDBF2A00504226 /* CachedAsyncImage.swift */,
+				7FED596E2CBD31BA006C7F2B /* Config.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7FED597C2CBD3394006C7F2B /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				7FDE9F772CBDBCDE00504226 /* CircularButtonModifier.swift */,
+				7FED597D2CBD339E006C7F2B /* TitleModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,6 +383,7 @@
 				7F7CFB592C7F4F5100797AF4 /* README.md in Resources */,
 				7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */,
 				7F7CFB682C7F4F5100797AF4 /* Assets.xcassets in Resources */,
+				7FED592B2CB96718006C7F2B /* Config.plist in Resources */,
 				7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,51 +395,65 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FDE9F6E2CBDB7B100504226 /* CocktailCardView.swift in Sources */,
 				7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */,
-				7F7CFB6F2C80634700797AF4 /* CocktailRowView.swift in Sources */,
-				7F7CFB8E2C81E2CA00797AF4 /* RemoveListSeparators.swift in Sources */,
+				7FDE9F642CBD4FF300504226 /* ObjectDetectorProtocol.swift in Sources */,
+				7FDE9F6A2CBDA33200504226 /* EmptyStateView.swift in Sources */,
+				7FED595A2CBD2B14006C7F2B /* CocktailInfoSection.swift in Sources */,
 				7F7CFB5B2C7F4F5100797AF4 /* Classifier.swift in Sources */,
-				7F85D5C92C83120600EDC90E /* CocktailGenerator.swift in Sources */,
-				7FCFB19E2C94740D00F85975 /* FrameProcessor.swift in Sources */,
 				7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */,
-				7F7CFB752C80641500797AF4 /* CocktailIngredientsView.swift in Sources */,
-				7F7CFB642C7F4F5100797AF4 /* DetectionOverlayManager.swift in Sources */,
-				7F6421002C98866C0067AD24 /* CameraManager.swift in Sources */,
+				7FDE9F682CBD578500504226 /* FrameProcessor.swift in Sources */,
+				7FED59522CBD2AD0006C7F2B /* CocktailDetailView.swift in Sources */,
+				7FED594A2CBD29CF006C7F2B /* DetectedItemsView.swift in Sources */,
+				7FDE9F6C2CBDA69000504226 /* DetectionOverlayView.swift in Sources */,
+				7FED59812CBD3483006C7F2B /* DependencyContainer.swift in Sources */,
+				7FED594C2CBD29E5006C7F2B /* DetectionButton.swift in Sources */,
+				7FED597B2CBD3369006C7F2B /* Extensions.swift in Sources */,
+				7FDE9F822CBDD36500504226 /* Preparation.swift in Sources */,
+				7FDE9F602CBD3EF700504226 /* BoundingBoxView.swift in Sources */,
+				7FDE9F762CBDBC6900504226 /* CircularButtonView.swift in Sources */,
+				7FED59442CBD291C006C7F2B /* PreviousCocktailsList.swift in Sources */,
+				7FED59542CBD2AE9006C7F2B /* IngredientTag.swift in Sources */,
 				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
 				7FCFB1942C906FC600F85975 /* Constants.swift in Sources */,
-				7F7CFB5C2C7F4F5100797AF4 /* Models.swift in Sources */,
-				7F7CFB6B2C8062CB00797AF4 /* ErrorView.swift in Sources */,
-				7F7CFB7B2C80673C00797AF4 /* IngredientInputView.swift in Sources */,
-				7F7CFB832C806AA900797AF4 /* CameraViewController.swift in Sources */,
-				7F7CFB892C806CC600797AF4 /* CocktailListSection.swift in Sources */,
-				7F7CFB712C80637500797AF4 /* CocktailListViewSection.swift in Sources */,
-				7F7CFB662C7F4F5100797AF4 /* CocktailDetailView.swift in Sources */,
-				7F7CFB812C806A6C00797AF4 /* CameraPreview.swift in Sources */,
-				7F7CFB902C8210F800797AF4 /* CocktailInfoSection.swift in Sources */,
+				7FED59582CBD2B06006C7F2B /* CocktailImageView.swift in Sources */,
+				7F7CFB5C2C7F4F5100797AF4 /* DetectedItem.swift in Sources */,
+				7FED595C2CBD2B22006C7F2B /* CocktailIngredientsView.swift in Sources */,
+				7FED59562CBD2AF9006C7F2B /* CocktailRowView.swift in Sources */,
+				7FED59502CBD2A8A006C7F2B /* CocktailListView.swift in Sources */,
 				7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */,
-				7F7CFB612C7F4F5100797AF4 /* IngredientTag.swift in Sources */,
-				7FCFB19A2C946BDD00F85975 /* IngredientMapper.swift in Sources */,
-				7F6421022C9887000067AD24 /* StarAnimator.swift in Sources */,
+				7FED59422CBD28FE006C7F2B /* HomeView.swift in Sources */,
+				7FED59482CBD295F006C7F2B /* CircleButton.swift in Sources */,
+				7FDE9F7E2CBDBF2A00504226 /* CachedAsyncImage.swift in Sources */,
+				7FDE9F7C2CBDBE8100504226 /* CircularNavigationButton.swift in Sources */,
+				7FED596B2CBD3105006C7F2B /* Cocktail.swift in Sources */,
+				7FED59772CBD32E8006C7F2B /* CocktailServiceProtocol.swift in Sources */,
+				7FED594E2CBD2A76006C7F2B /* CameraViewModel.swift in Sources */,
 				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
-				7F7CFB672C7F4F5100797AF4 /* CocktailListView.swift in Sources */,
-				7FCFB1912C906DDC00F85975 /* BottleDetector.mlmodel in Sources */,
-				7F7CFB872C806CA300797AF4 /* TextFieldWithButton.swift in Sources */,
-				7F7CFB7F2C806A1E00797AF4 /* ShowRecipesButton.swift in Sources */,
-				7F7CFB792C80644B00797AF4 /* CocktailImageView.swift in Sources */,
-				7F7CFB772C80643800797AF4 /* CocktailTitleView.swift in Sources */,
-				7FCFB1A02C94742F00F85975 /* ObjectDetector.swift in Sources */,
-				7F6421042C9A035B0067AD24 /* CaipiV3-2.mlmodel in Sources */,
+				7FED59762CBD32E2006C7F2B /* CameraServiceProtocol.swift in Sources */,
+				7FED59622CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift in Sources */,
+				7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */,
+				7FDE9F862CBDD55A00504226 /* PreparationCardView.swift in Sources */,
+				7FED592D2CB967A6006C7F2B /* Configuration.swift in Sources */,
+				7FED596F2CBD31C0006C7F2B /* Config.swift in Sources */,
+				7FED595E2CBD2B2E006C7F2B /* CocktailInstructionsView.swift in Sources */,
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
-				7F7CFB6D2C80630D00797AF4 /* IngredientListView.swift in Sources */,
-				7F7CFB652C7F4F5100797AF4 /* FormView.swift in Sources */,
-				7F7CFB732C8063F100797AF4 /* CocktailInstructionsView.swift in Sources */,
-				7F7CFB622C7F4F5100797AF4 /* CameraScreen.swift in Sources */,
-				7F85D5CB2C83163D00EDC90E /* CocktailCardView.swift in Sources */,
+				7FDE9F802CBDC97000504226 /* CocktailDetailViewModel.swift in Sources */,
+				7FED59642CBD2CDB006C7F2B /* CocktailListViewModel.swift in Sources */,
+				7FDE9F722CBDB96000504226 /* NoCocktailsView.swift in Sources */,
+				7FED59822CBD3689006C7F2B /* TitleModifier.swift in Sources */,
+				7FED59602CBD2CA5006C7F2B /* CameraPreview.swift in Sources */,
+				7FED59732CBD3294006C7F2B /* DataManager.swift in Sources */,
+				7FDE9F7A2CBDBD9500504226 /* CircularActionButton.swift in Sources */,
 				7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */,
-				7FCFB19C2C9471BC00F85975 /* CameraViewControllerDelegate.swift in Sources */,
-				7F85D5C42C83072300EDC90E /* StarView.swift in Sources */,
-				7F85D5CD2C832EF100EDC90E /* KeyboardResponsiveModifier.swift in Sources */,
-				7F85D5C22C8305E000EDC90E /* SoundManager.swift in Sources */,
+				7FDE9F842CBDD42D00504226 /* PreparationStepsView.swift in Sources */,
+				7FED597F2CBD3466006C7F2B /* NetworkError.swift in Sources */,
+				7FED59712CBD325B006C7F2B /* Endpoint.swift in Sources */,
+				7FDE9F662CBD509200504226 /* CameraManager.swift in Sources */,
+				7FDE9F702CBDB94E00504226 /* CocktailGridView.swift in Sources */,
+				7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */,
+				7FDE9F622CBD495D00504226 /* DetectionOverlayManager.swift in Sources */,
+				7FDE9F782CBDBCDE00504226 /* CircularButtonModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

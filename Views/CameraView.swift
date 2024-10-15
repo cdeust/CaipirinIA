@@ -8,94 +8,108 @@
 import SwiftUI
 
 struct CameraView: View {
+    @StateObject private var viewModel = CameraViewModel()
     @EnvironmentObject var appState: AppState
-    @State private var cocktailIngredient: String = ""
-    @Environment(\.colorScheme) var colorScheme
-
+    @Environment(\.presentationMode) var presentationMode // For dismissal
+    
     var body: some View {
-        VStack {
-            // Input Section
-            IngredientInputView(cocktailIngredient: $cocktailIngredient, onAdd: addCocktailIngredient)
-                .padding(.horizontal)
-
-            // Ingredients List
-            IngredientListView(
-                title: "Ingredients List",
-                items: appState.cocktailIngredients,
-                onDelete: removeIngredient
-            )
-            .padding(.horizontal)
-            .frame(maxHeight: .infinity)  // Make the list take up as much space as possible
+        ZStack {
+            // Camera Preview Layer
+            CameraPreview(session: viewModel.cameraService.captureSession)
+                .edgesIgnoringSafeArea(.all)
             
-            // Navigation Buttons
-            VStack(spacing: 16) {
-                // NavigationLink to CameraScreen
-                NavigationLink(destination:
-                    CameraScreen(detectedItems: Binding(get: {
-                        return appState.detectedItems.isEmpty ? [] : appState.detectedItems
-                    }, set: { newValue in
-                        appState.detectedItems = newValue
-                    }))
-                        .environmentObject(appState)
-                ) {
-                    Text("Show Camera")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: colorScheme == .dark ? [Color.orange, Color.red] : [Color.orange, Color.yellow]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .clipShape(Capsule())
-                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.2) : Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            // Detection Overlay (Optional)
+            DetectionOverlayView(detectedItems: $viewModel.detectedItems)
+                .edgesIgnoringSafeArea(.all)
+            
+            // Overlay for controls
+            VStack {
+                Spacer()
+                
+                // Detected Ingredients Pills
+                if !viewModel.detectedIngredients.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(viewModel.detectedIngredients, id: \.self) { ingredient in
+                                Text(ingredient)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 16)
+                                    .background(Color.white.opacity(0.7))
+                                    .foregroundColor(.black)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                    .padding(.bottom, 10)
                 }
-                .padding(.horizontal)
-
-                ShowRecipesButton(detectedItems: $appState.detectedItems)
-                    .environmentObject(appState)
-                    .padding(.horizontal)
+                
+                // Capture Button with Progress
+                Button(action: {
+                    if viewModel.isThresholdReached {
+                        viewModel.processDetection()
+                    } else {
+                        // Trigger detection logic if needed
+                        // For example: capture photo or continue detecting
+                    }
+                }) {
+                    ZStack {
+                        Circle()
+                            .stroke(Color.white.opacity(0.5), lineWidth: 5)
+                            .frame(width: 80, height: 80)
+                        
+                        Circle()
+                            .trim(from: 0.0, to: CGFloat(min(viewModel.detectionCount, viewModel.detectionThreshold)) / CGFloat(viewModel.detectionThreshold))
+                            .stroke(viewModel.isThresholdReached ? Color.green : Color.blue, lineWidth: 5)
+                            .rotationEffect(Angle(degrees: -90))
+                            .animation(.linear(duration: 0.2), value: viewModel.detectionCount)
+                            .frame(width: 80, height: 80)
+                        
+                        if viewModel.isThresholdReached {
+                            Circle()
+                                .fill(Color.green)
+                                .frame(width: 60, height: 60)
+                            
+                            Text("GO")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                        } else {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 60, height: 60)
+                            
+                            Image(systemName: "camera")
+                                .font(.title)
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+                .padding(.bottom, 30)
+                .accessibilityLabel(viewModel.isThresholdReached ? Text("Go to Cocktails") : Text("Capture Photo"))
+                
+                // Hidden NavigationLink
+                NavigationLink(
+                    destination: CocktailListView(ingredients: viewModel.detectedIngredients)
+                        .environmentObject(appState),
+                    isActive: $viewModel.showCocktailGrid
+                ) {
+                    EmptyView()
+                }
+                .hidden()
             }
-            .padding(.bottom, 20)
         }
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: colorScheme == .dark ? [Color.black, Color.gray] : [Color.blue.opacity(0.2), Color.white]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
-        .edgesIgnoringSafeArea(.horizontal)
-        .navigationTitle("Cocktail Builder")
-    }
-
-    private func addCocktailIngredient() {
-        if !cocktailIngredient.isEmpty {
-            appState.cocktailIngredients.append(cocktailIngredient)
-            cocktailIngredient = ""
+        .onAppear {
+            viewModel.startCamera()
         }
-    }
-
-    private func removeIngredient(at index: Int) {
-        appState.cocktailIngredients.remove(at: index)
+        .onDisappear {
+            viewModel.stopCamera()
+        }
     }
 }
 
 struct CameraView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            CameraView()
-                .environmentObject(AppState())
-                .preferredColorScheme(.light)
-                .previewDisplayName("Light Mode")
-
-            CameraView()
-                .environmentObject(AppState())
-                .preferredColorScheme(.dark)
-                .previewDisplayName("Dark Mode")
-        }
+        CameraView()
+            .environmentObject(AppState())
     }
 }
