@@ -71,7 +71,7 @@ struct Cocktail: Codable, Identifiable {
     var ingredients: [Ingredient] {
         var result: [Ingredient] = []
         
-        let ingredients = [
+        let ingredientsList = [
             strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
             strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
             strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15
@@ -83,13 +83,18 @@ struct Cocktail: Codable, Identifiable {
             strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15
         ]
         
-        for (index, ingredient) in ingredients.enumerated() {
+        for (index, ingredient) in ingredientsList.enumerated() {
             if let ingredient = ingredient?.trimmingCharacters(in: .whitespacesAndNewlines), !ingredient.isEmpty {
+                let mappedIngredient = IngredientMapper.map(ingredient)
                 let measurement = measurements[index]?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 let measurementDisplay = measurement.isEmpty ? "" : "\(measurement) of "
-                let name = ingredient
-                let type = determineIngredientType(for: name)
-                result.append(Ingredient(name: name, type: type))
+                
+                if let ingredientType = determineIngredientType(for: mappedIngredient) {
+                    result.append(Ingredient(name: mappedIngredient, type: ingredientType))
+                } else {
+                    // Handle ingredients that may not match the predefined catalog
+                    result.append(Ingredient(name: mappedIngredient, type: .other))
+                }
             }
         }
         
@@ -99,32 +104,14 @@ struct Cocktail: Codable, Identifiable {
     var id: String { idDrink }
     
     // Helper function to determine IngredientType based on ingredient name
-    private func determineIngredientType(for ingredientName: String) -> IngredientType {
-        let lowercasedName = ingredientName.lowercased()
-        
-        // Define keywords for each type
-        let baseSpirits = ["tequila", "vodka", "rum", "gin", "whiskey", "brandy", "cognac", "scotch"]
-        let modifiers = ["triple sec", "cointreau", "dry vermouth", "sweet vermouth", "amaretto", "orange liqueur"]
-        let sweeteners = ["sugar", "simple syrup", "honey", "agave nectar"]
-        let sours = ["lime juice", "lemon juice", "sour mix"]
-        let bitters = ["angostura bitters", "orange bitters", "peach bitters"]
-        let garnishes = ["salt", "sugar rim", "olive", "cherry", "lime wedge", "lemon twist", "mint sprig"]
-        
-        if baseSpirits.contains(where: { lowercasedName.contains($0) }) {
-            return .baseSpirit
-        } else if modifiers.contains(where: { lowercasedName.contains($0) }) {
-            return .modifier
-        } else if sweeteners.contains(where: { lowercasedName.contains($0) }) {
-            return .sweetener
-        } else if sours.contains(where: { lowercasedName.contains($0) }) {
-            return .sour
-        } else if bitters.contains(where: { lowercasedName.contains($0) }) {
-            return .bitter
-        } else if garnishes.contains(where: { lowercasedName.contains($0) }) {
-            return .garnish
-        } else {
-            return .other
+    private func determineIngredientType(for ingredientName: String) -> IngredientType? {
+        // Use the ingredient catalog from IngredientMapper
+        if let catalogItem = IngredientMapper.ingredientsCatalog.first(where: { $0.name.caseInsensitiveCompare(ingredientName) == .orderedSame }) {
+            return catalogItem.type
         }
+        
+        // If the ingredient is not found in the catalog, return nil or .other
+        return nil
     }
 }
 
@@ -141,39 +128,21 @@ struct Step: Identifiable, Decodable {
     }
 }
 
-enum IngredientType {
+enum IngredientType: String, Codable {
     case baseSpirit
-    case modifier
-    case sweetener
-    case sour
     case bitter
+    case dairy
+    case fruit
     case garnish
+    case miscellaneous
+    case mixer
+    case modifier
+    case sour
+    case sweetener
     case other
 }
 
-extension IngredientType {
-    init(ingredientName: String) {
-        let lowercasedName = ingredientName.lowercased()
-        switch lowercasedName {
-        case "tequila", "vodka", "rum", "gin", "whiskey", "bourbon", "scotch":
-            self = .baseSpirit
-        case "triple sec", "vermouth", "schnapps", "amaretto":
-            self = .modifier
-        case "simple syrup", "honey", "agave nectar":
-            self = .sweetener
-        case "lime juice", "lemon juice", "orange juice":
-            self = .sour
-        case "angostura bitters", "pimento bitters":
-            self = .bitter
-        case "salt", "sugar", "olive", "cherry", "mint":
-            self = .garnish
-        default:
-            self = .other
-        }
-    }
-}
-
-struct Ingredient: Identifiable {
+struct Ingredient: Identifiable, Codable {
     let id = UUID()
     let name: String
     let type: IngredientType

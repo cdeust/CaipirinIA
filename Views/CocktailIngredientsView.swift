@@ -53,6 +53,14 @@ struct CocktailIngredientsView: View {
             return "drop.fill"
         case .garnish:
             return "leaf.fill"
+        case .fruit:
+            return "applelogo"
+        case .dairy:
+            return "carton.fill"
+        case .mixer:
+            return "sparkles"
+        case .miscellaneous:
+            return "ellipsis.circle.fill"
         case .other:
             return "circle.fill"
         }
