@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct IngredientTag: View {
-    var name: String
-
+    var ingredient: DetectedItem
+    @State private var shake: CGFloat = 0
+    @State private var isVisible: Bool = false
+    
     var body: some View {
-        Text(name)
-            .font(.subheadline)
-            .fontWeight(.medium)
-            .foregroundColor(.white)
-            .padding(.horizontal, 12)
+        Text(ingredient.name)
             .padding(.vertical, 8)
-            .background(Color("AccentColor").opacity(0.8))
+            .padding(.horizontal, 16)
+            .background(Color.green.opacity(0.7))
+            .foregroundColor(.white)
             .clipShape(Capsule())
-            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+            .modifier(ShakeEffect(shakes: shake))
+            .opacity(isVisible ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeIn(duration: 0.5)) {
+                    self.isVisible = true
+                }
+                // Trigger shake animation after fade-in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    withAnimation(Animation.linear(duration: 0.3).repeatCount(1, autoreverses: false)) {
+                        self.shake = 1
+                    }
+                }
+            }
     }
 }

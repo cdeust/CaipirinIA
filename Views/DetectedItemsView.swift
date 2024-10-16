@@ -12,13 +12,15 @@ struct DetectedItemsView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(items) { item in
-                    IngredientTag(name: item.name)
+            VStack(spacing: 10) {
+                ForEach(items) { ingredient in
+                    IngredientTag(ingredient: ingredient)
+                        .transition(.opacity)
                 }
             }
-            .padding(.horizontal)
-            .padding(.top, 50)
+            .padding(.horizontal, 16)
         }
+        .padding(.bottom, 10)
+        .transition(.opacity)
     }
 }

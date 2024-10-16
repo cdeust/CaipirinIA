@@ -11,6 +11,7 @@ struct CameraView: View {
     @StateObject private var viewModel = CameraViewModel()
     @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode // For dismissal
+    @State private var animateShake = false
 
     var body: some View {
         ZStack {
@@ -28,61 +29,16 @@ struct CameraView: View {
                 
                 // Show only validated ingredients (green pills)
                 if !viewModel.validatedIngredients.isEmpty {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        VStack(spacing: 10) {
-                            ForEach(viewModel.validatedIngredients) { ingredient in
-                                Text(ingredient.name)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 16)
-                                    .background(Color.green.opacity(0.7))
-                                    .foregroundColor(.white)
-                                    .clipShape(Capsule())
-                            }
-                        }
-                        .padding(.horizontal, 16)
-                    }
-                    .padding(.bottom, 10)
+                    DetectedItemsView(items: viewModel.validatedIngredients)
                 }
                 
-                // Capture Button with Progress
-                Button(action: {
+                ProgressButton(detectionProgress: viewModel.detectionProgress, isThresholdReached: viewModel.isThresholdReached, action: {
                     if viewModel.isThresholdReached {
                         viewModel.processDetection()
                     } else {
                         // Trigger detection logic if needed
                     }
-                }) {
-                    ZStack {
-                        Circle()
-                            .stroke(Color.white.opacity(0.5), lineWidth: 5)
-                            .frame(width: 80, height: 80)
-                        
-                        Circle()
-                            .trim(from: 0.0, to: CGFloat(min(viewModel.detectionProgress, 1.0)))
-                            .stroke(viewModel.isThresholdReached ? Color.green : Color.blue, lineWidth: 5)
-                            .rotationEffect(Angle(degrees: -90))
-                            .animation(.linear(duration: 0.2), value: viewModel.detectionProgress)
-                            .frame(width: 80, height: 80)
-                        
-                        ZStack {
-                            // Display CentralButtonEmpty with fading effect
-                            Image("CentralButtonEmpty")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .opacity(1.0 - viewModel.detectionProgress) // Fades out as progress increases
-
-                            // Display CentralButton as it fades in
-                            Image("CentralButton")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .opacity(viewModel.detectionProgress) // Fades in as progress increases
-                        }
-                    }
-                }
-                .padding(.bottom, 30)
-                .accessibilityLabel(viewModel.isThresholdReached ? Text("Go to Cocktails") : Text("Capture Photo"))
+                })
                 
                 // Hidden NavigationLink
                 NavigationLink(
@@ -103,6 +59,7 @@ struct CameraView: View {
         }
         .onDisappear {
             viewModel.resetDetectionState() // Reset state on back
+            animateShake = false
         }
     }
 }

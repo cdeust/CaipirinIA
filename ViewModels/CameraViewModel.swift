@@ -58,7 +58,9 @@ class CameraViewModel: ObservableObject {
         }
         
         // Now filter out the validated ingredients (count > 40)
-        validatedIngredients = detectedIngredients.filter { $0.count > 40 }
+        withAnimation {
+            validatedIngredients = detectedIngredients.filter { $0.count > 40 }
+        }
     }
 
     // Update the detection progress for validated items
