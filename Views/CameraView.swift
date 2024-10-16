@@ -9,13 +9,8 @@ import SwiftUI
 
 struct CameraView: View {
     @StateObject private var viewModel = CameraViewModel()
+    @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode // For dismissal
-    
-    let container: DependencyContainer
-    
-    init(container: DependencyContainer) {
-        self.container = container
-    }
 
     var body: some View {
         ZStack {
@@ -91,8 +86,8 @@ struct CameraView: View {
                 
                 // Hidden NavigationLink
                 NavigationLink(
-                    destination: CocktailListView(ingredients: viewModel.validatedIngredients.map { $0.name }, container: container) // Only pass validated ingredients
-                        .environmentObject(container.resolve(AppState.self)),
+                    destination: CocktailListView(ingredients: viewModel.validatedIngredients.map { $0.name }) // Only pass validated ingredients
+                        .environmentObject(appState),
                     isActive: $viewModel.showCocktailGrid
                 ) {
                     EmptyView()
@@ -114,8 +109,7 @@ struct CameraView: View {
 
 struct CameraView_Previews: PreviewProvider {
     static var previews: some View {
-        let container = DependencyContainer()
-        CameraView(container: container)
-            .environmentObject(container.resolve(AppState.self))
+        CameraView()
+            .environmentObject(AppState())
     }
 }

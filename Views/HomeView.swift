@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    let container: DependencyContainer
-    
-    init(container: DependencyContainer) {
-        self.container = container
-    }
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         NavigationStack {
@@ -41,16 +37,15 @@ struct HomeView: View {
                     .padding(.bottom, 20)
 
                     // Content
-                    if container.resolve(AppState.self).preparations.isEmpty {
+                    if appState.preparations.isEmpty {
                         EmptyStateView()
                             .padding(.top, 60)
                             .transition(.opacity)
                     } else {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 20) {
-                                ForEach(container.resolve(AppState.self).preparations) { preparation in
+                                ForEach(appState.preparations) { preparation in
                                     PreparationCardView(preparation: preparation)
-                                        .environmentObject(container.resolve(AppState.self))
                                 }
                             }
                             .padding(.horizontal)
@@ -62,7 +57,7 @@ struct HomeView: View {
                     Spacer()
 
                     // Custom Tab Bar
-                    FakeTabBar(container: container)
+                    FakeTabBar()
                 }
             }
             .navigationBarHidden(true)
@@ -83,11 +78,11 @@ struct HomeView_Previews: PreviewProvider {
             ]
         )
         
-        let container = DependencyContainer()
-        container.resolve(AppState.self).preparations = [samplePreparation]
+        let appState = AppState()
+        appState.preparations = [samplePreparation]
         
-        return HomeView(container: container)
-            .environmentObject(container.resolve(AppState.self))
+        return HomeView()
+            .environmentObject(appState)
             .previewLayout(.sizeThatFits)
     }
 }

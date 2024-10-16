@@ -8,22 +8,22 @@
 import Foundation
 import Combine
 
+
 protocol NetworkManagerProtocol {
     func request<T: Decodable>(_ endpoint: Endpoint, responseType: T.Type) -> AnyPublisher<T, NetworkError>
 }
 
 class NetworkManager: NetworkManagerProtocol {
+    static let shared = NetworkManager()
     private let session: URLSession
 
-    // Inject URLSession dependency
     init(session: URLSession = .shared) {
         self.session = session
     }
 
-    // Function to handle requests
     func request<T: Decodable>(_ endpoint: Endpoint, responseType: T.Type) -> AnyPublisher<T, NetworkError> {
         guard let urlRequest = endpoint.urlRequest else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+            return Fail(error: .invalidURL).eraseToAnyPublisher()
         }
 
         return session.dataTaskPublisher(for: urlRequest)

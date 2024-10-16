@@ -5,22 +5,13 @@
 //  Created by Clément Deust on 14/10/2024.
 //
 
-// CocktailDetailView.swift
 import SwiftUI
 
 struct CocktailDetailView: View {
     let cocktailID: String
-    @StateObject private var viewModel: CocktailDetailViewModel
-    
-    // Inject dependencies via initializer
-    init(cocktailID: String, container: DependencyContainer) {
-        _viewModel = StateObject(wrappedValue: CocktailDetailViewModel(
-            cocktailService: container.resolve(CocktailServiceProtocol.self),
-            appState: container.resolve(AppState.self)
-        ))
-        self.cocktailID = cocktailID
-    }
-    
+    @StateObject private var viewModel = CocktailDetailViewModel()
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
         ZStack {
             // Background Gradient
@@ -30,7 +21,7 @@ struct CocktailDetailView: View {
                 endPoint: .bottomTrailing
             )
             .edgesIgnoringSafeArea(.all)
-            
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     if viewModel.isLoading {
@@ -67,22 +58,22 @@ struct CocktailDetailView: View {
                                 EmptyView()
                             }
                         }
-                        
+
                         // Cocktail Name
                         Text(cocktail.strDrink)
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
+                            .multilineTextAlignment(.center) // Center the name
                             .padding(.horizontal)
-                        
+
                         // Cocktail Information Section
                         CocktailInfoSection(cocktail: cocktail)
                             .padding(.horizontal)
-                        
+
                         // Ingredients Section
                         CocktailIngredientsView(ingredients: cocktail.ingredients)
                             .padding(.horizontal)
-                        
+
                         // Instructions Section
                         if let instructions = cocktail.strInstructions, !instructions.isEmpty {
                             CocktailInstructionsView(instructions: instructions)
@@ -124,13 +115,11 @@ struct CocktailDetailView: View {
             viewModel.fetchCocktailDetails(by: cocktailID)
         }
     }
-}
 
-struct CocktailDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Create a mock DependencyContainer for preview
-        let container = DependencyContainer()
-        CocktailDetailView(cocktailID: "11007", container: container)
-            .environmentObject(container.resolve(AppState.self))
+    struct CocktailDetailView_Previews: PreviewProvider {
+        static var previews: some View {
+            CocktailDetailView(cocktailID: "11007")
+                .environmentObject(AppState())
+        }
     }
 }

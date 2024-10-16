@@ -37,11 +37,9 @@ struct CircularNavigationButton<Destination: View>: View {
 
 struct CircularNavigationButton_Previews: PreviewProvider {
     static var previews: some View {
-        let container = DependencyContainer()
-        
         VStack(spacing: 20) {
             CircularNavigationButton(
-                destination: CameraView(container: container),
+                destination: CameraView(),
                 assetImageName: "CentralButton", // Using asset image
                 systemImageName: nil, // No system image provided
                 backgroundColor: Color("AccentColor"),
@@ -52,7 +50,7 @@ struct CircularNavigationButton_Previews: PreviewProvider {
             
             // Example with system image
             CircularNavigationButton(
-                destination: HomeView(container: container),
+                destination: HomeView(),
                 assetImageName: nil, // No asset image provided
                 systemImageName: "house.fill", // Using system image
                 backgroundColor: Color("AccentColor"),
