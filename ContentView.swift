@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var appState: AppState
+    private let container: DependencyContainer
+    
+    init(container: DependencyContainer) {
+        self.container = container
+    }
     
     var body: some View {
-        HomeView()
+        HomeView(container: container)
+            .environmentObject(container.resolve(AppState.self))
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(AppState())
+        let container = DependencyContainer()
+        ContentView(container: container)
+            .environmentObject(container.resolve(AppState.self))
     }
 }

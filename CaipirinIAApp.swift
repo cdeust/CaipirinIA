@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct CaipirinIAApp: App {
-    @StateObject private var appState = DependencyContainer.shared.resolve(AppState.self)
-
+    let container = DependencyContainer()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(appState)
+            ContentView(container: container)
         }
     }
 }

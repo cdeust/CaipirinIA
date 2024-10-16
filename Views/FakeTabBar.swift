@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct FakeTabBar: View {
-    @EnvironmentObject var appState: AppState
+    let container: DependencyContainer
+    
+    init(container: DependencyContainer) {
+        self.container = container
+    }
 
     var body: some View {
         HStack {
@@ -16,7 +20,7 @@ struct FakeTabBar: View {
 
             // Camera Button inside NavigationLink
             CircularNavigationButton(
-                destination: CameraView().environmentObject(appState),
+                destination: CameraView(container: container).environmentObject(container.resolve(AppState.self)),
                 assetImageName: "CentralButton",
                 backgroundColor: .white,
                 foregroundColor: .black,
@@ -30,8 +34,9 @@ struct FakeTabBar: View {
 
 struct FakeTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        FakeTabBar()
-            .environmentObject(AppState())
+        let container = DependencyContainer()
+        FakeTabBar(container: container)
+            .environmentObject(container.resolve(AppState.self))
             .previewLayout(.sizeThatFits)
     }
 }

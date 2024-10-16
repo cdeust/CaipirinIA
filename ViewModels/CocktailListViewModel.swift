@@ -13,10 +13,12 @@ class CocktailListViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     private let cocktailService: CocktailServiceProtocol
+    private let appState: AppState
     private var cancellables = Set<AnyCancellable>()
 
-    init(cocktailService: CocktailServiceProtocol = DependencyContainer.shared.resolve(CocktailServiceProtocol.self)) {
+    init(cocktailService: CocktailServiceProtocol, appState: AppState) {
         self.cocktailService = cocktailService
+        self.appState = appState
     }
 
     func fetchCocktails(with ingredients: [String]) {

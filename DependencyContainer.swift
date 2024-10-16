@@ -9,30 +9,26 @@
 import Foundation
 
 class DependencyContainer {
-    static let shared = DependencyContainer()
-
-    private init() {
+    private var factories = [String: Any]()
+    
+    init() {
         registerDependencies()
     }
-
-    private var factories = [String: Any]()
-
-    func registerDependencies() {
-        register(NetworkManagerProtocol.self) { NetworkManager() }
-        register(CameraServiceProtocol.self) { CameraService(cameraManager: CameraManager()) }
+    
+    private func registerDependencies() {
         register(AppState.self) { AppState() }
+        register(CameraServiceProtocol.self) { CameraService(cameraManager: CameraManager()) }
         register(CocktailServiceProtocol.self) {
-            CocktailService(
-                networkManager: self.resolve(NetworkManagerProtocol.self)
-            )
+            CocktailService(networkManager: self.resolve(NetworkManagerProtocol.self))
         }
+        register(NetworkManagerProtocol.self) { NetworkManager() }
     }
-
+    
     func register<T>(_ protocolType: T.Type, factory: @escaping () -> T) {
         let key = String(describing: protocolType)
         factories[key] = factory
     }
-
+    
     func resolve<T>(_ protocolType: T.Type) -> T {
         let key = String(describing: protocolType)
         guard let factory = factories[key] as? () -> T else {
