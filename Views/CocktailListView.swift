@@ -47,7 +47,9 @@ struct CocktailListView: View {
             }
             .navigationTitle("Cocktails")
             .onAppear {
-                viewModel.fetchCocktails(with: ingredients)
+                if !ingredients.isEmpty {
+                    viewModel.fetchCocktails(with: ingredients)
+                }
             }
         }
     }
