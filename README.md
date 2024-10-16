@@ -84,8 +84,6 @@ The app uses **CoreML** for iOS to ensure fast, on-device inference for ingredie
 
 The app connects to the **CocktailDB API** to fetch cocktail recipes based on identified ingredients. Networking is handled via the `CocktailServiceProtocol`, with `Endpoint` classes defining specific API requests.
 
-The **Moshi** library is used for parsing JSON responses from the API, and responses are mapped to the corresponding models in the app using the `Mapper` classes.
-
 Error handling and network status monitoring are built into the services layer, ensuring that the app can gracefully handle connectivity issues.
 
 ## Contribution Guidelines
