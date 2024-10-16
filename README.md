@@ -56,10 +56,7 @@ The MVVM architecture ensures that the business logic is decoupled from the user
 
 ## Dependency Management
 
-CaipirinIA uses **Koin** for dependency injection in Kotlin-based components and custom `DependencyContainer` in Swift to ensure decoupled service management across the app. This approach allows for better testing, as dependencies can be mocked or injected at runtime without tight coupling.
-
-- **Moshi**: Used for JSON serialization and deserialization in the networking layer.
-- **Koin**: Ensures that services are injected with minimal setup and clean lifecycle management.
+CaipirinIA uses custom `DependencyContainer` in Swift to ensure decoupled service management across the app. This approach allows for better testing, as dependencies can be mocked or injected at runtime without tight coupling.
 
 ## View and UI Components
 
