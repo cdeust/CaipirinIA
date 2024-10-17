@@ -1,5 +1,5 @@
 //
-//  CocktailListView 2.swift
+//  CocktailListView.swift
 //  CaipirinIA
 //
 //  Created by Clément Deust on 14/10/2024.
@@ -11,8 +11,8 @@ struct CocktailListView: View {
     @StateObject private var viewModel = CocktailListViewModel()
     let ingredients: [String]
     @EnvironmentObject var appState: AppState
-    
-    // State variable to control navigation
+
+    @State private var currentMessage: String = ""  // Local state for current message
     @State private var isGPTChatActive = false
 
     var body: some View {
@@ -53,6 +53,7 @@ struct CocktailListView: View {
                 print("CocktailListView onAppear - ingredients: \(ingredients)")
                 if !ingredients.isEmpty {
                     viewModel.fetchCocktails(with: ingredients)
+                    currentMessage = ingredients.joined(separator: ", ")  // Set initial message with ingredients
                 }
             }
             .toolbar {
@@ -71,7 +72,7 @@ struct CocktailListView: View {
             }
 
             // NavigationLink to trigger GPT chat view
-            NavigationLink(destination: GPTChatView(ingredients: ingredients).environmentObject(appState), isActive: $isGPTChatActive) {
+            NavigationLink(destination: GPTChatView(ingredients: ingredients, currentMessage: $currentMessage).environmentObject(appState), isActive: $isGPTChatActive) {
                 EmptyView()
             }
         }

@@ -10,14 +10,13 @@ import SwiftUI
 struct GPTChatView: View {
     @ObservedObject var viewModel: OpenAIChatViewModel
     @EnvironmentObject var appState: AppState
+    @Binding var currentMessage: String  // Use @Binding for real-time sync with parent view
 
     @State private var selectedCocktail: Cocktail? = nil
-    @State private var localIngredients: [String]  // Use state for ingredients to avoid resetting
 
-    init(ingredients: [String]) {
-        // Initializing with ingredients and logging them
-        self._localIngredients = State(initialValue: ingredients)
-        _viewModel = ObservedObject(wrappedValue: OpenAIChatViewModel(cocktailService: CocktailService(), initialIngredients: ingredients))
+    init(ingredients: [String], currentMessage: Binding<String>) {
+        self._currentMessage = currentMessage  // Initialize with the passed Binding
+        _viewModel = ObservedObject(wrappedValue: OpenAIChatViewModel(cocktailService: CocktailService(), detectedIngredients: ingredients))
         print("Initializing GPTChatView with ingredients: \(ingredients)")
     }
 
@@ -54,26 +53,18 @@ struct GPTChatView: View {
             }
 
             HStack {
-                // Binding TextField to currentMessage, using localIngredients for initial value
-                TextField("Enter ingredients", text: $viewModel.currentMessage)
+                TextField("Enter ingredients", text: $currentMessage)  // Use the Binding here
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .onAppear {
-                        if !localIngredients.isEmpty {
-                            // Ensure the textfield shows the ingredients
-                            viewModel.currentMessage = localIngredients.joined(separator: ", ")
-                            print("TextField onAppear: currentMessage = \(viewModel.currentMessage)")
-                        }
-                    }
 
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
                     Button("Send") {
-                        let ingredients = viewModel.currentMessage.components(separatedBy: ", ")
+                        let ingredients = currentMessage.components(separatedBy: ", ")
                         print("Sending message with ingredients: \(ingredients)")
                         viewModel.sendMessage(ingredients: ingredients)
-                        viewModel.currentMessage = ""
+                        currentMessage = ""  // Clear after sending
                     }
                     .padding()
                     .background(Color.green)
@@ -84,11 +75,10 @@ struct GPTChatView: View {
             .padding()
         }
         .navigationTitle("GPT Chat")
-        .onAppear {
-            print("GPTChatView appeared with localIngredients: \(localIngredients)")
-        }
         .sheet(item: $selectedCocktail) { cocktail in
-            GeneratedCocktailDetailView(cocktail: cocktail).environmentObject(appState)
+            NavigationView {
+                GeneratedCocktailDetailView(cocktail: cocktail, preparation: nil).environmentObject(appState)
+            }
         }
     }
 }

@@ -8,27 +8,36 @@
 import SwiftUI
 
 struct CocktailInfoSection: View {
-    let cocktail: Cocktail
-
+    let category: String?
+    let alcoholic: String?
+    let glass: String?
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            if let category = cocktail.strCategory {
+        VStack(alignment: .leading, spacing: 8) {
+            if let category = category {
                 Text("Category: \(category)")
                     .font(.subheadline)
                     .foregroundColor(Color("PrimaryText"))
+            } else {
+                Text("Category: No category available")
             }
 
-            if let alcoholic = cocktail.strAlcoholic {
+            if let alcoholic = alcoholic {
                 Text("Alcoholic: \(alcoholic)")
                     .font(.subheadline)
                     .foregroundColor(Color("PrimaryText"))
+            } else {
+                Text("Alcoholic: No alcoholic available")
             }
 
-            if let glass = cocktail.strGlass {
+            if let glass = glass {
                 Text("Glass: \(glass)")
                     .font(.subheadline)
                     .foregroundColor(Color("PrimaryText"))
+            } else {
+                Text("Glass: No glass available")
             }
         }
+        .padding(.horizontal)
     }
 }

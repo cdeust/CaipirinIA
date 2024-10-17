@@ -144,7 +144,8 @@ class CocktailMapper {
             strImageSource: nil,
             strImageAttribution: nil,
             strCreativeCommonsConfirmed: nil,
-            dateModified: nil
+            dateModified: nil,
+            source: .generated
         )
     }
 }

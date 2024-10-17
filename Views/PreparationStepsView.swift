@@ -94,7 +94,23 @@ struct PreparationStepsView: View {
             cocktailName: cocktail.strDrink,
             datePrepared: Date(),
             steps: steps,
-            imageName: URL(string: cocktail.strDrinkThumb ?? "")
+            imageName: URL(string: cocktail.strDrinkThumb ?? ""),
+            strCategory:cocktail.strCategory,
+            strAlcoholic: cocktail.strAlcoholic,
+            strGlass: cocktail.strGlass,
+            strInstructions: cocktail.strInstructions,
+            strIngredient1: cocktail.strIngredient1,
+            strIngredient2: cocktail.strIngredient2,
+            strIngredient3: cocktail.strIngredient3,
+            strIngredient4: cocktail.strIngredient4,
+            strIngredient5: cocktail.strIngredient5,
+            strIngredient6: cocktail.strIngredient6,
+            strIngredient7: cocktail.strIngredient7,
+            strIngredient8: cocktail.strIngredient8,
+            strIngredient9: cocktail.strIngredient9,
+            strIngredient10: cocktail.strIngredient10,
+            strDrinkThumb: cocktail.strDrinkThumb,
+            source: .generated
         )
         appState.addPreparation(preparation)
     }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct GeneratedCocktailDetailView: View {
-    let cocktail: Cocktail
+    let cocktail: Cocktail?
+    let preparation: Preparation?
     @EnvironmentObject var appState: AppState
-
+    
     var body: some View {
         ZStack {
             // Background Gradient
@@ -20,125 +21,133 @@ struct GeneratedCocktailDetailView: View {
                 endPoint: .bottomTrailing
             )
             .edgesIgnoringSafeArea(.all)
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    CocktailImageView(url: cocktail.strDrinkThumb,
-                        width: UIScreen.main.bounds.size.width,
-                        height: 180,
-                        accessibilityLabel: "\(cocktail.strDrink)"
-                    )
-                    .applyShape(.rectangle)
-                    // Cocktail Name
-                    Text(cocktail.strDrink)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-
-                    // Cocktail Information Section (Category, Alcohol, Glass)
-                    VStack(alignment: .leading, spacing: 8) {
-                        if let category = cleanText(cocktail.strCategory) {
-                            Text("Category: \(category)")
-                        } else {
-                            Text("Category: No category available")
-                        }
-
-                        if let alcoholic = cleanText(cocktail.strAlcoholic) {
-                            Text("Alcoholic: \(alcoholic)")
-                        } else {
-                            Text("Alcoholic: No alcoholic available")
-                        }
-
-                        if let glass = cleanText(cocktail.strGlass) {
-                            Text("Glass: \(glass)")
-                        } else {
-                            Text("Glass: No glass available")
-                        }
-                    }
-                    .padding(.horizontal)
-
-                    // Ingredients Section
-                    if let ingredients = getValidIngredients(from: cocktail) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Ingredients:")
-                                .font(.headline)
-                            
-                            ForEach(ingredients, id: \.self) { ingredient in
-                                Text("• \(ingredient)")
-                                    .padding(.leading)
-                                    .font(.subheadline)
-                            }
-                        }
-                        .padding(.horizontal)
-                    } else {
-                        Text("No ingredients available.")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal)
-                    }
-
-                    // Instructions Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Instructions:")
-                            .font(.headline)
+            
+            if cocktail != nil || preparation != nil {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        // Image Section
+                        CocktailImageView(
+                            url: cocktail?.strDrinkThumb ?? preparation?.strDrinkThumb,
+                            width: UIScreen.main.bounds.size.width,
+                            height: 180,
+                            accessibilityLabel: cocktail?.strDrink ?? preparation?.cocktailName ?? "Cocktail Image"
+                        )
+                        .applyShape(.rectangle)
                         
-                        if let instructions = cleanText(cocktail.strInstructions), !instructions.isEmpty {
-                            Text(instructions)
-                                .padding(.leading)
-                                .font(.subheadline)
+                        // Cocktail Name Section
+                        Text(cocktail?.strDrink ?? preparation?.cocktailName ?? "No Name Available")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                        
+                        // Cocktail Info Section
+                        CocktailInfoSection(category: cleanText(cocktail?.strCategory ?? preparation?.strCategory),
+                            alcoholic: cleanText(cocktail?.strAlcoholic ?? preparation?.strAlcoholic),
+                            glass: cleanText(cocktail?.strGlass ?? preparation?.strGlass))
+                        
+                        // Ingredients Section
+                        if let ingredients = getValidIngredients() {
+                            IngredientsView(ingredients: ingredients)
                         } else {
-                            Text("No instructions available.")
+                            Text("No ingredients available.")
                                 .font(.body)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color("PrimaryText"))
                                 .padding(.horizontal)
                         }
+                        
+                        // Instructions Section
+                        InstructionsView(instructions: cleanText(cocktail?.strInstructions ?? preparation?.strInstructions))
+                        
+                        // Prepare Button
+                        if let cocktail = cocktail {
+                            PrepareButton(cocktail: cocktail)
+                        }
+                        
+                        Spacer()
                     }
-                    .padding(.horizontal)
-
-                    // "Prepare" Button
-                    NavigationLink(destination: PreparationStepsView(cocktail: cocktail)) {
-                        Text("Prepare")
-                            .font(.headline)
-                            .foregroundColor(Color("PrimaryText"))
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color("BackgroundStart"))
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                            .padding(.top, 20)
-                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
-                    }
-                    .padding(.horizontal, 20)
-
-                    Spacer()
+                    .padding(.top)
                 }
-                .padding(.top)
+                .navigationTitle(cocktail?.strDrink ?? preparation?.cocktailName ?? "Cocktail")
+                .navigationBarTitleDisplayMode(.inline)
+            } else {
+                // Show loading view if cocktail or preparation are not available
+                ProgressView("Loading...")
             }
-            .navigationTitle(cocktail.strDrink)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
+    
+    private func ingredientSection(_ ingredients: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Ingredients:")
+                .font(.headline)
 
-    // Function to clean the text and avoid JSON-like artifacts in the response
-    private func cleanText(_ text: String?) -> String? {
-        guard let text = text else { return nil }
-        return text.replacingOccurrences(of: "\"text\":", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+            ForEach(ingredients, id: \.self) { ingredient in
+                Text("• \(ingredient)")
+                    .padding(.leading)
+                    .font(.subheadline)
+            }
+        }
+        .padding(.horizontal)
     }
-
-    // Function to get valid ingredients and clean up any text issues
-    private func getValidIngredients(from cocktail: Cocktail) -> [String]? {
-        let ingredients = [
-            cocktail.strIngredient1, cocktail.strIngredient2, cocktail.strIngredient3,
-            cocktail.strIngredient4, cocktail.strIngredient5, cocktail.strIngredient6,
-            cocktail.strIngredient7, cocktail.strIngredient8, cocktail.strIngredient9,
-            cocktail.strIngredient10, cocktail.strIngredient11, cocktail.strIngredient12,
-            cocktail.strIngredient13, cocktail.strIngredient14, cocktail.strIngredient15
+    
+    private var prepareButton: some View {
+        if cocktail != nil {
+            return AnyView(
+                NavigationLink(destination: PreparationStepsView(cocktail: cocktail!)) {
+                    Text("Prepare")
+                        .font(.headline)
+                        .foregroundColor(Color("PrimaryText"))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color("BackgroundStart"))
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                        .padding(.top, 20)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                }
+                    .padding(.horizontal, 20)
+            )
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
+    
+    // MARK: - Helper Functions
+    
+    // Function to get valid ingredients from either cocktail or preparation
+    private func getValidIngredients() -> [String]? {
+        // First, gather all the ingredients from the cocktail object
+        let cocktailIngredients: [String?] = [
+            cocktail?.strIngredient1, cocktail?.strIngredient2, cocktail?.strIngredient3,
+            cocktail?.strIngredient4, cocktail?.strIngredient5, cocktail?.strIngredient6,
+            cocktail?.strIngredient7, cocktail?.strIngredient8, cocktail?.strIngredient9,
+            cocktail?.strIngredient10, cocktail?.strIngredient11, cocktail?.strIngredient12,
+            cocktail?.strIngredient13, cocktail?.strIngredient14, cocktail?.strIngredient15
         ]
-
-        // Clean and filter out any nil or invalid entries
+        
+        // Then, gather all the ingredients from the preparation object
+        let preparationIngredients: [String?] = [
+            preparation?.strIngredient1, preparation?.strIngredient2, preparation?.strIngredient3,
+            preparation?.strIngredient4, preparation?.strIngredient5, preparation?.strIngredient6,
+            preparation?.strIngredient7, preparation?.strIngredient8, preparation?.strIngredient9,
+            preparation?.strIngredient10
+        ]
+        
+        // Combine both lists and choose the first non-nil value for each corresponding index
+        let ingredients = zip(cocktailIngredients, preparationIngredients).map { cocktailIng, prepIng in
+            cocktailIng ?? prepIng
+        }
+        
+        // Use compactMap and cleanText to ensure valid ingredients
         return ingredients.compactMap { ingredient in
             return cleanText(ingredient)
         }.filter { !$0.isEmpty }
+    }
+    
+    // Function to clean the text and avoid JSON-like artifacts
+    private func cleanText(_ text: String?) -> String? {
+        guard let text = text else { return nil }
+        return text.replacingOccurrences(of: "\"text\":", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

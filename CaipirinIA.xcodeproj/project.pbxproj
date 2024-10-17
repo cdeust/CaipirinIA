@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F508FAB2CC1CB35001399E9 /* PrepareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FAA2CC1CB35001399E9 /* PrepareButton.swift */; };
+		7F508FAD2CC1CBF0001399E9 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FAC2CC1CBF0001399E9 /* InstructionsView.swift */; };
+		7F508FAF2CC1CC83001399E9 /* IngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FAE2CC1CC83001399E9 /* IngredientsView.swift */; };
 		7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */; };
 		7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3C2C7F4F5100797AF4 /* LICENSE */; };
 		7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */; };
@@ -75,7 +78,6 @@
 		7FED596B2CBD3105006C7F2B /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED596A2CBD3105006C7F2B /* Cocktail.swift */; };
 		7FED596F2CBD31C0006C7F2B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED596E2CBD31BA006C7F2B /* Config.swift */; };
 		7FED59712CBD325B006C7F2B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59702CBD325B006C7F2B /* Endpoint.swift */; };
-		7FED59732CBD3294006C7F2B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59722CBD3294006C7F2B /* DataManager.swift */; };
 		7FED59762CBD32E2006C7F2B /* CameraServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */; };
 		7FED59772CBD32E8006C7F2B /* CocktailServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */; };
 		7FED597B2CBD3369006C7F2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED597A2CBD3364006C7F2B /* Extensions.swift */; };
@@ -85,6 +87,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F508FAA2CC1CB35001399E9 /* PrepareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareButton.swift; sourceTree = "<group>"; };
+		7F508FAC2CC1CBF0001399E9 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
+		7F508FAE2CC1CC83001399E9 /* IngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsView.swift; sourceTree = "<group>"; };
 		7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaipirinIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CaipirinIA-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -155,7 +160,6 @@
 		7FED596A2CBD3105006C7F2B /* Cocktail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktail.swift; sourceTree = "<group>"; };
 		7FED596E2CBD31BA006C7F2B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		7FED59702CBD325B006C7F2B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		7FED59722CBD3294006C7F2B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailServiceProtocol.swift; sourceTree = "<group>"; };
 		7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraServiceProtocol.swift; sourceTree = "<group>"; };
 		7FED597A2CBD3364006C7F2B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -227,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				7FDE9F652CBD509200504226 /* CameraManager.swift */,
-				7FED59722CBD3294006C7F2B /* DataManager.swift */,
 				7FDE9F612CBD495D00504226 /* DetectionOverlayManager.swift */,
 				7FED597E2CBD3466006C7F2B /* NetworkError.swift */,
 				7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */,
@@ -293,9 +296,12 @@
 				7FDE9FA52CC10C4900504226 /* GPTChatView.swift */,
 				7FED59412CBD28FE006C7F2B /* HomeView.swift */,
 				7FED59532CBD2AE9006C7F2B /* IngredientTag.swift */,
+				7F508FAE2CC1CC83001399E9 /* IngredientsView.swift */,
+				7F508FAC2CC1CBF0001399E9 /* InstructionsView.swift */,
 				7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */,
 				7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */,
 				7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */,
+				7F508FAA2CC1CB35001399E9 /* PrepareButton.swift */,
 				7FDE9F942CC0693E00504226 /* ProgressButton.swift */,
 			);
 			path = Views;
@@ -475,6 +481,7 @@
 				7F7CFB602C7F4F5100797AF4 /* ContentView.swift in Sources */,
 				7FED59422CBD28FE006C7F2B /* HomeView.swift in Sources */,
 				7FED59482CBD295F006C7F2B /* CircleButton.swift in Sources */,
+				7F508FAF2CC1CC83001399E9 /* IngredientsView.swift in Sources */,
 				7FDE9F7E2CBDBF2A00504226 /* CachedAsyncImage.swift in Sources */,
 				7FDE9FA22CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift in Sources */,
 				7FDE9F7C2CBDBE8100504226 /* CircularNavigationButton.swift in Sources */,
@@ -483,6 +490,7 @@
 				7FDE9F952CC0693E00504226 /* ProgressButton.swift in Sources */,
 				7FED594E2CBD2A76006C7F2B /* CameraViewModel.swift in Sources */,
 				7F7CFB5F2C7F4F5100797AF4 /* Data+ToArray.swift in Sources */,
+				7F508FAB2CC1CB35001399E9 /* PrepareButton.swift in Sources */,
 				7FED59762CBD32E2006C7F2B /* CameraServiceProtocol.swift in Sources */,
 				7FED59622CBD2CB5006C7F2B /* CameraViewControllerDelegate.swift in Sources */,
 				7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */,
@@ -492,6 +500,7 @@
 				7FED595E2CBD2B2E006C7F2B /* CocktailInstructionsView.swift in Sources */,
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
 				7FDE9F802CBDC97000504226 /* CocktailDetailViewModel.swift in Sources */,
+				7F508FAD2CC1CBF0001399E9 /* InstructionsView.swift in Sources */,
 				7FED59642CBD2CDB006C7F2B /* CocktailListViewModel.swift in Sources */,
 				7FDE9FA42CC1078800504226 /* CocktailMapper.swift in Sources */,
 				7FDE9FA62CC10C4900504226 /* GPTChatView.swift in Sources */,
@@ -500,7 +509,6 @@
 				7FDE9FA82CC10E4200504226 /* OpenAIChatViewModel.swift in Sources */,
 				7FED59822CBD3689006C7F2B /* TitleModifier.swift in Sources */,
 				7FED59602CBD2CA5006C7F2B /* CameraPreview.swift in Sources */,
-				7FED59732CBD3294006C7F2B /* DataManager.swift in Sources */,
 				7FDE9F7A2CBDBD9500504226 /* CircularActionButton.swift in Sources */,
 				7F7CFB5A2C7F4F5100797AF4 /* AppState.swift in Sources */,
 				7FDE9F842CBDD42D00504226 /* PreparationStepsView.swift in Sources */,
@@ -655,8 +663,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -688,8 +695,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

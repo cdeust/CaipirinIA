@@ -10,7 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = HomeViewModel()
-    @State private var selectedCocktailID: String? = nil  // To track the selected cocktail ID
+    @State private var selectedCocktailID: String? = nil
+    @State private var selectedPreparation: Preparation? = nil
 
     var body: some View {
         NavigationStack {
@@ -50,6 +51,7 @@ struct HomeView: View {
                                     // Trigger fetching of cocktail details
                                     Button(action: {
                                         selectedCocktailID = preparation.cocktailId
+                                        selectedPreparation = preparation
                                     }) {
                                         PreparationCardView(preparation: preparation)
                                     }
@@ -71,7 +73,7 @@ struct HomeView: View {
             // NavigationLink to CocktailDetailView, once the cocktailID is fetched
             .background(
                 NavigationLink(
-                    destination: CocktailDetailView(cocktailID: selectedCocktailID ?? ""),
+                    destination: GeneratedCocktailDetailView(cocktail: nil, preparation: selectedPreparation),
                     isActive: Binding(
                         get: { selectedCocktailID != nil },
                         set: { isActive in
@@ -81,50 +83,9 @@ struct HomeView: View {
                         }
                     )
                 ) {
-                    EmptyView()
+                    EmptyView()  // You need a valid view here, like `EmptyView()` for a label
                 }
             )
         }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Sample Preparations
-        let samplePreparationWithImage = Preparation(
-            id: UUID(),
-            cocktailId: "1107",
-            cocktailName: "Margarita",
-            datePrepared: Date(),
-            steps: [
-                "Rub the rim of the glass with the lime slice to make the salt stick to it.",
-                "Shake the other ingredients with ice.",
-                "Carefully pour into the glass."
-            ],
-            imageName: URL(string:"MargaritaImage") // Ensure this image exists in your Assets.xcassets
-        )
-        
-        let samplePreparationWithoutImage = Preparation(
-            id: UUID(),
-            cocktailId: "1120",
-            cocktailName: "Old Fashioned",
-            datePrepared: Date(),
-            steps: [
-                "Place sugar cube in old fashioned glass and saturate with bitters.",
-                "Muddle until dissolved.",
-                "Fill the glass with ice cubes and add whiskey.",
-                "Garnish with orange slice and cocktail cherry."
-            ],
-            imageName: nil // No image provided; placeholder will be used
-        )
-        
-        // Initialize AppState with sample preparations
-        let appState = AppState()
-        appState.preparations = [samplePreparationWithImage, samplePreparationWithoutImage]
-        
-        return HomeView()
-            .environmentObject(appState)
-            .previewLayout(.sizeThatFits)
-            .padding()
     }
 }

@@ -39,6 +39,11 @@ class CocktailService: CocktailServiceProtocol {
         let endpoint = CocktailDBEndpoint.lookupCocktailByID(id)
         return networkManager.request(endpoint, responseType: CocktailResponse.self)
             .compactMap { $0.drinks?.first }
+            .map { cocktail in
+                var modifiedCocktail = cocktail
+                modifiedCocktail.source = .cocktailDb
+                return modifiedCocktail
+            }
             .eraseToAnyPublisher()
     }
     

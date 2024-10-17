@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum CocktailSource: String, Codable {
+    case cocktailDb
+    case generated
+}
+
 struct CocktailResponse: Codable {
     let drinks: [Cocktail]?
 }
@@ -66,6 +71,8 @@ struct Cocktail: Codable, Identifiable {
     let strImageAttribution: String?
     let strCreativeCommonsConfirmed: String?
     let dateModified: String?
+    
+    var source: CocktailSource?
     
     // Computed property to combine ingredients and measurements
     var ingredients: [Ingredient] {

@@ -75,7 +75,7 @@ class OpenAIService: OpenAIServiceProtocol {
                 ["role": "system", "content": "You are a cocktail expert."],
                 ["role": "user", "content": prompt]
             ],
-            "max_tokens": 900
+            "max_tokens": 1500
         ]
 
         var request = URLRequest(url: url)

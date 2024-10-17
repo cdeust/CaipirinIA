@@ -51,7 +51,7 @@ struct CocktailDetailView: View {
                             .padding(.horizontal)
 
                         // Cocktail Information Section
-                        CocktailInfoSection(cocktail: cocktail)
+                        CocktailInfoSection(category: cocktail.strCategory, alcoholic: cocktail.strAlcoholic, glass: cocktail.strGlass)
                             .padding(.horizontal)
 
                         // Ingredients Section

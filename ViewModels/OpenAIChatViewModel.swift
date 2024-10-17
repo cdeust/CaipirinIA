@@ -13,14 +13,15 @@ class OpenAIChatViewModel: ObservableObject {
     @Published var currentMessage: String = ""
     @Published var isLoading: Bool = false
     @Published var generatedCocktail: Cocktail?
+    let detectedIngredients: [String]  // Store the initial ingredients
     
     private var cancellables = Set<AnyCancellable>()
     private let cocktailService: CocktailServiceProtocol
-    
-    init(cocktailService: CocktailServiceProtocol, initialIngredients: [String]) {
+
+    init(cocktailService: CocktailServiceProtocol, detectedIngredients: [String]) {
         self.cocktailService = cocktailService
-        self.currentMessage = initialIngredients.joined(separator: ", ")  // Set ingredients here
-        print("OpenAIChatViewModel initialized with ingredients: \(initialIngredients)")
+        self.detectedIngredients = detectedIngredients
+        self.currentMessage = detectedIngredients.joined(separator: ", ")
     }
     
     func sendMessage(ingredients: [String]) {
@@ -39,7 +40,6 @@ class OpenAIChatViewModel: ObservableObject {
                 }
             }, receiveValue: { cocktail in
                 self.messageHistory.append("GPT: Here's a cocktail for you!")
-                print("\(cocktail)")
                 self.generatedCocktail = cocktail
             })
             .store(in: &cancellables)
