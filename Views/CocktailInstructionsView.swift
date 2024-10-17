@@ -17,9 +17,25 @@ struct CocktailInstructionsView: View {
                 .bold()
                 .padding(.bottom, 5)
 
-            Text(instructions)
-                .font(.body)
-                .foregroundColor(.primary)
+            DisclosureGroup("View Steps") {
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(instructions.splitIntoSteps(), id: \.self) { step in
+                        HStack(alignment: .top, spacing: 5) {
+                            Text("•")
+                                .font(.body)
+                                .foregroundColor(Color("SecondaryText"))
+                            Text(step)
+                                .font(.body)
+                                .foregroundColor(Color("SecondaryText"))
+                                .multilineTextAlignment(.leading)
+                        }
+                        .padding(.leading, 5) // Slight padding to align with the bullet
+                    }
+                }
+                .padding(.top, 5) // Adds space between the DisclosureGroup title and the steps
+            }
+            .padding(.top, 10) // Optional: Adds space above the DisclosureGroup
+            .accentColor(Color("SecondaryText")) // Sets the color of the DisclosureGroup arrow
         }
     }
 }

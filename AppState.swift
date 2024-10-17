@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 
 class AppState: ObservableObject {
-    @Published var previousCocktails: [Cocktail] = []
     @Published var cocktailIngredients: [String] = []
     @Published var detectedItems: [DetectedItem] = []
     @Published var preparations: [Preparation] = []

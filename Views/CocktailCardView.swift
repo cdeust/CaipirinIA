@@ -12,37 +12,13 @@ struct CocktailCardView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            if let imageUrl = cocktail.strDrinkThumb,
-               let url = URL(string: imageUrl) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(height: 120)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 120)
-                            .clipped()
-                            .cornerRadius(10)
-                    case .failure:
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 120)
-                            .foregroundColor(.gray)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-            } else {
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 120)
-                    .foregroundColor(.gray)
-            }
+            CocktailImageView(
+                url: cocktail.strDrinkThumb,
+                width: UIScreen.main.bounds.width / 2 - 20,
+                height: 120,
+                shapeType: .roundedRectangle(cornerRadius: 10),
+                accessibilityLabel: "\(cocktail.strDrink) Image"
+            )
 
             Text(cocktail.strDrink)
                 .font(.headline)

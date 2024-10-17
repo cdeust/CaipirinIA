@@ -43,11 +43,13 @@
 		7FDE9F892CBE94CA00504226 /* IngredientMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F882CBE949F00504226 /* IngredientMapper.swift */; };
 		7FDE9F912CC0614400504226 /* ShakeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F902CC0612300504226 /* ShakeEffect.swift */; };
 		7FDE9F952CC0693E00504226 /* ProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F942CC0693E00504226 /* ProgressButton.swift */; };
+		7FDE9F972CC07B9400504226 /* ShapeStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F962CC07B9400504226 /* ShapeStyleModifier.swift */; };
+		7FDE9F9C2CC0898500504226 /* String+SplitSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F982CC085C300504226 /* String+SplitSteps.swift */; };
+		7FDE9F9E2CC0950A00504226 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */; };
 		7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */; };
 		7FED592B2CB96718006C7F2B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FED592A2CB96718006C7F2B /* Config.plist */; };
 		7FED592D2CB967A6006C7F2B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED592C2CB967A6006C7F2B /* Configuration.swift */; };
 		7FED59422CBD28FE006C7F2B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59412CBD28FE006C7F2B /* HomeView.swift */; };
-		7FED59442CBD291C006C7F2B /* PreviousCocktailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */; };
 		7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59452CBD2947006C7F2B /* FakeTabBar.swift */; };
 		7FED59482CBD295F006C7F2B /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59472CBD295F006C7F2B /* CircleButton.swift */; };
 		7FED594A2CBD29CF006C7F2B /* DetectedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59492CBD29CF006C7F2B /* DetectedItemsView.swift */; };
@@ -115,11 +117,13 @@
 		7FDE9F882CBE949F00504226 /* IngredientMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMapper.swift; sourceTree = "<group>"; };
 		7FDE9F902CC0612300504226 /* ShakeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeEffect.swift; sourceTree = "<group>"; };
 		7FDE9F942CC0693E00504226 /* ProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressButton.swift; sourceTree = "<group>"; };
+		7FDE9F962CC07B9400504226 /* ShapeStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeStyleModifier.swift; sourceTree = "<group>"; };
+		7FDE9F982CC085C300504226 /* String+SplitSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SplitSteps.swift"; sourceTree = "<group>"; };
+		7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiriniaDetector.mlmodel; sourceTree = "<group>"; };
 		7FED592A2CB96718006C7F2B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7FED592C2CB967A6006C7F2B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		7FED59412CBD28FE006C7F2B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousCocktailsList.swift; sourceTree = "<group>"; };
 		7FED59452CBD2947006C7F2B /* FakeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeTabBar.swift; sourceTree = "<group>"; };
 		7FED59472CBD295F006C7F2B /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		7FED59492CBD29CF006C7F2B /* DetectedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedItemsView.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 		7F7CFB472C7F4F5100797AF4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE9F982CC085C300504226 /* String+SplitSteps.swift */,
 				7F7CFB452C7F4F5100797AF4 /* CGImage+Resized.swift */,
 				7F7CFB462C7F4F5100797AF4 /* Data+ToArray.swift */,
 				7FED597A2CBD3364006C7F2B /* Extensions.swift */,
@@ -277,7 +282,6 @@
 				7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */,
 				7FDE9F852CBDD55A00504226 /* PreparationCardView.swift */,
 				7FDE9F832CBDD42D00504226 /* PreparationStepsView.swift */,
-				7FED59432CBD291C006C7F2B /* PreviousCocktailsList.swift */,
 				7FDE9F942CC0693E00504226 /* ProgressButton.swift */,
 			);
 			path = Views;
@@ -314,6 +318,7 @@
 				7FED594D2CBD2A76006C7F2B /* CameraViewModel.swift */,
 				7FDE9F7F2CBDC97000504226 /* CocktailDetailViewModel.swift */,
 				7FED59632CBD2CDB006C7F2B /* CocktailListViewModel.swift */,
+				7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 		7FED597C2CBD3394006C7F2B /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE9F962CC07B9400504226 /* ShapeStyleModifier.swift */,
 				7FDE9F772CBDBCDE00504226 /* CircularButtonModifier.swift */,
 				7FED597D2CBD339E006C7F2B /* TitleModifier.swift */,
 			);
@@ -428,6 +434,7 @@
 				7FED595A2CBD2B14006C7F2B /* CocktailInfoSection.swift in Sources */,
 				7F7CFB5B2C7F4F5100797AF4 /* Classifier.swift in Sources */,
 				7F7CFB632C7F4F5100797AF4 /* CameraView.swift in Sources */,
+				7FDE9F9E2CC0950A00504226 /* HomeViewModel.swift in Sources */,
 				7FDE9F682CBD578500504226 /* FrameProcessor.swift in Sources */,
 				7FED59522CBD2AD0006C7F2B /* CocktailDetailView.swift in Sources */,
 				7FED594A2CBD29CF006C7F2B /* DetectedItemsView.swift in Sources */,
@@ -438,7 +445,6 @@
 				7FDE9F822CBDD36500504226 /* Preparation.swift in Sources */,
 				7FDE9F602CBD3EF700504226 /* BoundingBoxView.swift in Sources */,
 				7FDE9F762CBDBC6900504226 /* CircularButtonView.swift in Sources */,
-				7FED59442CBD291C006C7F2B /* PreviousCocktailsList.swift in Sources */,
 				7FED59542CBD2AE9006C7F2B /* IngredientTag.swift in Sources */,
 				7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */,
 				7FCFB1942C906FC600F85975 /* Constants.swift in Sources */,
@@ -467,6 +473,7 @@
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
 				7FDE9F802CBDC97000504226 /* CocktailDetailViewModel.swift in Sources */,
 				7FED59642CBD2CDB006C7F2B /* CocktailListViewModel.swift in Sources */,
+				7FDE9F9C2CC0898500504226 /* String+SplitSteps.swift in Sources */,
 				7FDE9F722CBDB96000504226 /* NoCocktailsView.swift in Sources */,
 				7FED59822CBD3689006C7F2B /* TitleModifier.swift in Sources */,
 				7FED59602CBD2CA5006C7F2B /* CameraPreview.swift in Sources */,
@@ -477,6 +484,7 @@
 				7FED597F2CBD3466006C7F2B /* NetworkError.swift in Sources */,
 				7FED59712CBD325B006C7F2B /* Endpoint.swift in Sources */,
 				7FDE9F662CBD509200504226 /* CameraManager.swift in Sources */,
+				7FDE9F972CC07B9400504226 /* ShapeStyleModifier.swift in Sources */,
 				7FDE9F702CBDB94E00504226 /* CocktailGridView.swift in Sources */,
 				7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */,
 				7FDE9F622CBD495D00504226 /* DetectionOverlayManager.swift in Sources */,

@@ -38,19 +38,7 @@ class CocktailDetailViewModel: ObservableObject {
                 self?.isLoading = false
             } receiveValue: { [weak self] cocktailDetail in
                 self?.cocktail = cocktailDetail
-                self?.addToPreviousCocktails(cocktailDetail)
             }
             .store(in: &cancellables)
-    }
-    
-    private func addToPreviousCocktails(_ detail: Cocktail) {
-        let appState = DependencyContainer.shared.resolve(AppState.self)
-        
-        // Check if the cocktail already exists
-        if !appState.previousCocktails.contains(where: { $0.id == detail.idDrink }) {
-            // Map CocktailDetail to Cocktail if necessary
-            let cocktail = detail
-            appState.previousCocktails.append(cocktail)
-        }
     }
 }

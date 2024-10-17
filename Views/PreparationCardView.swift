@@ -13,23 +13,43 @@ struct PreparationCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
+            // Top Row: Image, Texts, and Trash Button
+            HStack(alignment: .center, spacing: 15) {
+                // Cocktail Image
+                CocktailImageView(
+                    url: preparation.imageName?.absoluteString,
+                    width: 50,
+                    height: 50,
+                    accessibilityLabel: "\(preparation.cocktailName) Image"
+                )
+                .applyShape(.circle)
+                
+                // Cocktail Name and Preparation Time
                 VStack(alignment: .leading, spacing: 5) {
                     Text(preparation.cocktailName)
                         .font(.headline)
                         .foregroundColor(Color("PrimaryText"))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     
                     Text("Prepared on \(formattedDate(preparation.datePrepared))")
                         .font(.subheadline)
                         .foregroundColor(Color("SecondaryText"))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
+                
                 Spacer()
+                
+                // Trash Button
                 Button(action: {
                     appState.deletePreparation(preparation)
                 }) {
                     Image(systemName: "trash")
                         .foregroundColor(.red)
+                        .imageScale(.large)
                 }
+                .buttonStyle(PlainButtonStyle())
                 .accessibilityLabel("Delete Preparation")
             }
             
@@ -69,19 +89,43 @@ struct PreparationCardView: View {
 
 struct PreparationCardView_Previews: PreviewProvider {
     static var previews: some View {
-        let samplePreparation = Preparation(
+        let samplePreparationWithImage = Preparation(
             id: UUID(),
+            cocktailId: "1107",
             cocktailName: "Margarita",
             datePrepared: Date(),
             steps: [
                 "Rub the rim of the glass with the lime slice to make the salt stick to it.",
                 "Shake the other ingredients with ice.",
                 "Carefully pour into the glass."
-            ]
+            ],
+            imageName: URL(string:"MargaritaImage") // Ensure this image exists in your assets
         )
         
-        PreparationCardView(preparation: samplePreparation)
-            .environmentObject(AppState())
-            .previewLayout(.sizeThatFits)
+        let samplePreparationWithoutImage = Preparation(
+            id: UUID(),
+            cocktailId: "1120",
+            cocktailName: "Old Fashioned",
+            datePrepared: Date(),
+            steps: [
+                "Place sugar cube in old fashioned glass and saturate with bitters.",
+                "Muddle until dissolved.",
+                "Fill the glass with ice cubes and add whiskey.",
+                "Garnish with orange slice and cocktail cherry."
+            ],
+            imageName: nil
+        )
+        
+        Group {
+            PreparationCardView(preparation: samplePreparationWithImage)
+                .environmentObject(AppState())
+                .previewLayout(.sizeThatFits)
+                .padding()
+            
+            PreparationCardView(preparation: samplePreparationWithoutImage)
+                .environmentObject(AppState())
+                .previewLayout(.sizeThatFits)
+                .padding()
+        }
     }
 }

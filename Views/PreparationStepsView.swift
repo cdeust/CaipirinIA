@@ -80,28 +80,21 @@ struct PreparationStepsView: View {
         .navigationBarTitle("Prepare \(cocktail.strDrink)", displayMode: .inline)
     }
     
-    // Extract and split instructions into steps
+    // Enhanced Step Splitting Logic
     private var steps: [String] {
         guard let instructions = cocktail.strInstructions else { return [] }
-        // Split by periods and trim whitespace
-        let rawSteps = instructions.components(separatedBy: ". ")
-        // Ensure each step ends with a period
-        return rawSteps.map { step in
-            if step.hasSuffix(".") {
-                return step
-            } else {
-                return step + "."
-            }
-        }
+        return instructions.splitIntoSteps()
     }
     
-    // Function to add the completed preparation to AppState
+    // Corrected Function to Add Preparation
     private func addPreparation() {
         let preparation = Preparation(
             id: UUID(),
+            cocktailId: cocktail.idDrink,
             cocktailName: cocktail.strDrink,
             datePrepared: Date(),
-            steps: steps
+            steps: steps,
+            imageName: URL(string: cocktail.strDrinkThumb ?? "")
         )
         appState.addPreparation(preparation)
     }

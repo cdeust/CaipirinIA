@@ -35,29 +35,13 @@ struct CocktailDetailView: View {
                         Spacer()
                     } else if let cocktail = viewModel.cocktail {
                         // Cocktail Image
-                        AsyncImage(url: URL(string: cocktail.strDrinkThumb ?? "")) { phase in
-                            switch phase {
-                            case .empty:
-                                ProgressView()
-                                    .frame(height: 200)
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(height: 200)
-                                    .clipped()
-                                    .cornerRadius(10)
-                                    .shadow(radius: 5)
-                            case .failure:
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
-                                    .foregroundColor(.gray)
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
+                        CocktailImageView(
+                            url: cocktail.strDrinkThumb ?? "",
+                            width: UIScreen.main.bounds.size.width,
+                            height: 180,
+                            accessibilityLabel: "\(cocktail.strDrink)"
+                        )
+                        .applyShape(.rectangle)
 
                         // Cocktail Name
                         Text(cocktail.strDrink)
