@@ -20,17 +20,17 @@ struct CocktailIngredientsView: View {
             if ingredients.isEmpty {
                 Text("No ingredients available.")
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color("PrimaryText"))
             } else {
                 ForEach(ingredients) { ingredient in
                     HStack {
                         Text("• \(ingredient.name)")
                             .font(.body)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color("PrimaryText"))
                         Spacer()
                         // Optionally, display the ingredient type or an icon representing it
                         Image(systemName: iconName(for: ingredient.type))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color("PrimaryText"))
                     }
                     .padding(.vertical, 2)
                 }

@@ -11,12 +11,17 @@ import Combine
 protocol CocktailServiceProtocol {
     func fetchCocktails(withIngredients ingredients: [String]) -> AnyPublisher<[Cocktail], NetworkError>
     func fetchCocktailDetails(by id: String) -> AnyPublisher<Cocktail, NetworkError>
+    func generateCocktailWithGPT(ingredients: [String]) -> AnyPublisher<Cocktail, Error>
 }
 
 class CocktailService: CocktailServiceProtocol {
     private let networkManager: NetworkManagerProtocol
+    private let openAIService: OpenAIServiceProtocol
+    private let pexelsService: PexelsImageSearchServiceProtocol
 
-    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared, openAIService: OpenAIServiceProtocol = OpenAIService(), pexelsService: PexelsImageSearchServiceProtocol = PexelsImageSearchService()) {
+        self.openAIService = openAIService
+        self.pexelsService = pexelsService
         self.networkManager = networkManager
     }
 
@@ -34,6 +39,20 @@ class CocktailService: CocktailServiceProtocol {
         let endpoint = CocktailDBEndpoint.lookupCocktailByID(id)
         return networkManager.request(endpoint, responseType: CocktailResponse.self)
             .compactMap { $0.drinks?.first }
+            .eraseToAnyPublisher()
+    }
+    
+    func generateCocktailWithGPT(ingredients: [String]) -> AnyPublisher<Cocktail, Error> {
+        let mappedIngredients = IngredientMapper.mapIngredients(ingredients)
+        
+        return openAIService.generateCocktail(ingredients: mappedIngredients)
+            .flatMap { response -> AnyPublisher<Cocktail, Error> in
+                let pexelsService = PexelsImageSearchService()
+                let cocktailMapper = CocktailMapper(pexelsService: pexelsService)
+                
+                // Return the cocktail publisher from the mapper
+                return cocktailMapper.parseGPTResponseToCocktail(response)
+            }
             .eraseToAnyPublisher()
     }
 }

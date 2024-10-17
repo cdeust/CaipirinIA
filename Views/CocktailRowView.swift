@@ -21,7 +21,7 @@ struct CocktailRowView: View {
                     .font(.headline)
                 Text(cocktail.strCategory ?? "")
                     .font(.subheadline)
-                    .foregroundColor(Color("SecondaryText"))
+                    .foregroundColor(Color("PrimaryText"))
             }
 
             Spacer()

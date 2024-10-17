@@ -65,7 +65,7 @@ struct CocktailDetailView: View {
                         } else {
                             Text("No instructions available.")
                                 .font(.body)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color("PrimaryText"))
                                 .padding(.horizontal)
                         }
                         
@@ -85,7 +85,7 @@ struct CocktailDetailView: View {
                         .padding(.horizontal, 20)
                     } else {
                         Text("No details available.")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color("PrimaryText"))
                             .padding()
                         Spacer()
                     }

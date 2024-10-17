@@ -15,7 +15,8 @@ struct CocktailImageView: View {
     var accessibilityLabel: String = "Cocktail Image"
     
     var body: some View {
-        if let urlString = url, let imageURL = URL(string: urlString) {
+        if let urlString = url, !urlString.isEmpty, let imageURL = URL(string: urlString) {
+            // Proceed with loading the image from the URL
             AsyncImage(url: imageURL) { phase in
                 switch phase {
                 case .empty:
@@ -58,7 +59,7 @@ struct CocktailImageView: View {
                 }
             }
         } else {
-            // Placeholder Image if no URL is provided
+            // Placeholder Image if no URL is provided or it's empty
             Image(systemName: "photo")
                 .resizable()
                 .scaledToFit()
@@ -76,7 +77,6 @@ struct CocktailImageView: View {
     
     // MARK: - Helper
     
-    /// Creates an overlay stroke based on the shape type.
     @ViewBuilder
     private func shapeOverlay() -> some View {
         switch shapeType {

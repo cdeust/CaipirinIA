@@ -12,7 +12,7 @@ struct CocktailResponse: Codable {
 }
 
 struct Cocktail: Codable, Identifiable {
-    let idDrink: String
+    let idDrink: String?
     let strDrink: String
     let strDrinkAlternate: String?
     let strTags: String?
@@ -28,7 +28,7 @@ struct Cocktail: Codable, Identifiable {
     let strInstructionsIT: String?
     let strInstructionsZH_HANS: String?
     let strInstructionsZH_HANT: String?
-    let strDrinkThumb: String?
+    var strDrinkThumb: String?
     
     let strIngredient1: String?
     let strIngredient2: String?
@@ -101,16 +101,14 @@ struct Cocktail: Codable, Identifiable {
         return result
     }
     
-    var id: String { idDrink }
+    var id: String { idDrink ?? UUID().uuidString }
     
-    // Helper function to determine IngredientType based on ingredient name
     private func determineIngredientType(for ingredientName: String) -> IngredientType? {
         // Use the ingredient catalog from IngredientMapper
         if let catalogItem = IngredientMapper.ingredientsCatalog.first(where: { $0.name.caseInsensitiveCompare(ingredientName) == .orderedSame }) {
             return catalogItem.type
         }
         
-        // If the ingredient is not found in the catalog, return nil or .other
         return nil
     }
 }

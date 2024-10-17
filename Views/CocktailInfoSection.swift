@@ -15,19 +15,19 @@ struct CocktailInfoSection: View {
             if let category = cocktail.strCategory {
                 Text("Category: \(category)")
                     .font(.subheadline)
-                    .foregroundColor(Color("SecondaryText"))
+                    .foregroundColor(Color("PrimaryText"))
             }
 
             if let alcoholic = cocktail.strAlcoholic {
                 Text("Alcoholic: \(alcoholic)")
                     .font(.subheadline)
-                    .foregroundColor(Color("SecondaryText"))
+                    .foregroundColor(Color("PrimaryText"))
             }
 
             if let glass = cocktail.strGlass {
                 Text("Glass: \(glass)")
                     .font(.subheadline)
-                    .foregroundColor(Color("SecondaryText"))
+                    .foregroundColor(Color("PrimaryText"))
             }
         }
     }

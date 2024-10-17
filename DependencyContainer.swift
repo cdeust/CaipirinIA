@@ -18,14 +18,13 @@ class DependencyContainer {
     private var factories = [String: Any]()
 
     func registerDependencies() {
+        register(AppState.self) { AppState() }
+        
         register(NetworkManagerProtocol.self) { NetworkManager() }
         register(CameraServiceProtocol.self) { CameraService(cameraManager: CameraManager()) }
-        register(AppState.self) { AppState() }
-        register(CocktailServiceProtocol.self) {
-            CocktailService(
-                networkManager: self.resolve(NetworkManagerProtocol.self)
-            )
-        }
+        register(CocktailServiceProtocol.self) { CocktailService(networkManager: self.resolve(NetworkManagerProtocol.self)) }
+        register(OpenAIServiceProtocol.self) { OpenAIService() }
+        register(PexelsImageSearchServiceProtocol.self) { PexelsImageSearchService() }
     }
 
     func register<T>(_ protocolType: T.Type, factory: @escaping () -> T) {

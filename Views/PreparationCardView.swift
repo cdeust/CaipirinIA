@@ -34,7 +34,7 @@ struct PreparationCardView: View {
                     
                     Text("Prepared on \(formattedDate(preparation.datePrepared))")
                         .font(.subheadline)
-                        .foregroundColor(Color("SecondaryText"))
+                        .foregroundColor(Color("PrimaryText"))
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }

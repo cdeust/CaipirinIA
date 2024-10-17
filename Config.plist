@@ -4,5 +4,9 @@
 <dict>
 	<key>API_KEY</key>
 	<string>9973533</string>
+	<key>OPEN_API_KEY</key>
+	<string>sk-niJiA53QVg8PGPTU12qJlaqjAi1adP-Kr6kX2wlJdPT3BlbkFJ3WEnAcap8BHodTcm6evZL6FzoOjSB7jYZ62YfrW0gA</string>
+	<key>PEXELS_API_KEY</key>
+	<string>pDiPrr3AAySd1t0YuU27B7esnmPQfBsR72nakrWnyYmadpdXJI2ifhbM</string>
 </dict>
 </plist>

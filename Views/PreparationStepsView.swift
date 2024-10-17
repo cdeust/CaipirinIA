@@ -90,7 +90,7 @@ struct PreparationStepsView: View {
     private func addPreparation() {
         let preparation = Preparation(
             id: UUID(),
-            cocktailId: cocktail.idDrink,
+            cocktailId: cocktail.idDrink ?? UUID().uuidString,
             cocktailName: cocktail.strDrink,
             datePrepared: Date(),
             steps: steps,

@@ -46,6 +46,12 @@
 		7FDE9F972CC07B9400504226 /* ShapeStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F962CC07B9400504226 /* ShapeStyleModifier.swift */; };
 		7FDE9F9C2CC0898500504226 /* String+SplitSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F982CC085C300504226 /* String+SplitSteps.swift */; };
 		7FDE9F9E2CC0950A00504226 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */; };
+		7FDE9FA02CC0F74400504226 /* OpenAIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9F9F2CC0F74400504226 /* OpenAIServiceProtocol.swift */; };
+		7FDE9FA22CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9FA12CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift */; };
+		7FDE9FA42CC1078800504226 /* CocktailMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9FA32CC1078800504226 /* CocktailMapper.swift */; };
+		7FDE9FA62CC10C4900504226 /* GPTChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9FA52CC10C4900504226 /* GPTChatView.swift */; };
+		7FDE9FA82CC10E4200504226 /* OpenAIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9FA72CC10E4200504226 /* OpenAIChatViewModel.swift */; };
+		7FDE9FAA2CC121CF00504226 /* GeneratedCocktailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE9FA92CC121CF00504226 /* GeneratedCocktailDetailView.swift */; };
 		7FED59292CB963FB006C7F2B /* CaipiriniaDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */; };
 		7FED592B2CB96718006C7F2B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FED592A2CB96718006C7F2B /* Config.plist */; };
 		7FED592D2CB967A6006C7F2B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FED592C2CB967A6006C7F2B /* Configuration.swift */; };
@@ -120,6 +126,12 @@
 		7FDE9F962CC07B9400504226 /* ShapeStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeStyleModifier.swift; sourceTree = "<group>"; };
 		7FDE9F982CC085C300504226 /* String+SplitSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SplitSteps.swift"; sourceTree = "<group>"; };
 		7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		7FDE9F9F2CC0F74400504226 /* OpenAIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServiceProtocol.swift; sourceTree = "<group>"; };
+		7FDE9FA12CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsImageSearchServiceProtocol.swift; sourceTree = "<group>"; };
+		7FDE9FA32CC1078800504226 /* CocktailMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailMapper.swift; sourceTree = "<group>"; };
+		7FDE9FA52CC10C4900504226 /* GPTChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTChatView.swift; sourceTree = "<group>"; };
+		7FDE9FA72CC10E4200504226 /* OpenAIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatViewModel.swift; sourceTree = "<group>"; };
+		7FDE9FA92CC121CF00504226 /* GeneratedCocktailDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedCocktailDetailView.swift; sourceTree = "<group>"; };
 		7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiriniaDetector.mlmodel; sourceTree = "<group>"; };
 		7FED592A2CB96718006C7F2B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7FED592C2CB967A6006C7F2B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -277,6 +289,8 @@
 				7FDE9F6B2CBDA69000504226 /* DetectionOverlayView.swift */,
 				7FDE9F692CBDA33200504226 /* EmptyStateView.swift */,
 				7FED59452CBD2947006C7F2B /* FakeTabBar.swift */,
+				7FDE9FA92CC121CF00504226 /* GeneratedCocktailDetailView.swift */,
+				7FDE9FA52CC10C4900504226 /* GPTChatView.swift */,
 				7FED59412CBD28FE006C7F2B /* HomeView.swift */,
 				7FED59532CBD2AE9006C7F2B /* IngredientTag.swift */,
 				7FDE9F712CBDB96000504226 /* NoCocktailsView.swift */,
@@ -299,6 +313,7 @@
 		7FDE9F872CBE948800504226 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE9FA32CC1078800504226 /* CocktailMapper.swift */,
 				7FDE9F882CBE949F00504226 /* IngredientMapper.swift */,
 			);
 			path = Mapper;
@@ -319,6 +334,7 @@
 				7FDE9F7F2CBDC97000504226 /* CocktailDetailViewModel.swift */,
 				7FED59632CBD2CDB006C7F2B /* CocktailListViewModel.swift */,
 				7FDE9F9D2CC0950A00504226 /* HomeViewModel.swift */,
+				7FDE9FA72CC10E4200504226 /* OpenAIChatViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -326,6 +342,8 @@
 		7FED596C2CBD3186006C7F2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7FDE9FA12CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift */,
+				7FDE9F9F2CC0F74400504226 /* OpenAIServiceProtocol.swift */,
 				7FED59752CBD32B9006C7F2B /* CameraServiceProtocol.swift */,
 				7FED59742CBD32A9006C7F2B /* CocktailServiceProtocol.swift */,
 				7FDE9F632CBD4FF300504226 /* ObjectDetectorProtocol.swift */,
@@ -428,6 +446,7 @@
 			files = (
 				7FDE9F6E2CBDB7B100504226 /* CocktailCardView.swift in Sources */,
 				7FDE9F912CC0614400504226 /* ShakeEffect.swift in Sources */,
+				7FDE9FA02CC0F74400504226 /* OpenAIServiceProtocol.swift in Sources */,
 				7F7CFB5D2C7F4F5100797AF4 /* CaipirinIAApp.swift in Sources */,
 				7FDE9F642CBD4FF300504226 /* ObjectDetectorProtocol.swift in Sources */,
 				7FDE9F6A2CBDA33200504226 /* EmptyStateView.swift in Sources */,
@@ -457,6 +476,7 @@
 				7FED59422CBD28FE006C7F2B /* HomeView.swift in Sources */,
 				7FED59482CBD295F006C7F2B /* CircleButton.swift in Sources */,
 				7FDE9F7E2CBDBF2A00504226 /* CachedAsyncImage.swift in Sources */,
+				7FDE9FA22CC0FA6600504226 /* PexelsImageSearchServiceProtocol.swift in Sources */,
 				7FDE9F7C2CBDBE8100504226 /* CircularNavigationButton.swift in Sources */,
 				7FED596B2CBD3105006C7F2B /* Cocktail.swift in Sources */,
 				7FED59772CBD32E8006C7F2B /* CocktailServiceProtocol.swift in Sources */,
@@ -473,8 +493,11 @@
 				7F7CFB5E2C7F4F5100797AF4 /* CGImage+Resized.swift in Sources */,
 				7FDE9F802CBDC97000504226 /* CocktailDetailViewModel.swift in Sources */,
 				7FED59642CBD2CDB006C7F2B /* CocktailListViewModel.swift in Sources */,
+				7FDE9FA42CC1078800504226 /* CocktailMapper.swift in Sources */,
+				7FDE9FA62CC10C4900504226 /* GPTChatView.swift in Sources */,
 				7FDE9F9C2CC0898500504226 /* String+SplitSteps.swift in Sources */,
 				7FDE9F722CBDB96000504226 /* NoCocktailsView.swift in Sources */,
+				7FDE9FA82CC10E4200504226 /* OpenAIChatViewModel.swift in Sources */,
 				7FED59822CBD3689006C7F2B /* TitleModifier.swift in Sources */,
 				7FED59602CBD2CA5006C7F2B /* CameraPreview.swift in Sources */,
 				7FED59732CBD3294006C7F2B /* DataManager.swift in Sources */,
@@ -486,6 +509,7 @@
 				7FDE9F662CBD509200504226 /* CameraManager.swift in Sources */,
 				7FDE9F972CC07B9400504226 /* ShapeStyleModifier.swift in Sources */,
 				7FDE9F702CBDB94E00504226 /* CocktailGridView.swift in Sources */,
+				7FDE9FAA2CC121CF00504226 /* GeneratedCocktailDetailView.swift in Sources */,
 				7FED59462CBD2947006C7F2B /* FakeTabBar.swift in Sources */,
 				7FDE9F622CBD495D00504226 /* DetectionOverlayManager.swift in Sources */,
 				7FDE9F782CBDBCDE00504226 /* CircularButtonModifier.swift in Sources */,

@@ -23,19 +23,19 @@ struct CocktailInstructionsView: View {
                         HStack(alignment: .top, spacing: 5) {
                             Text("•")
                                 .font(.body)
-                                .foregroundColor(Color("SecondaryText"))
+                                .foregroundColor(Color("PrimaryText"))
                             Text(step)
                                 .font(.body)
-                                .foregroundColor(Color("SecondaryText"))
+                                .foregroundColor(Color("PrimaryText"))
                                 .multilineTextAlignment(.leading)
                         }
-                        .padding(.leading, 5) // Slight padding to align with the bullet
+                        .padding(.leading, 5)
                     }
                 }
-                .padding(.top, 5) // Adds space between the DisclosureGroup title and the steps
+                .padding(.top, 5)
             }
-            .padding(.top, 10) // Optional: Adds space above the DisclosureGroup
-            .accentColor(Color("SecondaryText")) // Sets the color of the DisclosureGroup arrow
+            .padding(.top, 10)
+            .accentColor(Color("PrimaryText"))
         }
     }
 }
