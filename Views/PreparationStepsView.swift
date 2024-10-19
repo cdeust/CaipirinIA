@@ -77,6 +77,13 @@ struct PreparationStepsView: View {
             )
         }
         .navigationBarTitle("Prepare \(cocktail.strDrink)", displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Prepare \(cocktail.strDrink)")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(Color.accentColor)
+            }
+        }
     }
 
     private var steps: [String] {

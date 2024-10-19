@@ -111,6 +111,13 @@ struct GPTChatView: View {
                 .padding(.bottom, 20)
             }
             .navigationTitle("Barman Chat")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Barman Chat")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color.accentColor)
+                }
+            }
             .sheet(item: $selectedCocktail) { cocktail in
                 NavigationView {
                     GeneratedCocktailDetailView(cocktail: cocktail, preparation: nil)
