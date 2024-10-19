@@ -38,17 +38,18 @@ struct CocktailDetailView: View {
                         CocktailImageView(
                             url: cocktail.strDrinkThumb ?? "",
                             width: UIScreen.main.bounds.size.width,
-                            height: 180,
-                            accessibilityLabel: "\(cocktail.strDrink)"
+                            height: 250,
+                            shapeType: .roundedRectangle(cornerRadius: 15)
                         )
-                        .applyShape(.rectangle)
+                        .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
 
                         // Cocktail Name
                         Text(cocktail.strDrink)
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center) // Center the name
+                            .font(.system(size: 34, weight: .bold, design: .rounded))
+                            .multilineTextAlignment(.center)
                             .padding(.horizontal)
+                            .padding(.top, 10)
+                            .foregroundColor(Color("SecondaryText"))
 
                         // Cocktail Information Section
                         CocktailInfoSection(category: cocktail.strCategory, alcoholic: cocktail.strAlcoholic, glass: cocktail.strGlass)
@@ -68,21 +69,20 @@ struct CocktailDetailView: View {
                                 .foregroundColor(Color("PrimaryText"))
                                 .padding(.horizontal)
                         }
-                        
+
                         // "Prepare" Button
                         NavigationLink(destination: PreparationStepsView(cocktail: cocktail)) {
                             Text("Prepare")
-                                .font(.headline)
-                                .foregroundColor(Color("PrimaryText"))
+                                .font(.system(size: 18, weight: .semibold))
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color("BackgroundStart"))
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .padding(.top, 20)
-                                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                .background(Color.accentColor)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
                         }
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal)
+                        .padding(.top, 20)
                     } else {
                         Text("No details available.")
                             .foregroundColor(Color("PrimaryText"))
@@ -94,16 +94,23 @@ struct CocktailDetailView: View {
             }
             .navigationTitle(viewModel.cocktail?.strDrink ?? "Details")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(viewModel.cocktail?.strDrink ?? "Details")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color.accentColor)
+                }
+            }
         }
         .onAppear {
             viewModel.fetchCocktailDetails(by: cocktailID)
         }
     }
+}
 
-    struct CocktailDetailView_Previews: PreviewProvider {
-        static var previews: some View {
-            CocktailDetailView(cocktailID: "11007")
-                .environmentObject(AppState())
-        }
+struct CocktailDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        CocktailDetailView(cocktailID: "11007")
+            .environmentObject(AppState())
     }
 }

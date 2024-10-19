@@ -17,6 +17,7 @@ class OpenAIChatViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private let cocktailService: CocktailServiceProtocol
+    private var messageToSend: String = ""
 
     init(cocktailService: CocktailServiceProtocol, detectedIngredients: [String]) {
         self.cocktailService = cocktailService
@@ -24,11 +25,17 @@ class OpenAIChatViewModel: ObservableObject {
         self.currentMessage = detectedIngredients.joined(separator: ", ")
     }
     
-    func sendMessage(ingredients: [String]) {
+    func sendMessage(ingredients: [String], messageToSend: String) {
         guard !ingredients.isEmpty else { return }
 
         isLoading = true
-        messageHistory.append("You: What can I make with \(ingredients.joined(separator: ", "))?")
+        self.messageToSend = messageToSend
+
+        if messageToSend.isEmpty {
+            messageHistory.append("What can I make with \(ingredients.joined(separator: ", "))?")
+        } else {
+            messageHistory.append("\(messageToSend)")
+        }
 
         // Fetch a generated cocktail from GPT based on the ingredients
         cocktailService.generateCocktailWithGPT(ingredients: ingredients)
@@ -36,12 +43,26 @@ class OpenAIChatViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 self.isLoading = false
                 if case let .failure(error) = completion {
-                    self.messageHistory.append("Error: \(error.localizedDescription)")
+                    self.messageHistory.append(self.getHumorousErrorMessage(for: error))
                 }
             }, receiveValue: { cocktail in
-                self.messageHistory.append("GPT: Here's a cocktail for you!")
+                self.messageHistory.append("Here's a cocktail for you!")
                 self.generatedCocktail = cocktail
             })
             .store(in: &cancellables)
+        
+        // Clear the input message after sending
+        currentMessage = ""
+    }
+
+    private func getHumorousErrorMessage(for error: Error) -> String {
+        let errorMessages = [
+            "Oops! I seem to have spilled the drink... Try again?",
+            "Looks like the shaker broke! Give me another chance.",
+            "The barman is out of ingredients... Can you try that again?",
+            "I'm just a simple bartender, but that request was a bit too strong!",
+            "Uh oh, the cocktail shaker seems to be stuck. Let’s shake things up again!"
+        ]
+        return errorMessages.randomElement() ?? "Sorry, something went wrong in the cocktail world!"
     }
 }

@@ -20,7 +20,7 @@ struct CircularButtonView: View {
         ZStack {
             // Outer Circle with Progress
             Circle()
-                .stroke(Color.white.opacity(0.5), lineWidth: 5)
+                .stroke(Color.white, lineWidth: 5)
                 .frame(width: size, height: size)
             
             // Progress Indicator
@@ -34,12 +34,19 @@ struct CircularButtonView: View {
             // Inner Circle or "GO" Text
             if isThresholdReached {
                 Circle()
-                    .fill(Color.green)
+                    .fill(Color.white)
                     .frame(width: size * 0.75, height: size * 0.75)
                 
-                Text("GO")
-                    .font(.headline)
-                    .foregroundColor(.white)
+                if let assetImageName = assetImageName {
+                    Image(assetImageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size * 0.5, height: size * 0.5)
+                } else if let systemImageName = systemImageName {
+                    Image(systemName: systemImageName)
+                        .font(.title)
+                        .foregroundColor(.black)
+                }
             } else {
                 Circle()
                     .fill(Color.white)

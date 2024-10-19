@@ -15,6 +15,11 @@ struct CocktailListView: View {
     @State private var currentMessage: String = ""  // Local state for current message
     @State private var isGPTChatActive = false
 
+    // Adaptive grid layout with 2 columns in portrait and dynamic adjustment in landscape
+    private let columns = [
+        GridItem(.adaptive(minimum: 160), spacing: 20)  // Minimum size of each card
+    ]
+
     var body: some View {
         ZStack {
             // Background
@@ -24,6 +29,7 @@ struct CocktailListView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
+
             VStack {
                 if let error = viewModel.errorMessage {
                     Text(error)
@@ -37,18 +43,20 @@ struct CocktailListView: View {
                     Spacer()
                 } else {
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                        LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(viewModel.cocktails) { cocktail in
                                 NavigationLink(destination: CocktailDetailView(cocktailID: cocktail.id).environmentObject(appState)) {
                                     CocktailCardView(cocktail: cocktail)
                                 }
+                                .buttonStyle(PlainButtonStyle())  // Ensures no extra styling on tap
                             }
                         }
-                        .padding()
+                        .padding(.horizontal)
                     }
                 }
             }
             .navigationTitle("Cocktails")
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 print("CocktailListView onAppear - ingredients: \(ingredients)")
                 if !ingredients.isEmpty {
@@ -57,20 +65,22 @@ struct CocktailListView: View {
                 }
             }
             .toolbar {
-                // Add the chat bubble to the navigation bar
+                ToolbarItem(placement: .principal) {
+                    Text("Cocktails")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color.accentColor)
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // Log when the chat bubble is tapped
                         print("Chat bubble tapped - navigating to GPTChatView with ingredients: \(ingredients)")
                         isGPTChatActive = true
                     }) {
-                        Image(systemName: "message.circle.fill")  // Using SF Symbols for a chat bubble icon
+                        Image(systemName: "message.circle.fill")  // Chat bubble icon
                             .font(.title2)
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                     }
                 }
             }
-
             // NavigationLink to trigger GPT chat view
             NavigationLink(destination: GPTChatView(ingredients: ingredients, currentMessage: $currentMessage).environmentObject(appState), isActive: $isGPTChatActive) {
                 EmptyView()

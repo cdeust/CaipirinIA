@@ -12,6 +12,7 @@ class AppState: ObservableObject {
     @Published var cocktailIngredients: [String] = []
     @Published var detectedItems: [DetectedItem] = []
     @Published var preparations: [Preparation] = []
+    @Published var navigationStack: [String] = []
 
     private let preparationsKey = "preparationsKey"
 
@@ -46,6 +47,16 @@ class AppState: ObservableObject {
         if let index = preparations.firstIndex(where: { $0.id == preparation.id }) {
             preparations.remove(at: index)
             savePreparations()
+        }
+    }
+        
+    func push(_ view: String) {
+        navigationStack.append(view)
+    }
+    
+    func pop() {
+        if !navigationStack.isEmpty {
+            navigationStack.removeLast()
         }
     }
 }

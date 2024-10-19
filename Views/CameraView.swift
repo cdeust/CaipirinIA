@@ -18,7 +18,7 @@ struct CameraView: View {
             // Camera Preview Layer
             CameraPreview(session: viewModel.cameraService.captureSession)
                 .edgesIgnoringSafeArea(.all)
-            
+
             // Detection Overlay (Optional)
             DetectionOverlayView(detectedItems: $viewModel.detectedItems)
                 .edgesIgnoringSafeArea(.all)
@@ -30,19 +30,36 @@ struct CameraView: View {
                 // Show only validated ingredients (green pills)
                 if !viewModel.validatedIngredients.isEmpty {
                     DetectedItemsView(items: viewModel.validatedIngredients)
+                        .padding(.horizontal, 16)
+                        .transition(.move(edge: .bottom)) // Smoothly transition in
+                        .animation(.easeInOut(duration: 0.3), value: viewModel.validatedIngredients) // Smooth animation
                 }
-                
-                ProgressButton(detectionProgress: viewModel.detectionProgress, isThresholdReached: viewModel.isThresholdReached, action: {
-                    if viewModel.isThresholdReached {
-                        viewModel.processDetection()
-                    } else {
-                        // Trigger detection logic if needed
+
+                // Detection Progress Button (Apple-like style)
+                ProgressButton(
+                    detectionProgress: viewModel.detectionProgress,
+                    isThresholdReached: viewModel.isThresholdReached,
+                    action: {
+                        if viewModel.isThresholdReached {
+                            viewModel.processDetection()
+                        } else {
+                            // Optional: Add shake or feedback to indicate it's not ready
+                            withAnimation(.default) {
+                                animateShake.toggle()
+                            }
+                        }
                     }
-                })
-                
+                )
+                .padding(.bottom, 20) // Add padding at the bottom for spacing
+                .offset(x: animateShake ? 5 : 0) // Shake effect
+                .animation(
+                    Animation.easeInOut(duration: 0.2).repeatCount(animateShake ? 3 : 0, autoreverses: true),
+                    value: animateShake
+                )
+
                 // Hidden NavigationLink
                 NavigationLink(
-                    destination: CocktailListView(ingredients: viewModel.validatedIngredients.map { $0.name }) // Only pass validated ingredients
+                    destination: CocktailListView(ingredients: viewModel.validatedIngredients.map { $0.name })
                         .environmentObject(appState),
                     isActive: $viewModel.showCocktailGrid
                 ) {
@@ -61,6 +78,7 @@ struct CameraView: View {
             viewModel.resetDetectionState() // Reset state on back
             animateShake = false
         }
+        .statusBar(hidden: true) // Hide status bar for full-screen experience
     }
 }
 

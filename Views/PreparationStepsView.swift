@@ -11,11 +11,10 @@ struct PreparationStepsView: View {
     let cocktail: Cocktail
     @EnvironmentObject var appState: AppState
     @Environment(\.presentationMode) var presentationMode
-    
-    // State to track current step
+
     @State private var currentStepIndex: Int = 0
     @State private var showCompletionAlert: Bool = false
-    
+
     var body: some View {
         ZStack {
             // Background Gradient
@@ -29,22 +28,22 @@ struct PreparationStepsView: View {
             VStack(spacing: 30) {
                 // Step Indicator
                 Text("Step \(currentStepIndex + 1) of \(steps.count)")
-                    .font(.headline)
+                    .font(.system(.headline, design: .rounded))
                     .foregroundColor(Color("PrimaryText"))
-                
+
                 // Step Content
                 Text(steps[currentStepIndex])
-                    .font(.title2)
+                    .font(.system(.title2, design: .rounded))
                     .foregroundColor(Color("PrimaryText"))
-                    .multilineTextAlignment(.leading) // Align text to the left
-                    .frame(maxWidth: .infinity, alignment: .leading) // Expand to full width
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .background(Color.white.opacity(0.3))
+                    .background(Color("BackgroundStart"))
                     .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2) // Enhanced shadow for visibility
-                
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+
                 Spacer()
-                
+
                 // "Next Step" or "Preparation Done" Button
                 Button(action: {
                     if currentStepIndex < steps.count - 1 {
@@ -55,14 +54,14 @@ struct PreparationStepsView: View {
                 }) {
                     Text(currentStepIndex < steps.count - 1 ? "Next Step" : "Preparation Done")
                         .font(.headline)
-                        .foregroundColor(.white) // White text for better contrast
-                        .frame(maxWidth: .infinity) // Button takes full width
+                        .foregroundColor(Color.white)
+                        .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color("BackgroundStart")) // Use a distinct background color
+                        .background(Color.accentColor)
                         .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2) // Enhanced shadow
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
                 }
-                .padding(.horizontal) // Consistent horizontal padding
+                .padding(.horizontal)
             }
             .padding()
         }
@@ -79,14 +78,12 @@ struct PreparationStepsView: View {
         }
         .navigationBarTitle("Prepare \(cocktail.strDrink)", displayMode: .inline)
     }
-    
-    // Enhanced Step Splitting Logic
+
     private var steps: [String] {
         guard let instructions = cocktail.strInstructions else { return [] }
         return instructions.splitIntoSteps()
     }
-    
-    // Corrected Function to Add Preparation
+
     private func addPreparation() {
         let preparation = Preparation(
             id: UUID(),

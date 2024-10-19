@@ -16,7 +16,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background Gradient
+                // Subtle background gradient for a clean look
                 LinearGradient(
                     gradient: Gradient(colors: [Color("BackgroundStart"), Color("BackgroundEnd")]),
                     startPoint: .topLeading,
@@ -26,14 +26,13 @@ struct HomeView: View {
 
                 VStack(spacing: 0) {
                     // Header
-                    VStack(spacing: 8) {
+                    VStack(spacing: 4) {
                         Text("Welcome to")
-                            .font(.headline)
+                            .font(.system(.headline, design: .rounded))
                             .foregroundColor(Color("PrimaryText"))
                         
                         Text("CaipirinIA")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .font(.system(size: 34, weight: .bold, design: .rounded))
                             .foregroundColor(Color("SecondaryText"))
                     }
                     .padding(.top, 40)
@@ -48,16 +47,17 @@ struct HomeView: View {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(appState.preparations) { preparation in
-                                    // Trigger fetching of cocktail details
                                     Button(action: {
                                         selectedCocktailID = preparation.cocktailId
                                         selectedPreparation = preparation
                                     }) {
                                         PreparationCardView(preparation: preparation)
                                     }
+                                    .buttonStyle(PlainButtonStyle())  // Remove default button style
+                                    .padding(.horizontal, 20)
+                                    .transition(.move(edge: .bottom))
                                 }
                             }
-                            .padding(.horizontal)
                             .padding(.top, 20)
                         }
                         .transition(.opacity)
@@ -70,7 +70,7 @@ struct HomeView: View {
                 }
             }
             .navigationBarHidden(true)
-            // NavigationLink to CocktailDetailView, once the cocktailID is fetched
+            // NavigationLink to CocktailDetailView
             .background(
                 NavigationLink(
                     destination: GeneratedCocktailDetailView(cocktail: nil, preparation: selectedPreparation),
@@ -83,7 +83,7 @@ struct HomeView: View {
                         }
                     )
                 ) {
-                    EmptyView()  // You need a valid view here, like `EmptyView()` for a label
+                    EmptyView()
                 }
             )
         }

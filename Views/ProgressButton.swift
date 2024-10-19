@@ -19,44 +19,39 @@ struct ProgressButton: View {
     var emptyImageName: String = "CentralButtonEmpty"
     var filledImageName: String = "CentralButton"
     
-    // MARK: - Body
-    
     var body: some View {
-        Button(action: {
-            action()
-        }) {
+        Button(action: action) {
             ZStack {
-                // Background Circle with Stroke
+                // Base Circle with softer stroke and shadow
                 Circle()
-                    .stroke(Color.white.opacity(0.5), lineWidth: 5)
+                    .stroke(Color.white, lineWidth: 4)
                     .frame(width: 80, height: 80)
-                
-                // Progress Circle
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+
+                // Progress Circle with smooth animation
                 Circle()
                     .trim(from: 0.0, to: CGFloat(min(detectionProgress, 1.0)))
                     .stroke(isThresholdReached ? thresholdColor : progressColor, lineWidth: 5)
                     .rotationEffect(Angle(degrees: -90))
-                    .animation(.linear(duration: 0.2), value: detectionProgress)
+                    .animation(.easeInOut(duration: 0.2), value: detectionProgress)
                     .frame(width: 80, height: 80)
+                    .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 80 * 0.75, height: 80 * 0.75)
                 
-                // Central Images with Fading Effect
-                ZStack {
-                    Image(emptyImageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .opacity(1.0 - detectionProgress) // Fades out as progress increases
-                    
-                    Image(filledImageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .opacity(detectionProgress) // Fades in as progress increases
-                }
+                // Central Image with a fading effect as progress increases
+                Image(isThresholdReached ? filledImageName : emptyImageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80 * 0.5, height: 80 * 0.5)
+                    .opacity(detectionProgress) // Gradually increase opacity as progress reaches 1.0
+                    .animation(.easeInOut(duration: 0.2), value: detectionProgress)
             }
         }
-        .padding(.bottom, 30)
         .accessibilityLabel(accessibilityLabel)
-        .accessibility(addTraits: .isButton)
+        .buttonStyle(PlainButtonStyle())
+        .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 2)
     }
 }

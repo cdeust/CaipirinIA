@@ -29,6 +29,6 @@ struct CameraPreview: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: VideoPreviewView, context: Context) {
-        // Update the view if needed
+        // Optionally update the view if needed
     }
 }

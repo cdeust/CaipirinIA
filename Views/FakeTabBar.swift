@@ -9,22 +9,32 @@ import SwiftUI
 
 struct FakeTabBar: View {
     @EnvironmentObject var appState: AppState
-
+    
     var body: some View {
-        HStack {
-            Spacer()
+        ZStack(alignment: .bottom) {
+            // Background bar with a custom shape for cutout
+//            CustomTabBarShape()
+//                .fill(Color("BackgroundStart"))
+//                .frame(height: 80) // Standard tab bar height
+//                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: -2)
+//                .edgesIgnoringSafeArea(.bottom)  // Extends the tab bar below safe area
 
-            // Camera Button inside NavigationLink
+            // Central Camera Button with transparent center
             CircularNavigationButton(
                 destination: CameraView().environmentObject(appState),
-                assetImageName: "CentralButton",
-                backgroundColor: .white,
+                assetImageName: "CentralButton",  // Ensure the center part is transparent
+                backgroundColor: .clear,          // Clear color for the center
                 foregroundColor: .black,
-                size: 80, // Adjusted size for consistency
+                progress: 100,
+                isThresholdReached: true,
+                size: 80,
                 accessibilityLabelText: Text("Open Camera")
             )
-            Spacer()
+            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 3)
+            .offset(y: -40) // Offset upwards to fit inside the cutout
         }
+        .frame(height: 100) // Overall height with button floating
+        .offset(y: 40)
     }
 }
 

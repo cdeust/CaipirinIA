@@ -11,23 +11,37 @@ struct CocktailCardView: View {
     let cocktail: Cocktail
 
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 8) {
+            // Full-width rectangular image with softer shadows
             CocktailImageView(
                 url: cocktail.strDrinkThumb,
-                width: UIScreen.main.bounds.width / 2 - 20,
-                height: 120,
-                shapeType: .roundedRectangle(cornerRadius: 10),
+                width: UIScreen.main.bounds.width / 2 - 30,
+                height: 180,
+                shapeType: .roundedRectangle(cornerRadius: 12),
                 accessibilityLabel: "\(cocktail.strDrink) Image"
             )
+            .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 4)
 
+            // Name of the cocktail with consistent padding and scaling
             Text(cocktail.strDrink)
-                .font(.headline)
+                .font(.system(.headline, design: .rounded))  // Rounded, system font for clean readability
                 .foregroundColor(Color("PrimaryText"))
-                .padding([.top, .horizontal], 8)
+                .frame(maxWidth: .infinity, minHeight: 40)  // Ensure consistent height
+                .padding(.horizontal, 12)  // Adjust horizontal padding for a sleeker look
                 .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .minimumScaleFactor(0.75)
         }
-        .background(Color.white.opacity(0.9))
-        .cornerRadius(15)
-        .shadow(radius: 5)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.white)
+                .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)  // Softer shadow around the card
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.gray.opacity(0.08), lineWidth: 0.6)  // Thinner, more subtle border
+        )
+        .frame(width: UIScreen.main.bounds.width / 2 - 20, height: 230)  // Ensure consistent size for all cards
+        .padding(.vertical, 8)
     }
 }

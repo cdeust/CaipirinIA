@@ -15,130 +15,69 @@ struct CocktailImageView: View {
     var accessibilityLabel: String = "Cocktail Image"
     
     var body: some View {
-        if let urlString = url, !urlString.isEmpty, let imageURL = URL(string: urlString) {
-            // Proceed with loading the image from the URL
-            AsyncImage(url: imageURL) { phase in
-                switch phase {
-                case .empty:
-                    // Placeholder while loading
-                    ProgressView()
-                        .frame(width: width, height: height)
-                        .background(Color.gray.opacity(0.1))
-                        .applyShape(shapeType)
-                
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: width, height: height)
-                        .applyShape(shapeType)
-                        .overlay(
-                            shapeOverlay()
-                        )
-                        .shadow(radius: 2)
-                        .accessibilityLabel(Text(accessibilityLabel))
-                
-                case .failure:
-                    // Fallback image on failure
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width * 0.6, height: height * 0.6)
-                        .foregroundColor(.gray)
-                        .background(Color.gray.opacity(0.2))
-                        .applyShape(shapeType)
-                        .overlay(
-                            shapeOverlay()
-                        )
-                        .shadow(radius: 2)
-                        .accessibilityLabel(Text("Placeholder Image"))
-                
-                @unknown default:
-                    // Handle any future cases
-                    EmptyView()
+        ZStack {
+            // Background for loading/empty states
+            RoundedRectangle(cornerRadius: cornerRadius())
+                .fill(Color.gray.opacity(0.1))
+                .frame(width: width, height: height)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+
+            if let urlString = url, !urlString.isEmpty, let imageURL = URL(string: urlString) {
+                // Proceed with loading the image from the URL
+                AsyncImage(url: imageURL) { phase in
+                    switch phase {
+                    case .empty:
+                        // Placeholder while loading
+                        ProgressView()
+                            .frame(width: width, height: height)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius()))
+                        
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: width, height: height)
+                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius()))
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+                            .accessibilityLabel(Text(accessibilityLabel))
+                        
+                    case .failure:
+                        // Fallback image on failure
+                        placeholderImage()
+                        
+                    @unknown default:
+                        EmptyView()
+                    }
                 }
+            } else {
+                // Placeholder Image if no URL is provided or it's empty
+                placeholderImage()
             }
-        } else {
-            // Placeholder Image if no URL is provided or it's empty
-            Image(systemName: "photo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: width * 0.6, height: height * 0.6)
-                .foregroundColor(.gray)
-                .background(Color.gray.opacity(0.2))
-                .applyShape(shapeType)
-                .overlay(
-                    shapeOverlay()
-                )
-                .shadow(radius: 2)
-                .accessibilityLabel(Text("Placeholder Image"))
         }
     }
     
-    // MARK: - Helper
+    // MARK: - Helper: Placeholder Image
+    private func placeholderImage() -> some View {
+        Image(systemName: "photo")
+            .resizable()
+            .scaledToFit()
+            .frame(width: width * 0.6, height: height * 0.6)
+            .foregroundColor(.gray)
+            .background(Color.gray.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius()))
+            .accessibilityLabel(Text("Placeholder Image"))
+    }
     
-    @ViewBuilder
-    private func shapeOverlay() -> some View {
+    // Helper to determine corner radius based on shape type
+    private func cornerRadius() -> CGFloat {
         switch shapeType {
         case .circle:
-            Circle()
-                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            return min(width, height) / 2
         case .roundedRectangle(let cornerRadius):
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            return cornerRadius
         case .rectangle:
-            Rectangle()
-                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-        }
-    }
-}
-
-struct CocktailImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            // Preview with image, circular shape
-            CocktailImageView(
-                url: "https://www.example.com/margarita.png",
-                width: 100,
-                height: 100,
-                shapeType: .circle,
-                accessibilityLabel: "Margarita Image"
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            
-            // Preview with image, rounded rectangle shape
-            CocktailImageView(
-                url: "https://www.example.com/old_fashioned.png",
-                width: 100,
-                height: 60,
-                shapeType: .roundedRectangle(cornerRadius: 10),
-                accessibilityLabel: "Old Fashioned Image"
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            
-            // Preview without image, circular shape
-            CocktailImageView(
-                url: nil,
-                width: 100,
-                height: 100,
-                shapeType: .circle,
-                accessibilityLabel: "Placeholder Image"
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            
-            // Preview without image, rounded rectangle shape
-            CocktailImageView(
-                url: nil,
-                width: 100,
-                height: 60,
-                shapeType: .roundedRectangle(cornerRadius: 10),
-                accessibilityLabel: "Placeholder Image"
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
+            return 0
         }
     }
 }
