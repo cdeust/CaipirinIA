@@ -11,6 +11,7 @@
 		7F508FAD2CC1CBF0001399E9 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FAC2CC1CBF0001399E9 /* InstructionsView.swift */; };
 		7F508FAF2CC1CC83001399E9 /* IngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FAE2CC1CC83001399E9 /* IngredientsView.swift */; };
 		7F508FB22CC32871001399E9 /* CustomTabBarShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FB12CC3285B001399E9 /* CustomTabBarShape.swift */; };
+		7F508FB42CC63BEE001399E9 /* CaipiriniaFinalDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7F508FB32CC63BEE001399E9 /* CaipiriniaFinalDetector.mlmodel */; };
 		7F7CFB562C7F4F5100797AF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */; };
 		7F7CFB572C7F4F5100797AF4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3C2C7F4F5100797AF4 /* LICENSE */; };
 		7F7CFB582C7F4F5100797AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CFB3D2C7F4F5100797AF4 /* Preview Assets.xcassets */; };
@@ -91,6 +92,7 @@
 		7F508FAC2CC1CBF0001399E9 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		7F508FAE2CC1CC83001399E9 /* IngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsView.swift; sourceTree = "<group>"; };
 		7F508FB12CC3285B001399E9 /* CustomTabBarShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarShape.swift; sourceTree = "<group>"; };
+		7F508FB32CC63BEE001399E9 /* CaipiriniaFinalDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CaipiriniaFinalDetector.mlmodel; sourceTree = "<group>"; };
 		7F7CFB252C7F4ED400797AF4 /* CaipirinIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaipirinIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F7CFB362C7F4F5100797AF4 /* CaipirinIA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CaipirinIA-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F7CFB3A2C7F4F5100797AF4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		7F7CFB392C7F4F5100797AF4 /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				7F508FB32CC63BEE001399E9 /* CaipiriniaFinalDetector.mlmodel */,
 				7FED59282CB963FA006C7F2B /* CaipiriniaDetector.mlmodel */,
 			);
 			path = ML;
@@ -472,6 +475,7 @@
 				7FED59522CBD2AD0006C7F2B /* CocktailDetailView.swift in Sources */,
 				7FED594A2CBD29CF006C7F2B /* DetectedItemsView.swift in Sources */,
 				7FDE9F6C2CBDA69000504226 /* DetectionOverlayView.swift in Sources */,
+				7F508FB42CC63BEE001399E9 /* CaipiriniaFinalDetector.mlmodel in Sources */,
 				7FED59812CBD3483006C7F2B /* DependencyContainer.swift in Sources */,
 				7FED594C2CBD29E5006C7F2B /* DetectionButton.swift in Sources */,
 				7FED597B2CBD3369006C7F2B /* Extensions.swift in Sources */,
