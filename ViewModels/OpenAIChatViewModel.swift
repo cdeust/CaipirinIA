@@ -22,7 +22,7 @@ class OpenAIChatViewModel: ObservableObject {
     init(cocktailService: CocktailServiceProtocol, detectedIngredients: [String]) {
         self.cocktailService = cocktailService
         self.detectedIngredients = detectedIngredients
-        self.currentMessage = detectedIngredients.joined(separator: ", ")
+        self.currentMessage = detectedIngredients.joined(separator: " ")
     }
     
     func sendMessage(ingredients: [String], messageToSend: String) {
@@ -32,7 +32,7 @@ class OpenAIChatViewModel: ObservableObject {
         self.messageToSend = messageToSend
 
         if messageToSend.isEmpty {
-            messageHistory.append("What can I make with \(ingredients.joined(separator: ", "))?")
+            messageHistory.append("What can I make with \(ingredients.joined(separator: " "))?")
         } else {
             messageHistory.append("\(messageToSend)")
         }

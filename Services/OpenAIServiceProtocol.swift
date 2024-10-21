@@ -27,7 +27,7 @@ class OpenAIService: OpenAIServiceProtocol {
     func generateCocktail(ingredients: [String]) -> AnyPublisher<String, Error> {
         // Create a prompt for the initial cocktail suggestion
         let prompt = """
-        I have these ingredients: \(ingredients.joined(separator: ", ")).
+        I have these ingredients: \(ingredients.joined(separator: " ")).
         Please suggest a cocktail recipe that can be made with these ingredients. Provide the recipe in the following format:
 
         - Cocktail Name: The name of the cocktail.

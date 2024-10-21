@@ -95,7 +95,7 @@ struct GPTChatView: View {
                             .frame(height: 44)
                     } else {
                         Button(action: {
-                            let ingredients = currentMessage.components(separatedBy: ", ")
+                            let ingredients = currentMessage.components(separatedBy: " ")
                             viewModel.sendMessage(ingredients: ingredients, messageToSend: currentMessage)
                             currentMessage = ""
                         }) {

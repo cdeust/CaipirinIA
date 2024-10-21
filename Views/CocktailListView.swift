@@ -61,7 +61,7 @@ struct CocktailListView: View {
                 print("CocktailListView onAppear - ingredients: \(ingredients)")
                 if !ingredients.isEmpty {
                     viewModel.fetchCocktails(with: ingredients)
-                    currentMessage = ingredients.joined(separator: ", ")  // Set initial message with ingredients
+                    currentMessage = ingredients.joined(separator: " ")  // Set initial message with ingredients
                 }
             }
             .toolbar {
